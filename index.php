@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="device=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="css/login.css">
     <link rel="icon" type="png" href="img/userIcon.png">
     <title>LOGIN | GML</title>
     <script type="text/javascript" src="js/function.js"></script>

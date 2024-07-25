@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="device=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/login.css">
-    <link rel="icon" type="png" href="img/userIcon.png">
+    <link rel="icon" type="jpg" href="img/logo.jpg">
     <title>LOGIN | GML</title>
     <script type="text/javascript" src="js/function.js"></script>
 </head>
@@ -91,7 +91,7 @@ if (isset($_POST['login'])) {
     <main>
         <section id="loginctn">
             <div id="bgctn">
-                <img src="img/userIcon.png" alt="User Icon">
+                <img src="img/logo.jpg" alt="User Icon">
                 <h4>login</h4>
                 <form action="index.php" method="POST">
                     <div id="userctn">
@@ -104,11 +104,8 @@ if (isset($_POST['login'])) {
                         <input id="loginbtn" type="submit" name="login" value="login" onclick="signin()">
                     </div>
                 </form>
-                <p id="forgot"><a id="forgot" href="forgot.php" target="_blank">Forgot Password?</a>
-                <p>
-                <div class="hr">
-                    <p id="or">or</p>
-                </div>
+                <p id="forgot"><a id="forgot" href="forgot.php" target="_blank">Forgot Password?</a></p>
+
             </div>
         </section>
     </main>

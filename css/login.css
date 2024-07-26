@@ -5,30 +5,37 @@
   font-family: "Tahoma", "Trebuchet MS";
 }
 html {
-  background: url("img/showcase.jpg") no-repeat center;
+  background: url("eac-bg.jpg") no-repeat center;
   background-size: cover;
+  
 }
-header {
-  height: 20px;
-  padding: 20px;
-}
+
 /* main { 
  } */
 section {
   padding: 20px;
 }
 #loginctn {
-  display: flex;
-  justify-content: center;
-  margin: 0 auto;
-  height: 230px;
+  position: relative;
+  /* display: flex;
+  justify-content: right; */ 
+  padding: 50px 0 100px 0;
 }
 #bgctn {
+  position: absolute;
+  top: 0;
+  right: 70%;
+  left: 66.5%;
+  bottom: 0;
   background: #ebe7e7;
-  padding: 20px 0 100px 0;
-  width: 25em;
-  height: 30em;
-  border-radius: 20px;
+  padding: 220px 0 100px 10px;
+  min-width: 25em;
+  width: 35em;
+  max-width: 45em;
+  min-height: 47.8em;
+  height: 56em;
+  max-height: 75em;
+  border-radius: 20px 0 0 20px;
 }
 img {
   display: flex;

@@ -40,11 +40,12 @@ if (isset($_POST['login'])) {
         echo "<script>window.alert('Please Enter A Valid Account! Thank You!');</script>";
         echo "<script>window.location.assign('index.php');</script>";
     } else {
-        $sql = "SELECT * FROM accounttbl WHERE username = '$username' AND password = '$password';";
+        // $sql = "SELECT * FROM accounttbl WHERE username = '$username' AND password = '$password';";
+        $sql = "SELECT * FROM accounttbl WHERE username = '$username';";
         $query = mysqli_query($conn, $sql);
         $exist = mysqli_num_rows($query);
         $user = '';
-        $pass = '';
+        // $pass = '';
 
 
         if ($exist == 0) {
@@ -53,11 +54,12 @@ if (isset($_POST['login'])) {
         } else {
             while ($row = mysqli_fetch_assoc($query)) {
                 $user = $row['username'];
-                $pass = $row['password'];
+                $hashpwd = $row['password'];
                 $acctype = $row['accrole'];
+                
 
-                if (($user == $username) && ($pass == $password)) {
-                    if ($pass !== $password) {
+                if (($user == $username)) {
+                    if (!password_verify($password, $hashpwd)) {
                         echo '<script>window.alert("Incorrect Password! Please Try Again!")</script>';
                         echo "<script>window.location.assign('index.php');</script>";
                     } else {

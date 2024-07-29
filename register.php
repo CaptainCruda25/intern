@@ -1,3 +1,8 @@
+<?php
+    include 'server.php';
+
+?>
+
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
@@ -8,6 +13,53 @@
     <link rel="icon" type="png" href="img/logo-icon.png">
     
 </head>
+
+<!-- PHP Code  -->
+
+<?php
+
+include 'server.php';
+
+
+if(isset($_POST['Register'])){
+    $Fname = $_POST['fname'];
+    $Mname = $_POST['mname'];
+    $Lname = $_POST['lname'];
+    $sex = $_POST['sex'];
+    $age = $_POST['age'];
+    $course = $_POST['course'];
+    $school = $_POST['school'];
+    $reqhours = $_POST['rhours'];
+    $Sdate = $_POST['s-date'];
+    $Edate = $_POST['e-date'];
+
+    if(empty($Fname) || empty($Mname) || empty($Lname) || empty($sex) || empty($age) || empty($course) || empty($reqhours) || empty($Sdate) || empty($Edate)){
+        echo "<script>window.alert('Fill All The Fields! Please Try Again!');</script>";
+    }
+    else {
+        $student = "INSERT INTO studentinfo(fname, mname, lname, age, sex, course) VALUES('$Fname','$Mname','$Lname', '$age', '$sex','$course')";
+        $schoolName = "INSERT INTO school(schoolname) VALUES('$school')";
+        $rhours = "INSERT INTO hoursreq(hreq) VALUES('$reqhours')";
+        $start = "INSERT INTO datestart(datestart) VALUES('$Sdate')";
+        $end = "INSERT INTO dateend(endate) VALUES('$Edate');";
+
+        $query = mysqli_query($conn, $student); 
+        $query3 = mysqli_query($conn, $rhours); 
+        $query4 = mysqli_query($conn, $start); 
+        $query5 = mysqli_query($conn, $end);
+    }
+
+
+
+}
+
+
+
+
+
+?>
+
+
 <body>
     <form action="" method="POST">
         <div class="input-box">
@@ -32,20 +84,48 @@
         <div class="course-div">
             <select name="course" id="">
                 <option value=""> -- Choose Course -- </option>
-                <option value="BSCS"> BSCS </option>
-                <option value="BSCpE"> BSCpE </option>
-                <option value="BSIS"> BSIS </option>
-                <option value="BSIT"> BSIT </option>
+                <?php
+                    $coursetbl = "SELECT * FROM coursetbl";
+                    $query = mysqli_query($conn, $coursetbl);
+                    
+                    while($row = mysqli_fetch_assoc($query)){
+                        echo '<option value='.$row['course'].'>' .$row['course']. '</option>';
+                
+                    }
+                
+                ?>
             </select>
         </div>
         <div class="school-div">
-            <select name="course" id="">
+            <select name="school" id="">
                 <option value=""> -- Choose School -- </option>
-                <option value="BSCS"> BSCS </option>
-                <option value="BSCpE"> BSCpE </option>
-                <option value="BSIS"> BSIS </option>
-                <option value="BSIT"> BSIT </option>
+                <?php
+                    $school = "SELECT * FROM school";
+                    $query = mysqli_query($conn, $school);
+                    
+                    while($row = mysqli_fetch_assoc($query)){
+                        echo '<option value='.$row['schoolname'].'>' .$row['schoolname']. '</option>';
+                        // echo '<option value="BSCpE">' BSCpE '</option>';
+                        // echo '<option value="BSIS">' BSIS '</option>';
+                        // echo '<option value="BSIT">' BSIT '</option>';
+                    }
+                
+                ?>
             </select>
+        </div>
+        <div class="req-hours">
+            <input type="text" name="rhours" class="hours" placeholder="Required Hours">
+        </div>
+        <div class="s-date">
+            <label for="St-date">Start Date: </label>
+            <input type="date" name="s-date" id="St-date">
+        </div>
+        <div class="e-date">
+            <label for="En-date">End Date:</label>
+            <input type="date" name="e-date" id="En-date">
+        </div>
+        <div class="btn-submit">
+            <input type="submit" name="Register" value="Register">
         </div>
     </form>
 </body>

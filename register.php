@@ -47,6 +47,9 @@ if(isset($_POST['Register'])){
         $query3 = mysqli_query($conn, $rhours); 
         $query4 = mysqli_query($conn, $start); 
         $query5 = mysqli_query($conn, $end);
+
+        echo "<script>window.alert('Register Successfully!');</script>";
+        echo "<script>window.location,assign('dashboard.php')</script>";
     }
 
 

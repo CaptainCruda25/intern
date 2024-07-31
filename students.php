@@ -24,8 +24,8 @@ session_start();
         <nav class="sidebar">
             <div class="logo">EACMed</div>
             <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Interns</a></li>
+                <li><a href="dashboard.php">Home</a></li>
+                <li><a href="students.php">Interns</a></li>
                 <li><a href="#">Analytics</a></li>
                 <li><a href="#">Reports</a></li>
             </ul>

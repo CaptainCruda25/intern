@@ -19,64 +19,149 @@ if($_SESSION['username']){
 
 ?>
 
-<!DOCTYPE html>
-<html lang="en-US">
+<?php
 
+require 'server.php';
+session_start();
+
+
+
+
+
+?>
+
+
+
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin</title>
-    <link rel="stylesheet" href="css/dashboard.css">
-    <link rel="icon" type="png" href="">
+    <title>Intern Records</title>
+    <link rel="stylesheet" href="css/students.css">
 </head>
 <body>
-    <aside>
-        <div class="logo-div">
-            <img class="logo" src="img/logo.jpg" alt="Logo">
-        </div>
-        <ul>
-            <li><a href=""><img class="icon" src="img/home.png" alt="">Home </a></li>
-            <li><a href=""><img class="icon" src="img/lock.png" alt="">Accounts </a></li>
-            <li><a href="students.php"><img class="icon" src="img/profile.png" alt="">Students</a></li>
-            <li><a href="#" onclick="logout()"><img src="icon" alt="Log-out"> Log-Out </a></li>
-        </ul>
-    </aside>
-    <main>
-        <!-- <a href="#" id="insert-btn">Insert</a>
-        <div class="popup" >
-			<!-- <a href="#" id="close">CLOSE</a> -->
-			<div class="overlay"></div>
-            <div class="content">
-                <h2>Insert New Data</h2>
-                <form action="" method="">
-                    <div class="course">
-                        <input type="text" name="course" id="">
-                    </div>
-                    
-                    <div class="college">
-                        <input type="text" name="college" id="">
-                    </div>
-                    <div class="controls">
-                        <a href=""><button class="close-btn"> Cancel</button></a>
-                        <input type="submit" class="insert" value="Insert Data" name="insert">
-                    </div>
+    <div class="container">
+        <nav class="sidebar">
+            <div class="logo">EACMed</div>
+            <ul>
+                <li><a href="dashboard.php">Home</a></li>
+                <li><a href="students.php">Interns</a></li>
+                <li><a href="#">Analytics</a></li>
+                <li><a href="#">Reports</a></li>
+            </ul>
+        </nav>
+        <main class="main-content">
+            <header>
+                <h1>Intern Records</h1>
+                <button class="add-entry">+ Add New Entry</button>
+            </header>
+            <div class="filter">
+                <form action="students.php" method="POST">
+                    <input type="text" name="search" placeholder="Search...">
+                    <button type="submit" name="btn">Filter Results</button>
                 </form>
             </div>
-        </div> -->
-    </main>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>School/University</th>
+                        <th>Course</th>
+                        <th>Sex</th>
+                        <th>Age</th>
+                        <th>Started Date</th>
+                        <th>End Date</th>
+                        <th>Overall Remaining Hours</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+
+
+                        if(isset($_POST['btn'])){
+                            $search = $_POST['search'];
+
+                            $find = "SELECT * FROM studentinfo WHERE id LIKE '%$search%' OR fname LIKE '%$search%' OR mname LIKE '%$search%' OR lname LIKE '%$search' OR age LIKE '%$search%' OR sex LIKE '%$search%' OR course LIKE '%$search%';";
+                            $searchquery = mysqli_query($conn, $find);
+                            $exist = mysqli_num_rows($searchquery);
+
+                            if($exist > 0){
+                                while($row = mysqli_fetch_assoc($searchquery)){
+                                    $fname  = $row['fname'];
+                                    $mname  = ($row['mname']);
+                                    $lname  = $row['lname'];
+                                    $course = $row['course'];
+                                    $sex = $row['sex'];
+                                    $age = $row['age'];
+                                    
+                                    echo "<tr class='highlight'>";
+                                    echo "<td>" .$lname. "," .$fname. " " .$mname. "</td>";
+                                    echo "<td></td>";
+                                    echo "<td>" .$course. "</td>";
+                                    echo "<td>" .$sex. "</td>";
+                                    echo "<td>" .$age. "</td>";
+                                    echo "</tr>";
+                                }
+                            }
+                            else {
+                                echo "<td colspan='8' style='text-align:center'> No Data Found ..... </td>";
+                            }
+                        }
+                        else {
+                            $sql = "SELECT * FROM studentinfo";
+                            $query = mysqli_query($conn, $sql);
+
+                            while($row = mysqli_fetch_assoc($query)){
+                                $fname  = $row['fname'];
+                                $mname  = ($row['mname']);
+                                $lname  = $row['lname'];
+                                $course = $row['course'];
+                                $sex = $row['sex'];
+                                $age = $row['age'];
+                                
+                                // $school = $row['school']; 
+                                echo "<tr class='highlight'>";
+                                echo "<td>" .$lname. "," .$fname. " " .$mname. "</td>";
+                                echo "<td></td>";
+                                echo "<td>" .$course. "</td>";
+                                echo "<td>" .$sex. "</td>";
+                                echo "<td>" .$age. "</td>";
+                                echo "</tr>";
+                                // echo "<td>" .. "</td>";
+                                // // echo "<td>"  "</td>";
+                                // // echo "<td>"  "</td>";
+                            }
+                        }
+                        
+                        
+
+
+
+                    ?>
+                        
+                    
+                    <!-- Add more rows as needed -->
+                </tbody>
+            </table>
+        </main>
+    </div>
 </body>
 <script>
+    
     // Log-out Function
 
     function logout(){
-        let ask = confirm("Do you want to Log-Out?");
-        
-        if(ask){
-            window.location.assign('logout.php');
-        }
-        else {
-            window.location.assign('dashboard.php');
+    let ask = confirm("Do you want to Log-Out?");
+    
+    if(ask){
+        window.location.assign('logout.php');
+    }
+    else {
+        window.location.assign('dashboard.php');
         }
     }
 </script>
 </html>
+
+

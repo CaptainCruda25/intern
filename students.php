@@ -96,14 +96,14 @@ session_start();
                             }
                         }
                         else {
-                            $sql = "SELECT * FROM studentinfo INNER JOIN school ON studentinfo.schoolid = school.id";
+                            $sql = "SELECT * FROM studentinfo INNER JOIN school ON studentinfo.schoolid = school.id INNER JOIN coursetbl ON coursetbl.courseid = studentinfo.schoolid;";
                             $query = mysqli_query($conn, $sql);
 
                             while($row = mysqli_fetch_assoc($query)){
                                 $fname  = $row['fname'];
                                 $mname  = $row['mname'];
                                 $lname  = $row['lname'];
-                                // $course = $row['course'];
+                                $course = $row['course'];
                                 $sex = $row['sex'];
                                 $age = $row['age'];
                                 $school = $row['schoolname'];
@@ -111,7 +111,7 @@ session_start();
                                 echo "<tr class='highlight'>";
                                 echo "<td>" .$lname. "," .$fname. " " .$mname. "</td>";
                                 echo "<td>" .$school. "</td>";
-                                echo "<td></td>";
+                                echo "<td>" .$course."</td>";
                                 echo "<td>" .$sex. "</td>";
                                 echo "<td>" .$age. "</td>";
                                 echo "<td></td>";

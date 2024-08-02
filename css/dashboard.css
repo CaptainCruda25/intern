@@ -2,7 +2,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background-color: #a1a1a1;
     height: 100vh;
     display: flex;
     overflow: hidden; 
@@ -12,24 +12,48 @@ body {
     display: flex;
     width: 100%;
     overflow: hidden;
-    
 }
 
 .sidebar {
     height: 100vh;
-    width: 250px;
+    width: 70px;
     background-color: #487D47;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
     box-sizing: border-box;
+    transition: width 0.3s ease;
+    position: relative;
+    border-radius: 0 15px 15px 0;
 }
 
-.logo {
-    color: white;
-    font-size: 24px;
-    margin-bottom: 40px;
+.sidebar:hover {
+    width: 200px;
+}
+
+.logo-container {
+    width: 100%;
+    padding: 20px 0;
+    text-align: center;
+    background-color: #487D47;
+}
+
+.logo-button {
+    display: inline-block;
+    background-color: white;
+    border-radius: 50%;
+    padding: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.logo-button img {
+    max-width: 50px;
+    transition: max-width 0.3s ease;
+}
+
+.sidebar:hover .logo-button img {
+    max-width: 80px;
 }
 
 .sidebar ul {
@@ -45,25 +69,48 @@ body {
 }
 
 .sidebar a {
-    padding: 10px 10px;
+    padding: 10px 20px;
     text-decoration: none;
     font-size: 20px;
     color: white;
-    display: block;
+    display: flex;
+    align-items: center;
     width: 100%;
+    box-sizing: border-box;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: background-color 0.3s ease;
 }
 
 .sidebar a:hover {
-    background-color: #575757;
+    background-color: #dbdbdb;
+    border-radius: 10px;
+    color: #487D47;
 }
+
+.sidebar a i {
+    min-width: 30px;
+    text-align: center;
+}
+
+.sidebar a span {
+    display: none;
+}
+
+.sidebar:hover a span {
+    display: inline;
+}
+
+
 
 .main-content {
     flex: 1;
-    margin: 20px; /* Same as the width of the sidebar */
+    margin: 20px;
     padding: 50px;
-    border: 3px solid rgb(0, 0, 0);
     border-radius: 30px;
     background-color: white;
+    overflow-y: auto;
 }
 
 header {
@@ -82,30 +129,65 @@ header h1 {
     border: none;
     padding: 10px 20px;
     cursor: pointer;
+    border-radius: 5px;
 }
 
 .filter {
     margin: 20px 0;
 }
 
-.filter input {
-    padding: 10px;
-    width: 200px;
-    margin-right: 10px;
+.search-bar {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 15px;
+    padding: 5px 10px;
+    border: 1px solid #a2a2a2;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1); /* Adding inner shadow */
 }
 
-.filter button {
-    padding: 10px;
-    background-color: #3498db;
-    color: white;
+.search-bar-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    flex: 0.3;
+}
+
+.search-bar i {
+    color: #888;
+}
+
+.search-bar input {
     border: none;
+    outline: none;
+    padding: 10px;
+    margin-left: 5px;
+    border-radius: 20px;
+    flex: 1;
+}
+
+.filter-button {
+    margin-left: 10px;
+    padding: 15px 20px;
+    border: none;
+    border-radius: 15px;
+    background-color: #007bff;
+    color: white;
     cursor: pointer;
 }
+
 
 table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    table-layout: fixed;
 }
 
 table, th, td {
@@ -113,10 +195,56 @@ table, th, td {
 }
 
 th, td {
-    padding: 10px;
-    text-align: left;
+    padding: 15px;
+    text-align: center;
+    
+}
+
+tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+tbody tr td a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+tbody tr td a:hover {
+    text-decoration: underline;
 }
 
 .highlight {
     background-color: #f8d7da;
+}
+
+.login-btn {
+    position: absolute;
+    bottom: 20px;
+    color: white;
+    padding: 10px 20px;
+    background-color: #3498db;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    width: calc(100% - 40px);
+    text-align: center;
+    text-decoration: none;
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 50px;
+    }
+    .main-content {
+        margin: 0;
+        padding: 20px;
+    }
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .add-entry {
+        margin-top: 10px;
+    }
 }

@@ -32,20 +32,36 @@ if(isset($_POST['Register'])){
     $reqhours = $_POST['rhours'];
     $Sdate = $_POST['s-date'];
     $Edate = $_POST['e-date'];
+    
+
 
     if(empty($Fname) || empty($Mname) || empty($Lname) || empty($sex) || empty($age) || empty($course) || empty($school) || empty($reqhours) || empty($Sdate) || empty($Edate)){
         echo "<script>window.alert('Fill All The Fields! Please Try Again!');</script>";
     }
     else {
-        $student = "INSERT INTO studentinfo(fname, mname, lname, age, sex, courseid, schoolid) VALUES('$Fname','$Mname','$Lname', '$age', '$sex','$course', '$school')";
+        
         $rhours = "INSERT INTO hoursreq(hreq) VALUES('$reqhours')";
         $start = "INSERT INTO datestart(datestart) VALUES('$Sdate')";
         $end = "INSERT INTO dateend(endate) VALUES('$Edate');";
 
-        $query = mysqli_query($conn, $student); 
+        
         $query3 = mysqli_query($conn, $rhours); 
         $query4 = mysqli_query($conn, $start); 
         $query5 = mysqli_query($conn, $end);
+
+        // $startsql = "SELECT dateid FROM datestart";
+        // $endsql = "SELECT end_id FROM dateend ;";
+        // $querystart = mysqli_query($conn, $startsql);
+        // $queryend = mysqli_query($conn, $endsql);
+
+        // $s = mysqli_fetch_array($querystart);
+        // $Start = $s['dateid'];
+
+        // $e = mysqli_fetch_array($queryend);
+        // $End = $e['end_id'];
+        
+        $student = "INSERT INTO studentinfo(fname, mname, lname, age, sex, courseid, schoolid) VALUES('$Fname','$Mname','$Lname', '$age', '$sex','$course', '$school' )";
+        $query = mysqli_query($conn, $student); 
 
         echo "<script>window.alert('Register Successfully!');</script>";
         echo "<script>window.location,assign('dashboard.php')</script>";

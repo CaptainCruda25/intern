@@ -19,6 +19,7 @@ session_start();
     <title>Intern Records</title>
     <link rel="stylesheet" href="css/students.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="icon" type="png" href="img/logo-icon.png">
 </head>
 <body>
     <div class="container">
@@ -27,7 +28,7 @@ session_start();
             <ul>
                 <li><a href="dashboard.php"><i class="fas fa-home"></i> Home</a></li>
                 <li><a href="students.php"><i class="fas fa-users"></i> Interns</a></li>
-                <li><a href="#"><i class="fas fa-chart-line"></i> Attendance</a></li>
+                <li><a href="attendance.php"><i class="fas fa-chart-line"></i> Attendance</a></li>
                 <li><a href="#"><i class="fas fa-file-alt"></i> Reports</a></li>
             </ul>
         </nav>
@@ -64,7 +65,8 @@ session_start();
                         if(isset($_POST['btn'])){
                             $search = $_POST['search'];
 
-                            $find = "SELECT * FROM studentinfo WHERE id LIKE '%$search%' OR fname LIKE '%$search%' OR mname LIKE '%$search%' OR lname LIKE '%$search%' OR age LIKE '%$search%' OR sex LIKE '%$search%' OR course LIKE '%$search%' OR school LIKE '%$search%';";
+                            // $find = "SELECT * FROM studentinfo WHERE id LIKE '%$search%' OR fname LIKE '%$search%' OR mname LIKE '%$search%' OR lname LIKE '%$search%' OR age LIKE '%$search%' OR sex LIKE '%$search%' OR course LIKE '%$search%' OR school LIKE '%$search%';";
+                            $find = "SELECT * FROM studentinfo INNER JOIN school ON studentinfo.schoolid = school.id INNER JOIN coursetbl ON coursetbl.courseid = studentinfo.courseid INNER JOIN datestart ON datestart.dateid = coursetbl.courseid INNER JOIN dateend ON dateend.end_id = school.id INNER JOIN hoursreq ON hoursreq.hreq_id = studentinfo.id WHERE studentinfo LIKE '%$search';'";
                             $searchquery = mysqli_query($conn, $find);
                             $exist = mysqli_num_rows($searchquery);
 
@@ -96,7 +98,7 @@ session_start();
                             }
                         }
                         else {
-                            $sql = "SELECT * FROM studentinfo INNER JOIN school ON studentinfo.schoolid = school.id INNER JOIN coursetbl ON coursetbl.courseid = studentinfo.schoolid;";
+                            $sql = "SELECT * FROM studentinfo INNER JOIN school ON studentinfo.schoolid = school.id INNER JOIN coursetbl ON coursetbl.courseid = studentinfo.courseid INNER JOIN datestart ON datestart.dateid = coursetbl.courseid INNER JOIN dateend ON dateend.end_id = school.id INNER JOIN hoursreq ON hoursreq.hreq_id = studentinfo.id;";
                             $query = mysqli_query($conn, $sql);
 
                             while($row = mysqli_fetch_assoc($query)){
@@ -107,6 +109,9 @@ session_start();
                                 $sex = $row['sex'];
                                 $age = $row['age'];
                                 $school = $row['schoolname'];
+                                $start = $row['datestart'];
+                                $end = $row['endate'];
+                                $hours = $row['hreq'];
 
                                 echo "<tr class='highlight'>";
                                 echo "<td>" .$lname. "," .$fname. " " .$mname. "</td>";
@@ -114,9 +119,9 @@ session_start();
                                 echo "<td>" .$course."</td>";
                                 echo "<td>" .$sex. "</td>";
                                 echo "<td>" .$age. "</td>";
-                                echo "<td></td>";
-                                echo "<td></td>";
-                                echo "<td></td>";
+                                echo "<td>" .$start. "</td>";
+                                echo "<td>" .$end. "</td>";
+                                echo "<td>" .$hours. " hours</td>";
                                 echo "<td></td>";
                                 echo "</tr>";
                             }

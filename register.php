@@ -1,18 +1,4 @@
-<?php
-    include 'server.php';
 
-?>
-
-<!DOCTYPE html>
-<html lang="en-US">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Account | EAC Medical Center</title>
-    <link rel="stylesheet" href="">
-    <link rel="icon" type="png" href="img/logo-icon.png">
-    
-</head>
 
 <!-- PHP Code  -->
 
@@ -77,72 +63,89 @@ if(isset($_POST['Register'])){
 
 ?>
 
-
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Account | EAC Medical Center</title>
+    <link rel="stylesheet" href="">
+    <link rel="icon" type="png" href="img/logo-icon.png">
+    <link rel="stylesheet" href="css/register.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+    
+</head>
 <body>
-    <form action="" method="POST">
-        <div class="input-box">
-            <input type="text" name="fname" placeholder="First Name" id="" required>
-        </div>
-        <div class="input-box">
-            <input type="text" name="mname" placeholder="Middle Name" id="" required>
-        </div>
-        <div class="input-box">
-            <input type="text" name="lname" placeholder="Last Name" id="" required>
-        </div>
-        <div class="sex">
-            <select name="sex" id="" required>
-                <option value=""> -- Choose Sex -- </option>
-                <option value="M"> M </option>
-                <option value="F"> F </option>
-            </select>
-        </div>
-        <div class="age-div">
-            <input type="text" name="age" placeholder="Age" id="" required>
-        </div>
-        <div class="course-div">
-            <select name="course" id="" required>
-                <option value=""> -- Choose Course -- </option>
-                <?php
-                    $coursetbl = "SELECT * FROM coursetbl";
-                    $query = mysqli_query($conn, $coursetbl);
-                    
-                    while($row = mysqli_fetch_assoc($query)){
-                        echo '<option value='.$row['courseid'].'>' .$row['course']. '</option>';
-                
-                    }
-                
-                ?>
-            </select>
-        </div>
-        <div class="school-div">
-            <select name="school" id="" required>
-                <option value=""> -- Choose School -- </option>
-                <?php
-                    $school = "SELECT * FROM school";
-                    $query = mysqli_query($conn, $school);
-                    
-                    while($row = mysqli_fetch_assoc($query)){
-                        echo '<option value='.$row['id'].'>' .$row['schoolname']. '</option>';
+    <div class="main-container">
+        <h2>REGISTER</h2>
+        <form action="" method="POST">
+            <div class="input-box">
+                <input type="text" name="fname" placeholder="First Name" id="" required>
+            </div>
+            <div class="input-box">
+                <input type="text" name="mname" placeholder="Middle Name" id="" required>
+            </div>
+            <div class="input-box">
+                <input type="text" name="lname" placeholder="Last Name" id="" required>
+            </div>
+            <div class="sex">
+                <select name="sex" id="" required>
+                    <option value=""> -- Choose Sex -- </option>
+                    <option value="M"> M </option>
+                    <option value="F"> F </option>
+                </select>
+                <i class="fa-solid fa-angle-down"></i>
+            </div>
+            <div class="age-div">
+                <input type="text" name="age" placeholder="Age" id="" required>
+            </div>
+            <div class="course-div">
+                <select name="course" id="" required>
+                    <option value=""> -- Choose Course -- </option>
+                    <?php
+                        $coursetbl = "SELECT * FROM coursetbl";
+                        $query = mysqli_query($conn, $coursetbl);
                         
-                    }
-                
-                ?>
-            </select>
-        </div>
-        <div class="req-hours">
-            <input type="text" name="rhours" class="hours" placeholder="Required Hours" required>
-        </div>
-        <div class="s-date">
-            <label for="St-date">Start Date: </label>
-            <input type="date" name="s-date" id="St-date" required>
-        </div>
-        <div class="e-date">
-            <label for="En-date">End Date:</label>
-            <input type="date" name="e-date" id="En-date" required>
-        </div>
-        <div class="btn-submit">
-            <input type="submit" name="Register" value="Register">
-        </div>
-    </form>
+                        while($row = mysqli_fetch_assoc($query)){
+                            echo '<option value='.$row['courseid'].'>' .$row['course']. '</option>';
+                            
+                        }
+                        
+                        ?>
+                </select>
+                <i class="fa-solid fa-angle-down"></i>
+            </div>
+            <div class="school-div">
+                <select name="school" id="" required>
+                    <option value=""> -- Choose School -- </option>
+                    <?php
+                        $school = "SELECT * FROM school";
+                        $query = mysqli_query($conn, $school);
+                        
+                        while($row = mysqli_fetch_assoc($query)){
+                            echo '<option value='.$row['id'].'>' .$row['schoolname']. '</option>';
+                            
+                        }
+                    
+                    ?>
+                </select>
+                <i class="fa-solid fa-angle-down"></i>
+            </div>
+            <div class="req-hours">
+                <input type="text" name="rhours" class="hours" placeholder="Required Hours" required>
+            </div>
+            <label for="En-date" style="font-weight: bold;">Start Date:</label>
+            <div class="s-date">
+                <input type="date" name="s-date" id="St-date" required>
+            </div>
+            <label for="En-date" style="font-weight: bold;">End Date:</label>
+            <div class="e-date">
+                <input type="date" name="e-date" id="En-date" required>
+            </div>
+            <div class="btn-submit">
+                <input type="submit" name="Register" value="Register">
+            </div>
+        </form>
+    </div>
 </body>
 </html>

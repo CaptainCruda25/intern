@@ -33,12 +33,11 @@ if(isset($_POST['Register'])){
     $Sdate = $_POST['s-date'];
     $Edate = $_POST['e-date'];
 
-    if(empty($Fname) || empty($Mname) || empty($Lname) || empty($sex) || empty($age) || empty($course) || empty($reqhours) || empty($Sdate) || empty($Edate)){
+    if(empty($Fname) || empty($Mname) || empty($Lname) || empty($sex) || empty($age) || empty($course) || empty($school) || empty($reqhours) || empty($Sdate) || empty($Edate)){
         echo "<script>window.alert('Fill All The Fields! Please Try Again!');</script>";
     }
     else {
-        $student = "INSERT INTO studentinfo(fname, mname, lname, age, sex, course) VALUES('$Fname','$Mname','$Lname', '$age', '$sex','$course')";
-        $schoolName = "INSERT INTO school(schoolname) VALUES('$school')";
+        $student = "INSERT INTO studentinfo(fname, mname, lname, age, sex, courseid, schoolid) VALUES('$Fname','$Mname','$Lname', '$age', '$sex','$course', '$school')";
         $rhours = "INSERT INTO hoursreq(hreq) VALUES('$reqhours')";
         $start = "INSERT INTO datestart(datestart) VALUES('$Sdate')";
         $end = "INSERT INTO dateend(endate) VALUES('$Edate');";
@@ -66,33 +65,33 @@ if(isset($_POST['Register'])){
 <body>
     <form action="" method="POST">
         <div class="input-box">
-            <input type="text" name="fname" placeholder="First Name" id="">
+            <input type="text" name="fname" placeholder="First Name" id="" required>
         </div>
         <div class="input-box">
-            <input type="text" name="mname" placeholder="Middle Name" id="">
+            <input type="text" name="mname" placeholder="Middle Name" id="" required>
         </div>
         <div class="input-box">
-            <input type="text" name="lname" placeholder="Last Name" id="">
+            <input type="text" name="lname" placeholder="Last Name" id="" required>
         </div>
         <div class="sex">
-            <select name="sex" id="">
+            <select name="sex" id="" required>
                 <option value=""> -- Choose Sex -- </option>
                 <option value="M"> M </option>
                 <option value="F"> F </option>
             </select>
         </div>
         <div class="age-div">
-            <input type="text" name="age" placeholder="Age" id="">
+            <input type="text" name="age" placeholder="Age" id="" required>
         </div>
         <div class="course-div">
-            <select name="course" id="">
+            <select name="course" id="" required>
                 <option value=""> -- Choose Course -- </option>
                 <?php
                     $coursetbl = "SELECT * FROM coursetbl";
                     $query = mysqli_query($conn, $coursetbl);
                     
                     while($row = mysqli_fetch_assoc($query)){
-                        echo '<option value='.$row['course'].'>' .$row['course']. '</option>';
+                        echo '<option value='.$row['courseid'].'>' .$row['course']. '</option>';
                 
                     }
                 
@@ -100,32 +99,30 @@ if(isset($_POST['Register'])){
             </select>
         </div>
         <div class="school-div">
-            <select name="school" id="">
+            <select name="school" id="" required>
                 <option value=""> -- Choose School -- </option>
                 <?php
                     $school = "SELECT * FROM school";
                     $query = mysqli_query($conn, $school);
                     
                     while($row = mysqli_fetch_assoc($query)){
-                        echo '<option value='.$row['schoolname'].'>' .$row['schoolname']. '</option>';
-                        // echo '<option value="BSCpE">' BSCpE '</option>';
-                        // echo '<option value="BSIS">' BSIS '</option>';
-                        // echo '<option value="BSIT">' BSIT '</option>';
+                        echo '<option value='.$row['id'].'>' .$row['schoolname']. '</option>';
+                        
                     }
                 
                 ?>
             </select>
         </div>
         <div class="req-hours">
-            <input type="text" name="rhours" class="hours" placeholder="Required Hours">
+            <input type="text" name="rhours" class="hours" placeholder="Required Hours" required>
         </div>
         <div class="s-date">
             <label for="St-date">Start Date: </label>
-            <input type="date" name="s-date" id="St-date">
+            <input type="date" name="s-date" id="St-date" required>
         </div>
         <div class="e-date">
             <label for="En-date">End Date:</label>
-            <input type="date" name="e-date" id="En-date">
+            <input type="date" name="e-date" id="En-date" required>
         </div>
         <div class="btn-submit">
             <input type="submit" name="Register" value="Register">

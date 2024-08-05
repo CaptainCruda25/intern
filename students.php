@@ -66,7 +66,9 @@ session_start();
                             $search = $_POST['search'];
 
                             // $find = "SELECT * FROM studentinfo WHERE id LIKE '%$search%' OR fname LIKE '%$search%' OR mname LIKE '%$search%' OR lname LIKE '%$search%' OR age LIKE '%$search%' OR sex LIKE '%$search%' OR course LIKE '%$search%' OR school LIKE '%$search%';";
-                            $find = "SELECT * FROM studentinfo INNER JOIN school ON studentinfo.schoolid = school.id INNER JOIN coursetbl ON coursetbl.courseid = studentinfo.courseid INNER JOIN datestart ON datestart.dateid = coursetbl.courseid INNER JOIN dateend ON dateend.end_id = school.id INNER JOIN hoursreq ON hoursreq.hreq_id = studentinfo.id WHERE studentinfo LIKE '%$search';'";
+                            $find = "
+                                SELECT * FROM studentinfo INNER JOIN school ON studentinfo.id = school.id INNER JOIN coursetbl ON coursetbl.courseid = studentinfo.courseid INNER JOIN datestart ON datestart.dateid = coursetbl.courseid INNER JOIN dateend ON dateend.end_id = school.id INNER JOIN hoursreq ON hoursreq.hreq_id = studentinfo.id WHERE studentinfo.fname 
+                                LIKE '%$search' OR studentinfo.lname LIKE '%$search';";
                             $searchquery = mysqli_query($conn, $find);
                             $exist = mysqli_num_rows($searchquery);
 
@@ -98,7 +100,7 @@ session_start();
                             }
                         }
                         else {
-                            $sql = "SELECT * FROM studentinfo INNER JOIN school ON studentinfo.schoolid = school.id INNER JOIN coursetbl ON coursetbl.courseid = studentinfo.courseid INNER JOIN datestart ON datestart.dateid = coursetbl.courseid INNER JOIN dateend ON dateend.end_id = school.id INNER JOIN hoursreq ON hoursreq.hreq_id = studentinfo.id;";
+                            $sql = "SELECT * FROM studentinfo INNER JOIN school ON studentinfo.id = school.id INNER JOIN coursetbl ON coursetbl.courseid = studentinfo.courseid INNER JOIN datestart ON datestart.dateid = coursetbl.courseid INNER JOIN dateend ON dateend.end_id = school.id INNER JOIN hoursreq ON hoursreq.hreq_id = studentinfo.id;";
                             $query = mysqli_query($conn, $sql);
 
                             while($row = mysqli_fetch_assoc($query)){

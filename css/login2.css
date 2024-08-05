@@ -24,9 +24,36 @@ body, html {
     width: 100%; /* Cover the full width of the container */
     height: 100%; /* Cover the full height of the container */
     z-index: 0; /* Ensure it's behind the login form */
-    background-position: -300px;
+    background-position: center; /* Center the background image */
+    filter: brightness(70%); /* Darken the background for better quote visibility */
+    background-position: -350px;
 }
 
+.quote-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1; /* Ensure it's above the background but below the login form */
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    margin-left: 75px;
+}
+
+.quote-container {
+    background: rgba(0, 0, 0, 0.2); /* Semi-transparent background for readability */
+    padding: 80px;
+    border-radius: 8px;
+    text-align: center;
+    color: #fff;
+    font-size: 1.5em;
+    width: 50%;
+    max-width: 500px;
+    transition: opacity 1s ease-in-out; /* Smooth transition for quotes */
+    font-size: 50px;
+}
 
 .login-form {
     background: #f4f4f4;
@@ -36,7 +63,7 @@ body, html {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: 600px; /* Set a fixed width for the form */
     box-sizing: border-box; /* Ensure padding and border are included in the width */
-    z-index: 1; /* Ensure it's above the background */
+    z-index: 2; /* Ensure it's above both the background and quote overlay */
     height: 100%; /* Ensure the login form takes up the full height */
     margin-left: auto; /* Push the login form to the right end */
     display: flex;
@@ -74,9 +101,9 @@ body, html {
     padding: 20px;
     margin-bottom: 30px;
     border: 1px solid #7EBA7D;
-    border-radius: 50px;
+    border-radius: 50px 15px 15px 50px;
     box-sizing: border-box;
-    background-color:#7EBA7D;
+    background-color: #7EBA7D;
     box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
@@ -89,9 +116,9 @@ body, html {
 .login-form button {
     width: 200px; /* Set fixed width for the button */
     padding: 10px;
-    background-color: #05540a;
+    background-color: #ad403d;
     border: none;
-    border-radius: 50px;
+    border-radius: 50px 15px 15px 50px;
     color: white;
     font-size: 16px;
     cursor: pointer;
@@ -101,7 +128,7 @@ body, html {
 }
 
 .login-form button:hover {
-    background-color: #0cb728;
+    background-color: #DF5450;
 }
 
 /* Media Queries for Responsiveness */

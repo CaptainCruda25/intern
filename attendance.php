@@ -29,7 +29,7 @@ session_start();
                 <li><a href="dashboard.php"><i class="fas fa-home"></i> Home</a></li>
                 <li><a href="students.php"><i class="fas fa-users"></i> Interns</a></li>
                 <li><a href="attendance.php"><i class="fas fa-chart-line"></i> Attendance</a></li>
-                <li><a href="#"><i class="fas fa-file-alt"></i> Reports</a></li>
+                <li><a href="register.php"><i class="fas fa-file-alt"></i> Add Account</a></li>
             </ul>
         </nav>
         <main class="main-content">
@@ -53,11 +53,8 @@ session_start();
                         <th>School/University</th>
                         <th>Course</th>
                         <th>Sex</th>
-                        <th>Age</th>
-                        <th>Started Date</th>
-                        <th>End Date</th>
-                        <th>Overall Rendered Hours</th>
-                        <th>Overall Remaining Hours</th>
+                        <th>IN</th>
+                        <th>OUT</th>
                     </tr>
                 </thead>
                 <tbody>

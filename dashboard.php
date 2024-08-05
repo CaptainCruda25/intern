@@ -2,17 +2,19 @@
 
 require 'server.php';
 session_start();
+error_reporting(0);
 
-
+// if($_SESSION['username']){
+    
+// }
 
 
 
 ?>
 
 
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-US">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,47 +22,52 @@ session_start();
     <link rel="stylesheet" href="css/students.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="icon" type="png" href="img/logo-icon.png">
+
 </head>
 <body>
     <div class="container">
         <nav class="sidebar">
-            <div class="logo">EACMed</div>
-            <ul>
-                <li><a href="dashboard.php"><i class="fas fa-home"></i> Home</a></li>
-                <li><a href="students.php"><i class="fas fa-users"></i> Interns</a></li>
-                <li><a href="attendance.php"><i class="fas fa-chart-line"></i> Attendance</a></li>
-                <li><a href="#"><i class="fas fa-file-alt"></i> Reports</a></li>
-            </ul>
-        </nav>
+        <ul>
+            <div class="logo">
+            <img src="img/logo-icon.png" alt="EACMed Logo">
+
+            </div>
+            <li><a href="dashboard.php"><i class="fas fa-home"></i> <span>Home</span></a></li>
+            <li><a href="students.php"><i class="fas fa-users"></i> <span>Interns</span></a></li>
+            <li><a href="attendance.php"><i class="fas fa-chart-line"></i> <span>Attendance</span></a></li>
+            <li><a href="register.php"><i class="fas fa-file-alt"></i> <span>Add Account</span></a></li>
+            <li><a href="#"><i class="fas fa-file-alt"></i> <span>Logout</span></a></li>
+        </ul>
+    </nav>
+
         <main class="main-content">
             <header>
                 <h1>Intern Records</h1>
                 <button class="add-entry">+ Add New Entry</button>
             </header>
-            <div class="filter">
-                <form action="students.php" method="POST">
-                    <div class="search-bar">
-                        <i class="fas fa-search"></i>
-                        <input type="text" name="search" placeholder="Search...">
-                    </div>
-                    <button type="submit" name="btn">Filter Results</button>
-                </form>
-            </div>
+            <div class="search-bar-container">
+    <div class="search-bar">
+        <i class="fa fa-search"></i>
+        <input type="text" placeholder="Search...">
+    </div>
+    <button class="filter-button">Filter Results</button>
+</div>
+
             <table>
                 <thead>
                     <tr>
                         <th>Name</th>
                         <th>School/University</th>
                         <th>Course</th>
-                        <th>Sex</th>
-                        <th>Age</th>
+                        <th>IN</th>
+                        <th>OUT</th>
                         <th>Started Date</th>
                         <th>End Date</th>
                         <th>Overall Rendered Hours</th>
                         <th>Overall Remaining Hours</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody></tbody>
                     <?php
                         if(isset($_POST['btn'])){
                             $search = $_POST['search'];

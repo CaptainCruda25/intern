@@ -38,7 +38,7 @@ session_start();
                 <button class="add-entry">+ Add New Entry</button>
             </header>
             <div class="filter">
-                <form action="students.php" method="POST">
+                <form action="attendance.php" method="POST">
                     <div class="search-bar">
                         <i class="fas fa-search"></i>
                         <input type="text" name="search" placeholder="Search...">
@@ -62,7 +62,7 @@ session_start();
                         if(isset($_POST['btn'])){
                             $search = $_POST['search'];
 
-                            $find = "SELECT * FROM studentinfo WHERE id LIKE '%$search%' OR fname LIKE '%$search%' OR mname LIKE '%$search%' OR lname LIKE '%$search%' OR age LIKE '%$search%' OR sex LIKE '%$search%' OR course LIKE '%$search%' OR school LIKE '%$search%';";
+                            $find = "SELECT * FROM studentinfo INNER JOIN school ON studentinfo.schoolid = school.id INNER JOIN coursetbl ON coursetbl.courseid = studentinfo.courseid WHERE fname LIKE '%$search%' OR mname LIKE '%$search%' OR lname LIKE '%$search%' OR sex LIKE '%$search%' LIKE '%$search%' OR schoolname LIKE '%$search%' OR course LIKE '%$search%';";
                             $searchquery = mysqli_query($conn, $find);
                             $exist = mysqli_num_rows($searchquery);
 
@@ -74,18 +74,15 @@ session_start();
                                     $course = $row['course'];
                                     $sex = $row['sex'];
                                     $age = $row['age'];
-                                    $schoolname = $row['school'];
+                                    $schoolname = $row['schoolname'];
                                     
                                     echo "<tr class='highlight'>";
                                     echo "<td>" .$lname. "," .$fname. " " .$mname. "</td>";
                                     echo "<td>" .$schoolname. "</td>";
                                     echo "<td>" .$course. "</td>";
                                     echo "<td>" .$sex. "</td>";
-                                    echo "<td>" .$age. "</td>";
-                                    echo "<td></td>";
-                                    echo "<td></td>";
-                                    echo "<td></td>";
-                                    echo "<td></td>";
+                                    echo "<td>IN button</td>";
+                                    echo "<td>Out Button</td>";
                                     echo "</tr>";
                                 }
                             }
@@ -114,10 +111,10 @@ session_start();
                                 echo "<td>" .$school. "</td>";
                                 echo "<td>" .$course."</td>";
                                 echo "<td>" .$sex. "</td>";
-                                echo "<td>" .$age. "</td>";
-                                echo "<td>" .$start. "</td>";
-                                echo "<td>" .$end. "</td>";
-                                echo "<td>" .$hours. " hours</td>";
+                                echo "<td></td>";
+                                // echo "<td>" .$start. "</td>";
+                                // echo "<td>" .$end. "</td>";
+                                // echo "<td>" .$hours. " hours</td>";
                                 echo "<td></td>";
                                 echo "</tr>";
                             }

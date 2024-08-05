@@ -4,32 +4,25 @@ require 'server.php';
 session_start();
 error_reporting(0);
 
-if($_SESSION['username']){
+// if($_SESSION['username']){
     
-}
+// }
 
 
 
 ?>
 
-<?php
 
-require 'server.php';
-session_start();
-
-
-
-
-
-?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-US">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Intern Records</title>
     <link rel="stylesheet" href="css/students.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="icon" type="png" href="img/logo-icon.png">
+
 </head>
 <body>
     <div class="container">
@@ -41,8 +34,8 @@ session_start();
             </div>
             <li><a href="dashboard.php"><i class="fas fa-home"></i> <span>Home</span></a></li>
             <li><a href="students.php"><i class="fas fa-users"></i> <span>Interns</span></a></li>
-            <li><a href="#"><i class="fas fa-chart-line"></i> <span>Attendance</span></a></li>
-            <li><a href="#"><i class="fas fa-file-alt"></i> <span>Reports</span></a></li>
+            <li><a href="attendance.php"><i class="fas fa-chart-line"></i> <span>Attendance</span></a></li>
+            <li><a href="register.php"><i class="fas fa-file-alt"></i> <span>Add Account</span></a></li>
             <li><a href="#"><i class="fas fa-file-alt"></i> <span>Logout</span></a></li>
         </ul>
     </nav>
@@ -76,91 +69,73 @@ session_start();
                 </thead>
                 <tbody></tbody>
                     <?php
-
-
                         if(isset($_POST['btn'])){
                             $search = $_POST['search'];
 
-                            $find = "SELECT * FROM studentinfo WHERE id LIKE '%$search%' OR fname LIKE '%$search%' OR mname LIKE '%$search%' OR lname LIKE '%$search' OR age LIKE '%$search%' OR sex LIKE '%$search%' OR course LIKE '%$search%';";
+                            $find = "SELECT * FROM studentinfo WHERE id LIKE '%$search%' OR fname LIKE '%$search%' OR mname LIKE '%$search%' OR lname LIKE '%$search%' OR age LIKE '%$search%' OR sex LIKE '%$search%' OR course LIKE '%$search%' OR school LIKE '%$search%';";
                             $searchquery = mysqli_query($conn, $find);
                             $exist = mysqli_num_rows($searchquery);
 
                             if($exist > 0){
                                 while($row = mysqli_fetch_assoc($searchquery)){
                                     $fname  = $row['fname'];
-                                    $mname  = ($row['mname']);
+                                    $mname  = $row['mname'];
                                     $lname  = $row['lname'];
                                     $course = $row['course'];
                                     $sex = $row['sex'];
                                     $age = $row['age'];
+                                    $schoolname = $row['school'];
                                     
                                     echo "<tr class='highlight'>";
                                     echo "<td>" .$lname. "," .$fname. " " .$mname. "</td>";
-                                    echo "<td></td>";
+                                    echo "<td>" .$schoolname. "</td>";
                                     echo "<td>" .$course. "</td>";
                                     echo "<td>" .$sex. "</td>";
                                     echo "<td>" .$age. "</td>";
+                                    echo "<td></td>";
+                                    echo "<td></td>";
+                                    echo "<td></td>";
+                                    echo "<td></td>";
                                     echo "</tr>";
                                 }
                             }
                             else {
-                                echo "<td colspan='8' style='text-align:center'> No Data Found ..... </td>";
+                                echo "<td colspan='9' style='text-align:center'> No Data Found ..... </td>";
                             }
                         }
                         else {
-                            $sql = "SELECT * FROM studentinfo";
+                            $sql = "SELECT * FROM studentinfo INNER JOIN school ON studentinfo.schoolid = school.id INNER JOIN coursetbl ON coursetbl.courseid = studentinfo.courseid INNER JOIN datestart ON datestart.dateid = coursetbl.courseid INNER JOIN dateend ON dateend.end_id = school.id INNER JOIN hoursreq ON hoursreq.hreq_id = studentinfo.id;";
                             $query = mysqli_query($conn, $sql);
 
                             while($row = mysqli_fetch_assoc($query)){
                                 $fname  = $row['fname'];
-                                $mname  = ($row['mname']);
+                                $mname  = $row['mname'];
                                 $lname  = $row['lname'];
                                 $course = $row['course'];
                                 $sex = $row['sex'];
                                 $age = $row['age'];
-                                
-                                // $school = $row['school']; 
+                                $school = $row['schoolname'];
+                                $start = $row['datestart'];
+                                $end = $row['endate'];
+                                $hours = $row['hreq'];
+
                                 echo "<tr class='highlight'>";
                                 echo "<td>" .$lname. "," .$fname. " " .$mname. "</td>";
-                                echo "<td></td>";
-                                echo "<td>" .$course. "</td>";
+                                echo "<td>" .$school. "</td>";
+                                echo "<td>" .$course."</td>";
                                 echo "<td>" .$sex. "</td>";
                                 echo "<td>" .$age. "</td>";
+                                echo "<td>" .$start. "</td>";
+                                echo "<td>" .$end. "</td>";
+                                echo "<td>" .$hours. " hours</td>";
+                                echo "<td></td>";
                                 echo "</tr>";
-                                // echo "<td>" .. "</td>";
-                                // // echo "<td>"  "</td>";
-                                // // echo "<td>"  "</td>";
                             }
                         }
-                        
-                        
-
-
-
                     ?>
-                        
-                    
-                    <!-- Add more rows as needed -->
                 </tbody>
             </table>
         </main>
     </div>
 </body>
-<script>
-    
-    // Log-out Function
-
-    function logout(){
-    let ask = confirm("Do you want to Log-Out?");
-    
-    if(ask){
-        window.location.assign('logout.php');
-    }
-    else {
-        window.location.assign('dashboard.php');
-        }
-    }
-</script>
 </html>
-
-

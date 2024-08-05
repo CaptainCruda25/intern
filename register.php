@@ -26,14 +26,14 @@ if(isset($_POST['Register'])){
     }
     else {
         
-        $rhours = "INSERT INTO hoursreq(hreq) VALUES('$reqhours')";
-        $start = "INSERT INTO datestart(datestart) VALUES('$Sdate')";
-        $end = "INSERT INTO dateend(endate) VALUES('$Edate');";
+        // $rhours = "INSERT INTO hoursreq(hreq) VALUES('$reqhours')";
+        // $start = "INSERT INTO datestart(datestart) VALUES('$Sdate')";
+        // $end = "INSERT INTO dateend(endate) VALUES('$Edate');";
 
         
-        $query3 = mysqli_query($conn, $rhours); 
-        $query4 = mysqli_query($conn, $start); 
-        $query5 = mysqli_query($conn, $end);
+        // $query3 = mysqli_query($conn, $rhours); 
+        // $query4 = mysqli_query($conn, $start); 
+        // $query5 = mysqli_query($conn, $end);
 
         // $startsql = "SELECT dateid FROM datestart";
         // $endsql = "SELECT end_id FROM dateend ;";
@@ -46,7 +46,7 @@ if(isset($_POST['Register'])){
         // $e = mysqli_fetch_array($queryend);
         // $End = $e['end_id'];
         
-        $student = "INSERT INTO studentinfo(fname, mname, lname, age, sex, courseid, schoolid) VALUES('$Fname','$Mname','$Lname', '$age', '$sex','$course', '$school' )";
+        $student = "INSERT INTO studentinfo(fname, mname, lname, age, sex, courseid, schoolid, hrequired, startdate, end_date) VALUES('$Fname','$Mname','$Lname', '$age', '$sex','$course', '$school', '$reqhours', '$Sdate', '$Edate');";
         $query = mysqli_query($conn, $student); 
 
         echo "<script>window.alert('Register Successfully!');</script>";

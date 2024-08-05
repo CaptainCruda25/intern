@@ -43,9 +43,12 @@ session_start();
             <div class="search-bar-container">
     <div class="search-bar">
         <i class="fa fa-search"></i>
-        <input type="text" placeholder="Search...">
+        <form action="" method="POST">
+            <input type="text" name="search" placeholder="Search...">
+            
     </div>
-    <button class="filter-button">Filter Results</button>
+    <button type="submit" name="btn" class="filter-button">Filter Results</button>
+        </form>
 </div>
 
             <table>
@@ -58,8 +61,9 @@ session_start();
                         <th>Age</th>
                         <th>Started Date</th>
                         <th>End Date</th>
-                        <th>Overall Rendered Hours</th>
+                        <th>Hours Required</th>
                         <th>Overall Remaining Hours</th>
+                        <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -67,8 +71,8 @@ session_start();
                         if(isset($_POST['btn'])){
                             $search = $_POST['search'];
 
-                            // $find = "SELECT * FROM studentinfo WHERE id LIKE '%$search%' OR fname LIKE '%$search%' OR mname LIKE '%$search%' OR lname LIKE '%$search%' OR age LIKE '%$search%' OR sex LIKE '%$search%' OR course LIKE '%$search%' OR school LIKE '%$search%';";
-                            $find = "SELECT * FROM studentinfo INNER JOIN school ON studentinfo.schoolid = school.id INNER JOIN coursetbl ON coursetbl.courseid = studentinfo.courseid INNER JOIN datestart ON datestart.dateid = coursetbl.courseid INNER JOIN dateend ON dateend.end_id = school.id INNER JOIN hoursreq ON hoursreq.hreq_id = studentinfo.id WHERE studentinfo LIKE '%$search';'";
+                            // // $find = "SELECT * FROM studentinfo WHERE id LIKE '%$search%' OR fname LIKE '%$search%' OR mname LIKE '%$search%' OR lname LIKE '%$search%' OR age LIKE '%$search%' OR sex LIKE '%$search%' OR course LIKE '%$search%' OR school LIKE '%$search%';";
+                            $find = "SELECT * FROM studentinfo INNER JOIN school ON studentinfo.schoolid = school.id INNER JOIN coursetbl ON coursetbl.courseid = studentinfo.courseid WHERE fname LIKE '%$search%' OR mname LIKE '%$search%' OR lname LIKE '%$search%' OR age LIKE '%$search%' OR sex LIKE '%$search%' OR hrequired LIKE '%$search%' OR startdate LIKE '%$search%' OR end_date LIKE '%$search%' OR schoolname LIKE '%$search%' OR course LIKE '%$search%';";
                             $searchquery = mysqli_query($conn, $find);
                             $exist = mysqli_num_rows($searchquery);
 
@@ -80,7 +84,11 @@ session_start();
                                     $course = $row['course'];
                                     $sex = $row['sex'];
                                     $age = $row['age'];
-                                    $schoolname = $row['school'];
+                                    $schoolname = $row['schoolname'];
+                                    $hours = $row['hrequired'];
+                                    $start = $row['startdate'];
+                                    $end = $row['end_date'];
+
                                     
                                     echo "<tr class='highlight'>";
                                     echo "<td>" .$lname. "," .$fname. " " .$mname. "</td>";
@@ -88,8 +96,9 @@ session_start();
                                     echo "<td>" .$course. "</td>";
                                     echo "<td>" .$sex. "</td>";
                                     echo "<td>" .$age. "</td>";
-                                    echo "<td></td>";
-                                    echo "<td></td>";
+                                    echo "<td>" .$start."</td>";
+                                    echo "<td>" .$end. "</td>";
+                                    echo "<td>" .$hours. "</td>";
                                     echo "<td></td>";
                                     echo "<td></td>";
                                     echo "</tr>";
@@ -100,7 +109,7 @@ session_start();
                             }
                         }
                         else {
-                            $sql = "SELECT * FROM studentinfo INNER JOIN school ON studentinfo.schoolid = school.id INNER JOIN coursetbl ON coursetbl.courseid = studentinfo.courseid INNER JOIN datestart ON datestart.dateid = coursetbl.courseid INNER JOIN dateend ON dateend.end_id = school.id INNER JOIN hoursreq ON hoursreq.hreq_id = studentinfo.id;";
+                            $sql = "SELECT * FROM studentinfo INNER JOIN school ON studentinfo.schoolid = school.id INNER JOIN coursetbl ON coursetbl.courseid = studentinfo.courseid;";
                             $query = mysqli_query($conn, $sql);
 
                             while($row = mysqli_fetch_assoc($query)){
@@ -111,9 +120,9 @@ session_start();
                                 $sex = $row['sex'];
                                 $age = $row['age'];
                                 $school = $row['schoolname'];
-                                $start = $row['datestart'];
-                                $end = $row['endate'];
-                                $hours = $row['hreq'];
+                                $start = $row['startdate'];
+                                $end = $row['end_date'];
+                                $hours = $row['hrequired'];
 
                                 echo "<tr class='highlight'>";
                                 echo "<td>" .$lname. "," .$fname. " " .$mname. "</td>";
@@ -124,6 +133,7 @@ session_start();
                                 echo "<td>" .$start. "</td>";
                                 echo "<td>" .$end. "</td>";
                                 echo "<td>" .$hours. " hours</td>";
+                                echo "<td></td>";
                                 echo "<td></td>";
                                 echo "</tr>";
                             }

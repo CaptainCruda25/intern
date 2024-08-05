@@ -80,16 +80,16 @@ if(isset($_POST['Register'])){
         <h2>REGISTER</h2>
         <form action="" method="POST">
             <div class="input-box">
-                <input type="text" name="fname" placeholder="First Name" id="" required>
+                <input type="text" name="fname" placeholder="First Name" id="">
             </div>
             <div class="input-box">
-                <input type="text" name="mname" placeholder="Middle Name" id="" required>
+                <input type="text" name="mname" placeholder="Middle Name" id="">
             </div>
             <div class="input-box">
-                <input type="text" name="lname" placeholder="Last Name" id="" required>
+                <input type="text" name="lname" placeholder="Last Name" id="">
             </div>
             <div class="sex">
-                <select name="sex" id="" required>
+                <select name="sex" id="">
                     <option value=""> -- Choose Sex -- </option>
                     <option value="M"> M </option>
                     <option value="F"> F </option>
@@ -97,10 +97,10 @@ if(isset($_POST['Register'])){
                 <i class="fa-solid fa-angle-down"></i>
             </div>
             <div class="age-div">
-                <input type="text" name="age" placeholder="Age" id="" required>
+                <input type="text" name="age" placeholder="Age" id="">
             </div>
             <div class="course-div">
-                <select name="course" id="" required>
+                <select name="course" id="">
                     <option value=""> -- Choose Course -- </option>
                     <?php
                         $coursetbl = "SELECT * FROM coursetbl";
@@ -116,7 +116,7 @@ if(isset($_POST['Register'])){
                 <i class="fa-solid fa-angle-down"></i>
             </div>
             <div class="school-div">
-                <select name="school" id="" required>
+                <select name="school" id="">
                     <option value=""> -- Choose School -- </option>
                     <?php
                         $school = "SELECT * FROM school";
@@ -132,15 +132,15 @@ if(isset($_POST['Register'])){
                 <i class="fa-solid fa-angle-down"></i>
             </div>
             <div class="req-hours">
-                <input type="text" name="rhours" class="hours" placeholder="Required Hours" required>
+                <input type="text" name="rhours" class="hours" placeholder="Required Hours">
             </div>
             <label for="En-date" style="font-weight: bold;">Start Date:</label>
             <div class="s-date">
-                <input type="date" name="s-date" id="St-date" required>
+                <input type="date" name="s-date" id="St-date">
             </div>
             <label for="En-date" style="font-weight: bold;">End Date:</label>
             <div class="e-date">
-                <input type="date" name="e-date" id="En-date" required>
+                <input type="date" name="e-date" id="En-date">
             </div>
             <div class="btn-submit">
                 <input type="submit" name="Register" value="Register">

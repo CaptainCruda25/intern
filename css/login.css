@@ -1,127 +1,138 @@
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
   font-family: "Tahoma", "Trebuchet MS";
 }
-html {
-  background: url("eac-bg.jpg") no-repeat center;
-  background-size: cover;
-  
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
-/* main { 
- } */
+html {
+  background: url("../img/eac-bg.jpg") no-repeat center center fixed;
+  background-size: cover;
+  background-position: -300px;
+}
+
 section {
   padding: 20px;
 }
+
 #loginctn {
   position: relative;
-  /* display: flex;
-  justify-content: right; */ 
   padding: 50px 0 100px 0;
 }
+
 #bgctn {
   position: absolute;
   top: 0;
-  right: 70%;
-  left: 66.5%;
+  right: 0; /* Aligns to the right edge */
   bottom: 0;
-  background: #ebe7e7;
-  padding: 220px 0 100px 10px;
+  background: white; /* Adjusted for transparency */
+  padding: 200px 10px 100px 10px; /* Adjusted padding */
   min-width: 25em;
-  width: 35em;
-  max-width: 45em;
+  width: 35em; /* Fixed width, adjust as needed */
   min-height: 47.8em;
-  height: 56em;
+  height: 100vh;
   max-height: 75em;
-  border-radius: 20px 0 0 20px;
+  border-radius: 50px 0 0 50px;
+  box-shadow: -10px 0 15px rgba(0, 0, 0, 0.2); /* Shadow on the left side */
+  margin-bottom: 20px;
 }
+
 img {
-  display: flex;
-  justify-content: center;
+  display: block;
   margin: 0 auto;
   width: 100px;
   height: 100px;
   border-radius: 100px;
 }
+
 h4 {
   text-align: center;
   text-transform: uppercase;
   font-weight: bold;
   font-size: 30px;
 }
+
 img,
 h4 {
   margin-bottom: 15px;
 }
-#userctn,
-#passctn,
-#loginbtn {
+
+#form-box {
+  padding: 20px;
+  border-radius: 8px;
+  background-color: white;
   margin-bottom: 20px;
+  
 }
-#loginbtn {
-  outline: none;
-  border: 0.1em solid #000;
-  border-radius: 5px;
+
+
+#userctn,
+#passctn {
+  margin-bottom: 15px;
 }
-input[type="text"],
-input[type="password"] {
+
+input[type="text"], input[type="password"] {
+  width: 100%;
+  padding: 20px;
+  border: 1px solid #7EBA7D;
+  border-radius: 50px;
   outline: none;
-  border-top: none;
-  border-left: none;
-  border-right: none;
-  border-bottom: 2px solid black;
-  background: #ebe7e7;
-  color: black;
+  background: #7EBA7D;
+  color: rgb(255, 255, 255);
   font-size: 15px;
+  margin-bottom: 20px;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+  
+  
 }
 
 input[type="text"]:focus {
-  border-top: none;
-  border-left: none;
-  border-right: none;
-  border-bottom-color: black;
-  border-bottom: 3px solid black;
-}
-input[type="password"]:focus {
-  border-top: none;
-  border-left: none;
-  border-right: none;
-  border-bottom-color: black;
-  border-bottom: 3px solid black;
-}
-input[type="text"]:hover,
-input[type="password"]:hover {
-  border-bottom: 3px solid black;
-}
-#loginbtn:hover {
-  background: rgb(10, 210, 60);
-}
-input[type="text"]::placeholder,
-input[type="password"]::placeholder,
-input[type="submit"] {
-  color: black;
-  font-size: 17px;
-  text-transform: uppercase;
+  border-bottom: 3px solid rgb(8, 122, 22);
 }
 
-input[type="text"],
-input[type="password"],
-input[type="submit"] {
-  display: flex;
-  justify-content: center;
-  margin: 0 auto;
-  min-width: 200px;
-  width: 300px;
-  min-height: 30px;
-  height: 40px;
+input[type="password"]:focus {
+  border-bottom: 3px solid rgb(255, 255, 255);
 }
+
+input[type="text"]:hover,
+input[type="password"]:hover {
+  border-bottom: 2px solid rgb(36, 131, 7);
+}
+
+#rememberme {
+  margin-bottom: 15px;
+}
+
+#rememberme input[type="checkbox"] {
+  margin-right: 1px;
+  margin-left: 10px;
+}
+
+#loginbtn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  outline: none;
+}
+
+#loginbtn:hover {
+  background-color: #0056b3;
+}
+
 #forgot {
   text-align: center;
   text-decoration: none;
   font-size: 18px;
 }
+
 #or {
   width: 40px;
   height: 27px;
@@ -131,6 +142,7 @@ input[type="submit"] {
   top: 0;
   bottom: 0;
 }
+
 .hr {
   width: 280px;
   position: relative;
@@ -140,6 +152,7 @@ input[type="submit"] {
   margin: 0 auto;
   justify-content: center;
 }
+
 .hr::before,
 .hr::after {
   content: "";
@@ -150,20 +163,42 @@ input[type="submit"] {
   width: 45%;
   top: 45%;
 }
+
 .hr::after {
   left: 0;
 }
+
 .hr::before {
   right: 0;
 }
+
 p {
   text-align: center;
   text-decoration: none;
   font-size: 18px;
 }
+
 #registerlink:hover {
   color: red;
 }
+
 footer {
   height: 20em;
+}
+
+/* Media queries for additional responsiveness */
+@media (max-width: 768px) {
+  #bgctn {
+    min-width: 20em;
+    max-width: 90%;
+    padding: 10% 5%;
+  }
+}
+
+@media (max-width: 480px) {
+  #bgctn {
+    min-width: 15em;
+    max-width: 95%;
+    padding: 15% 7%;
+  }
 }

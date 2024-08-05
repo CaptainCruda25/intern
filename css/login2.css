@@ -1,0 +1,154 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Prevent scrolling */
+    width: 100%;
+    height: 100%;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    display: flex;
+    height: 100vh; /* Take up the full viewport height */
+    width: 100%;
+    overflow: hidden; /* Prevent scrolling */
+    position: relative; /* Positioning context for the background */
+}
+
+.background-left {
+    background: url("../img/eac-bg.jpg") no-repeat center center;
+    background-size: cover;
+    position: absolute; /* Position it absolutely within the container */
+    top: 0;
+    left: 0;
+    width: 100%; /* Cover the full width of the container */
+    height: 100%; /* Cover the full height of the container */
+    z-index: 0; /* Ensure it's behind the login form */
+    background-position: -300px;
+}
+
+
+.login-form {
+    background: #f4f4f4;
+    padding: 40px;
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 600px; /* Set a fixed width for the form */
+    box-sizing: border-box; /* Ensure padding and border are included in the width */
+    z-index: 1; /* Ensure it's above the background */
+    height: 100%; /* Ensure the login form takes up the full height */
+    margin-left: auto; /* Push the login form to the right end */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center content horizontally */
+    justify-content: center; /* Center content vertically */
+    position: relative; /* Position relative to ensure it's above the background */
+    box-shadow: -10px 0 15px rgba(0, 0, 0, 0.5); /* Shadow on the left side */
+}
+
+.login-form .logo {
+    max-width: 150px; /* Ensure the logo fits within the form */
+    height: auto; /* Maintain aspect ratio */
+    margin-bottom: 70px; /* Space between logo and content */
+    margin-top: -70px;
+}
+
+.login-form h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 24px;
+    text-align: center; /* Center the heading text */
+}
+
+.login-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    text-align: left; /* Align label text to the left */
+    width: 100%; /* Ensure labels span the full width */
+}
+
+.login-form input {
+    width: 400px;
+    padding: 20px;
+    margin-bottom: 30px;
+    border: 1px solid #7EBA7D;
+    border-radius: 50px;
+    box-sizing: border-box;
+    background-color:#7EBA7D;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.login-form input::placeholder {
+    color: #ffffff; /* Light gray color for placeholder text */
+    font-style: italic; /* Italicize the placeholder text */
+    font-size: 15px;
+}
+
+.login-form button {
+    width: 200px; /* Set fixed width for the button */
+    padding: 10px;
+    background-color: #05540a;
+    border: none;
+    border-radius: 50px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    display: block; /* Ensure the button is treated as a block element */
+    margin: 0 auto; /* Center the button horizontally */
+    margin-top: 10px;
+}
+
+.login-form button:hover {
+    background-color: #0cb728;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    .login-form {
+        width: 90%; /* Make the form width responsive */
+        padding: 20px; /* Adjust padding for smaller screens */
+    }
+
+    .login-form .logo {
+        max-width: 120px; /* Adjust logo size for smaller screens */
+        margin-bottom: 50px; /* Adjust spacing between logo and content */
+    }
+
+    .login-form h2 {
+        font-size: 20px; /* Reduce font size for smaller screens */
+    }
+
+    .login-form input {
+        padding: 15px; /* Adjust padding in input fields */
+    }
+
+    .login-form button {
+        width: 100%; /* Make the button full width on smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .login-form {
+        width: 95%; /* Increase width to utilize more space on very small screens */
+        padding: 15px; /* Further reduce padding */
+    }
+
+    .login-form .logo {
+        max-width: 100px; /* Further adjust logo size */
+        margin-bottom: 40px; /* Further adjust spacing */
+    }
+
+    .login-form h2 {
+        font-size: 18px; /* Further reduce font size */
+    }
+
+    .login-form input {
+        padding: 12px; /* Adjust padding in input fields */
+    }
+
+    .login-form button {
+        width: 100%; /* Ensure button is full width on very small screens */
+    }
+}

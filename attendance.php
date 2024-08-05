@@ -49,7 +49,7 @@ session_start();
             <table>
                 <thead>
                     <tr>
-                    <th>Name</th>
+                        <th>Name</th>
                         <th>School/University</th>
                         <th>Course</th>
                         <th>Sex</th>

@@ -1,0 +1,240 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #c1c1c1;
+    height: 100vh;
+    display: flex;
+    overflow: hidden; 
+}
+
+.container {
+    display: flex;
+    width: 100%;
+    overflow: hidden;
+}
+
+.sidebar {
+    height: 100vh;
+    width: 70px;
+    background-color: #487D47;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    transition: width 0.3s ease;
+    position: relative;
+    border-radius: 0 15px 15px 0;
+}
+
+.sidebar:hover {
+    width: 200px;
+}
+
+.logo {
+    text-align: center;
+    background-color: white;
+    padding: 10px;
+    border-radius: 1% 40% 45% 50%;
+}
+
+.logo img {
+    max-width: 80%;
+    max-height: 70px;
+    transition: max-height 0.3s ease;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.sidebar ul li {
+    width: 100%;
+}
+
+.sidebar a {
+    margin-top: 60px;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-size: 20px;
+    color: white;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: background-color 0.3s ease;
+}
+
+
+.sidebar a:hover {
+    background-color: #dbdbdb;
+    border-radius: 10px;
+}
+
+.sidebar a i {
+    min-width: 30px;
+    text-align: center;
+}
+
+.sidebar a span {
+    display: none;
+}
+
+.sidebar:hover a span {
+    display: inline;
+}
+
+.sidebar:hover .logo img {
+    max-height: 100%;
+}
+
+.logout-container {
+    margin-top: auto; /* Pushes logout button to the bottom of the sidebar */
+    margin-bottom: 20px; /* Space between the logout button and the bottom */
+    display: flex;
+    justify-content: center;
+}
+
+.Btn {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 45px;
+    height: 45px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition-duration: .3s;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
+    background-color: rgba(38, 118, 67, 1);
+    margin: 0 15px; /* Adjust margin to control spacing */
+}
+
+.Btn .sign {
+    width: 100%;
+    transition-duration: .3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.Btn .sign svg {
+    width: 17px;
+}
+
+.Btn .sign svg path {
+    fill: white;
+}
+
+.Btn .text {
+    position: absolute;
+    right: 0%;
+    width: 0%;
+    opacity: 0;
+    color: white;
+    font-size: 1.2em;
+    font-weight: 600;
+    transition-duration: .3s;
+}
+
+.sidebar:hover .Btn,
+.Btn:hover {
+    width: 125px;
+    border-radius: 50px;
+}
+
+.sidebar:hover .Btn .text,
+.Btn:hover .text {
+    width: 70%;
+    opacity: 1;
+    padding-right: 10px;
+}
+
+.sidebar:hover .Btn .sign,
+.Btn:hover .sign {
+    width: 30%;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.main-content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto; /* Enable scrolling within the main content area */
+    overflow-x: hidden; /* Hide horizontal overflow */
+}
+
+.main-content header {
+    margin-bottom: 20px;
+}
+
+.analytics-cards {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.card {
+    flex: 1;
+    margin: 0 10px;
+    padding: 20px;
+    border-radius: 40px;
+    color: white;
+    text-align: center;
+}
+
+.card.green {
+    background: rgb(38,118,67);
+    background: linear-gradient(90deg, rgba(38,118,67,1) 0%, rgba(71,220,125,1) 85%);
+}
+
+.card.red {
+    background: rgb(177,41,37);
+    background: linear-gradient(90deg, rgba(177,41,37,1) 0%, rgba(223,84,80,1) 85%);
+}
+
+.card.blue {
+    background: rgb(51,84,109);
+    background: linear-gradient(90deg, rgba(51,84,109,1) 0%, rgba(99,164,211,1) 85%);
+}
+
+.card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card-content i {
+    font-size: 50px;
+    margin-bottom: 10px;
+}
+
+.progress-circle {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.progress {
+    font-size: 24px;
+    color: black;
+}
+
+.chart-container {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+}

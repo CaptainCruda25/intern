@@ -77,18 +77,33 @@ session_start();
             <div>
                 <select id="sex" name="sex" required>
                     <option value="" disabled selected>Sex</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
+                    <option value="M">Male</option>
+                    <option value="F">Female</option>
                 </select>
             </div>
             <div>
                 <input type="number" id="age" name="age" placeholder="Age" required>
             </div>
             <div>
+                <?php
+                    $fetching = "SELECT * FROM coursetbl";
+                    $fetchquery = mysqli_query($conn, $fetching);
+                    
+                ?>
                 <select id="course" name="course" required>
                     <option value="" disabled selected>Course</option>
-                    <option value="IT">IT</option>
-                    <option value="Computer Science">Computer Science</option>
+                    <?php
+                        while($row = mysqli_fetch_assoc($fetchquery)){
+                            $courseid = $row['courseid'];
+                            $course = $row['course'];
+
+                    ?>
+                            <option value="<?php $courseid ?>"><?php echo $course;?></option>        
+                    <?php
+                        }
+
+
+                    ?>
                     <!-- Add more options as needed -->
                 </select>
             </div>
@@ -101,7 +116,26 @@ session_start();
                 <input type="date" id="endDate" name="endDate" required>
             </div>
             <div>
-                <input type="text" id="school" name="school" placeholder="School" required>
+                <?php
+                    $fetch = "SELECT * FROM school;";
+                    $query = mysqli_query($conn, $fetch);
+
+                    
+
+                ?>
+                <select id="course" name="course" required>
+                    <option value="" disabled selected>School Name</option>
+                    <?php
+                    while($row = mysqli_fetch_assoc($query)){
+                        $Sid = $row['id'];
+                        $school = $row['schoolname'];
+                    ?>    
+                        <option value="<?php $Sid; ?>"><?php echo $school;?></option>
+                    <?php
+                    }
+                    ?>
+                    <!-- Add more options as needed -->
+                </select>
             </div>
             <div style="flex: 1 1 100%;">
                 <button type="submit">Add Intern</button>
@@ -146,8 +180,8 @@ window.onclick = function(event) {
                         <th>School
                             /University</th>
                         <th>Course</th>
-                        <th>IN</th>
-                        <th>OUT</th>
+                        <th>Sex</th>
+                        <th>Age</th>
                         <th>Started Date</th>
                         <th>End Date</th>
                         <th>Hours Required</th>

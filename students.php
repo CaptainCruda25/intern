@@ -24,26 +24,27 @@ session_start();
 </head>
 <body>
     <div class="container">
-    <nav class="sidebar">
-    <ul>
-        <div class="logo">
-            <img src="img/logo-icon.png" alt="EACMed Logo">
-        </div>
-        <li><a href="dashboard.php"><i class="fas fa-home"></i> <span>Home</span></a></li>
-        <li><a href="students.php"><i class="fas fa-users"></i> <span>Interns</span></a></li>
-        <li><a href="attendance.php"><i class="fas fa-chart-line"></i> <span>Attendance</span></a></li>
-    </ul>
-    <div class="logout-container">
-        <button class="Btn">
-            <div class="sign">
-                <svg viewBox="0 0 512 512">
-                    <path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"></path>
-                </svg>
+        <nav class="sidebar">
+            <ul>
+                <li class="logo-container">
+                    <img src="img/logo-icon.png" class="logo" alt="EACMed Logo">
+                </li>
+                <li><a href="dashboard.php"><i class="fas fa-home"></i> <span>Home</span></a></li>
+                <li><a href="students.php"><i class="fas fa-users"></i> <span>Interns</span></a></li>
+                <li><a href="attendance.php"><i class="fas fa-chart-line"></i> <span>Attendance</span></a></li>
+            </ul>
+            <div class="logout-container">
+                <button class="Btn">
+                    <div class="sign">
+                        <svg viewBox="0 0 512 512">
+                            <path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"></path>
+                        </svg>
+                    </div>
+                    <div class="text">Logout</div>
+                </button>
             </div>
-            <div class="text">Logout</div>
-        </button>
-    </div>
-</nav>
+        </nav>
+
 
 
         <main class="main-content">
@@ -96,7 +97,6 @@ session_start();
                         while($row = mysqli_fetch_assoc($fetchquery)){
                             $courseid = $row['courseid'];
                             $course = $row['course'];
-
                     ?>
                             <option value="<?php $courseid ?>"><?php echo $course;?></option>        
                     <?php
@@ -117,7 +117,7 @@ session_start();
             </div>
             <div>
                 <?php
-                    $fetch = "SELECT * FROM school;";
+                    $fetch = "SELECT * FROM school ORDER BY schoolname;";
                     $query = mysqli_query($conn, $fetch);
 
                     
@@ -176,6 +176,7 @@ window.onclick = function(event) {
             <table>
                 <thead>
                     <tr>
+                        <th>ID</th>
                         <th>Name</th>
                         <th>School
                             /University</th>
@@ -201,6 +202,7 @@ window.onclick = function(event) {
 
                             if($exist > 0){
                                 while($row = mysqli_fetch_assoc($searchquery)){
+                                    $id = $row['studid'];
                                     $fname  = $row['fname'];
                                     $mname  = $row['mname'];
                                     $lname  = $row['lname'];
@@ -214,6 +216,7 @@ window.onclick = function(event) {
 
                                     
                                     echo "<tr class='highlight'>";
+                                    echo "<td>" .$id. "</td>";
                                     echo "<td>" .$lname. "," .$fname. " " .$mname. "</td>";
                                     echo "<td>" .$schoolname. "</td>";
                                     echo "<td>" .$course. "</td>";
@@ -236,6 +239,7 @@ window.onclick = function(event) {
                             $query = mysqli_query($conn, $sql);
 
                             while($row = mysqli_fetch_assoc($query)){
+                                $id = $row['studid'];
                                 $fname  = $row['fname'];
                                 $mname  = $row['mname'];
                                 $lname  = $row['lname'];
@@ -248,6 +252,7 @@ window.onclick = function(event) {
                                 $hours = $row['hrequired'];
 
                                 echo "<tr class='highlight'>";
+                                echo "<td>" .$id. "</td>";
                                 echo "<td>" .$lname. "," .$fname. " " .$mname. "</td>";
                                 echo "<td>" .$school. "</td>";
                                 echo "<td>" .$course."</td>";

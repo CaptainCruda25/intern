@@ -53,8 +53,7 @@ session_start();
                         <th>School/University</th>
                         <th>Course</th>
                         <th>Sex</th>
-                        <th>IN</th>
-                        <th>OUT</th>
+                        <th colspan="2">ACTION</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -91,10 +90,11 @@ session_start();
                             }
                         }
                         else {
-                            $sql = "SELECT * FROM studentinfo INNER JOIN school ON studentinfo.schoolid = school.id INNER JOIN coursetbl ON coursetbl.courseid = studentinfo.courseid INNER JOIN datestart ON datestart.dateid = coursetbl.courseid INNER JOIN dateend ON dateend.end_id = school.id INNER JOIN hoursreq ON hoursreq.hreq_id = studentinfo.id;";
+                            $sql = "SELECT * FROM studentinfo INNER JOIN school ON studentinfo.schoolid = school.id INNER JOIN coursetbl ON coursetbl.courseid = studentinfo.courseid;";
                             $query = mysqli_query($conn, $sql);
 
                             while($row = mysqli_fetch_assoc($query)){
+                                $id = $row['studid'];
                                 $fname  = $row['fname'];
                                 $mname  = $row['mname'];
                                 $lname  = $row['lname'];
@@ -102,16 +102,12 @@ session_start();
                                 $sex = $row['sex'];
                                 $age = $row['age'];
                                 $school = $row['schoolname'];
-                                $start = $row['datestart'];
-                                $end = $row['endate'];
-                                $hours = $row['hreq'];
-
                                 echo "<tr class='highlight'>";
                                 echo "<td>" .$lname. "," .$fname. " " .$mname. "</td>";
                                 echo "<td>" .$school. "</td>";
                                 echo "<td>" .$course."</td>";
                                 echo "<td>" .$sex. "</td>";
-                                echo "<td></td>";
+                                echo "<td><a href=view.php?rowid='".$id."'><button>IN</button></a></td>";
                                 // echo "<td>" .$start. "</td>";
                                 // echo "<td>" .$end. "</td>";
                                 // echo "<td>" .$hours. " hours</td>";

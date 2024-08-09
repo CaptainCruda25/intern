@@ -291,7 +291,7 @@ session_start();
                 window.location.assign('logout.php');
             }
             else {
-                window.location.assign('dashboard.php');
+                window.location.assign('students.php');
             }
         }
 

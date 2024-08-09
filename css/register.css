@@ -1,12 +1,7 @@
-html {
-    background: url("../img/lobby.jpg") no-repeat center center fixed;
-    background-size: cover;
-    background-position: 280px;
-}
-
 body {
-    font-family: "Tahoma", "Trebuchet MS";
+    font-family: Arial, sans-serif;
     margin: auto;
+    background-color: green;
 }
 
 .main-container {
@@ -17,26 +12,13 @@ body {
     display: flex;
     flex-direction: column;
     padding-left: 50px;
-    padding-right: 40px;
+    padding-right: 50px;
     width: 500px;
     height: 100vh;
 }
 
-form, select {
-    padding-right: 0px;
-    margin-right: 0px;
-}
-
-.logo {
-    max-width: 150px;
-    height: auto;
-    margin-top: 25px;
-    display: flex;
-    margin: 0 auto;
-}
-
 .main-container h2 {
-    margin-top: 40px;
+    margin-top: 70px;
     font-size: 30px;
     text-align: center;
 }
@@ -53,8 +35,10 @@ input, select, input[type="date"] {
     border: none;
     border-radius: 13px;
 
-    margin-bottom: 13px;
+    margin-bottom: 15px;
     align-items: center;
+    align-content: center;
+    justify-content: center;
 }
 
 input::placeholder, select, input[type="date"] {
@@ -64,6 +48,8 @@ input::placeholder, select, input[type="date"] {
 
 select {
     padding-left: 8px;
+    padding-right: 8px;
+
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -71,9 +57,9 @@ select {
 }
 
 input[type="date"] {
-    /* padding-left: 9px; */
+    padding-left: 9px;
     color: white;
-    /* padding-right: 14px; */
+    padding-right: 14px;
 }
 
 select option {
@@ -114,8 +100,7 @@ input[type="submit"] {
     color: white;
     height: 40px;
     font-weight: bold;
-    margin-top: 10px;
-    box-shadow: none;
+    margin-top: 20px;
 }
 
 input[type="submit"]:hover {

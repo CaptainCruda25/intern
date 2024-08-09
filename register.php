@@ -145,7 +145,6 @@ if(isset($_POST['Register'])){
             <div class="btn-submit">
                 <input type="submit" name="Register" value="Register">
             </div>
-            <img src="img/EACMed Complete.png" alt="Logo" class="logo">
         </form>
     </div>
 </body>

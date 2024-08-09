@@ -11,14 +11,7 @@ const quotes = [
     "The harder you work for something, the greater you’ll feel when you achieve it. - Unknown",
     "Dream bigger. Do bigger. - Unknown",
     "Push yourself, because no one else is going to do it for you. - Unknown", 
-    "From Trece to Salitran Dasma, 37 Pesos - Carl Emmanuel Cruda",
-    "Bawal sabay-sabay, pwede sunod-sunod.",
-    "Sa relasyon ni boss mackoi sya ang boss, si mam trish ang batas.",
-    "4 Pillars of IT Dept: Peace, Love, Unity, and Respect.",
-    "Preno",
-    "Damay civilian",
-    "Ang batang magaling, may tae sa kamay. - Sir Mackoi",
-    "Ang batang gipit, sa accounting kumakapit."
+    "From Trece to Salitran Dasma, 37 Pesos - Carl Emmanuel Cruda"
 ];
 
 let currentIndex = 0;

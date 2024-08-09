@@ -2,11 +2,16 @@ body {
     font-family: "Tahoma", "Trebuchet MS";
     margin: 0;
     padding: 0;
-    background-color: #b9b9b9;
+    background-color: #a1a1a1; 
+/*     background-color: #b9b9b9; */
     height: 100vh;
     display: flex;
     overflow: hidden; 
+    color: #444;
+    font: 100%/30px 'Helvetica Neue', helvetica, arial, sans-serif;
+    text-shadow: 0 1px 0 #fff;
 }
+
 
 .container {
     display: flex;
@@ -300,39 +305,82 @@ header h1 {
 }
 
 
+/* General table styling */
 table {
+    text-align: left;
+    box-shadow: inset 0 1px 0 #fff;
+    font-size: 15px;
+    line-height: 24px;
     width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    table-layout: fixed;
 }
 
-table, th, td {
-    border: 1px solid #ddd;
-}
-
-th, td {
-    padding: 15px;
+/* Styling for table headers */
+th {
+    background: url(https://jackrugile.com/images/misc/noise-diagonal.png), linear-gradient(#e31b30, #f53e48);
+    padding: 15px 25px;
+    position: relative;
+    text-shadow: 0 1px 0 #000;
+    color: #ffffff; /* Change text color of <th> to white */
     text-align: center;
-    
 }
 
-tbody tr:hover {
-    background-color: #f1f1f1;
+/* Header-specific pseudo-element */
+th:after {
+    background: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,.08));
+    content: '';
+    height: 25%;
+    left: 0;
+    margin: 1px 0 0 0;
+    top: 25%;
+    width: 100%;
 }
 
-tbody tr td a {
-    color: #3498db;
-    text-decoration: none;
+/* Border and shadow for the first header cell */
+th:first-child {
+    border-top-left-radius: 15px;
 }
 
-tbody tr td a:hover {
-    text-decoration: underline;
+/* Border and shadow for the last header cell */
+th:last-child {
+    border-top-right-radius: 15px;
 }
 
-.highlight {
-    background-color: #f8d7da;
+/* Styling for table cells */
+td {
+    border-right: 1px solid #fff;
+    border-left: 1px solid #e8e8e8;
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #e8e8e8;
+    padding: 15px 20px;
+    position: relative;
+    background-color: #ebebeb; 
+    transition: all 300ms;
 }
+
+/* Border and shadow for the first cell in each row */
+td:first-child {
+    box-shadow: inset 1px 0 0 #fff;
+}
+
+/* Border and shadow for the last cell in each row */
+td:last-child {
+    border-right: 1px solid #e8e8e8;
+    box-shadow: inset -1px 0 0 #fff;
+}
+
+/* Hover effects for table rows */
+tbody:hover td {
+    color: transparent;
+    text-shadow: 0 0 3px #888; /* Gray blur effect */
+}
+
+/* Hover effects for individual cells in hovered rows */
+tbody:hover tr:hover td {
+    color: #444;
+    text-shadow: 0 1px 0 #ccc; /* Light gray shadow effect */
+}
+
+
 
 .login-btn {
     position: absolute;
@@ -377,13 +425,14 @@ tbody tr td a:hover {
     height: 100%; /* Full height */
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
     overflow: hidden; /* Disable scrolling */
+    text-align: center;
 }
 
 /* Modal Content/Box */
 .modal-content {
     background-color: #fefefe;
     margin: 1% auto; /* 5% from the top and centered */
-    padding: 20px;
+    padding: 40px;
     border: 1px solid #888;
     width: 80%; /* Could be more or less, depending on screen size */
     max-width: 800px;
@@ -471,5 +520,46 @@ tbody tr td a:hover {
     #addInternForm > div {
         flex: 1 1 100%; /* Stack input fields on small screens */
     }
+}
+/* Style for custom file upload label */
+/* Container for file upload and label */
+.file-upload-container {
+    display: flex;
+    align-items: center; /* Align items vertically */
+    gap: 15px; /* Space between the file upload button and the label */
+}
+
+/* Style for custom file upload label */
+.custom-file-upload {
+    display: inline-block;
+    padding: 7px 97px; /* Added more horizontal padding */
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+    text-align: center;
+    background-color: #f9f9f9; /* Light background color */
+    color: #444; /* Text color */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.custom-file-upload:hover {
+    background-color: #fff; /* White background on hover */
+    color: #444; /* Black text color on hover */
+    border-color: #444; /* Black border color on hover */
+}
+
+/* Style for the profile picture label */
+.file-upload-label {
+    font-size: 14px;
+    color: #444;
+    margin: 0; /* Remove default margin */
+}
+
+/* Adjust text color for custom file upload */
+.custom-file-upload span {
+    display: inline-block;
+    vertical-align: middle;
 }
 

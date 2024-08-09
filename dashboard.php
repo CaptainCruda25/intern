@@ -23,7 +23,7 @@
                 </div>
                 <li><a href="dashboard.php"><i class="fas fa-home"></i> <span>Home</span></a></li>
                 <li><a href="students.php"><i class="fas fa-users"></i> <span>Interns</span></a></li>
-                <li><a href="attendance.php"><i class="fas fa-chart-line"></i> <span>Attendance</span></a></li>
+                <li><a href="attendance.php"><i class="fas fa-chart-line"></i> <span>Analytics</span></a></li>
             </ul>
             <div class="logout-container">
                 <button class="Btn" onclick="logout()">
@@ -36,7 +36,8 @@
                 </button>
             </div>
         </nav>
-        <main class="main-content">
+
+<!--         <main class="main-content">
             <header>
                 <h1>Intern Analytics</h1>
             </header>
@@ -46,12 +47,12 @@
                     <div class="card-content">
                         <i class="fas fa-users"></i>
                     <?php 
-                        $sql = "SELECT *FROM studentinfo; ";
-                        $query = mysqli_query($conn, $sql);
-                        $rows = mysqli_num_rows($query);
+//                         $sql = "SELECT *FROM studentinfo; ";
+//                         $query = mysqli_query($conn, $sql);
+//                         $rows = mysqli_num_rows($query);
 
                     ?>
-                        <p><?php echo $rows; ?></p>
+//                         <p><?php echo $rows; ?></p>
                     </div>
                 </div>
                 <div class="card red">
@@ -105,7 +106,7 @@
                 }
             }
         });
-
+ -->
 
 
 

@@ -47,7 +47,7 @@ session_start();
 
 
 
-        <main class="main-content">
+        <div class="main-content">
             <header>
                 <h1>Intern Records</h1>
                 <button type="button" class="button" id="openModal">
@@ -61,11 +61,11 @@ session_start();
                 </button>
             </header>
                 <!-- Modal -->
-<div id="addInternModal" class="modal">
+                <div id="addInternModal" class="modal">
     <div class="modal-content">
         <span class="close">&times;</span>
         <h2>Add Intern</h2>
-        <form id="addInternForm">
+        <form id="addInternForm" enctype="multipart/form-data"> <!-- Add enctype attribute for file uploads -->
             <div>
                 <input type="text" id="firstName" name="firstName" placeholder="First Name" required>
             </div>
@@ -137,33 +137,56 @@ session_start();
                     <!-- Add more options as needed -->
                 </select>
             </div>
+            <!-- New file input for picture -->
+            <div class="file-upload-container">
+            <label for="fileUpload" class="file-upload-label">Profile Picture</label>
+    <label for="fileUpload" class="custom-file-upload">
+        <span>Choose File</span>
+    </label>
+    <input type="file" id="fileUpload" name="fileUpload" style="display: none;" />
+    
+</div>
             <div style="flex: 1 1 100%;">
                 <button type="submit">Add Intern</button>
             </div>
         </form>
     </div>
-
 </div>
 
+
 <script>
-var modal = document.getElementById("addInternModal");
-var btn = document.getElementById("openModal");
-var span = document.getElementsByClassName("close")[0];
+            var modal = document.getElementById("addInternModal");
+            var btn = document.getElementById("openModal");
+            var span = document.getElementsByClassName("close")[0];
 
-btn.onclick = function() {
-    modal.style.display = "block";
-}
+            btn.onclick = function() {
+                modal.style.display = "block";
+            }
 
-span.onclick = function() {
-    modal.style.display = "none";
-}
+            span.onclick = function() {
+                modal.style.display = "none";
+            }
 
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
-</script>
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+
+            // Add double-click event listener to table rows
+            document.addEventListener('DOMContentLoaded', function() {
+                var tableRows = document.querySelectorAll('table tbody tr');
+
+                tableRows.forEach(function(row) {
+                    row.addEventListener('dblclick', function() {
+                        // Get intern details from the row (e.g., intern ID)
+                        var internId = this.getAttribute('data-intern-id');
+                        // Redirect to the intern's detail page
+                        window.location.href = 'internInfo.php'
+                    });
+                });
+            });
+            </script>
 
             <div class="search-bar-container">
                 <div class="search-bar">
@@ -176,7 +199,91 @@ window.onclick = function(event) {
                 </form>
             </div>
 
+            <div class="table-container">
             <table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>School / University</th>
+            <th>Course</th>
+            <th>Started Date</th>
+            <th>End Date</th>
+            <th>Hours Required</th>
+            <th>Overall Remaining Hours</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+            if(isset($_POST['btn'])){
+                $search = $_POST['search'];
+
+                $find = "SELECT * FROM studentinfo INNER JOIN school ON studentinfo.id = school.id INNER JOIN coursetbl ON coursetbl.courseid = studentinfo.courseid WHERE fname LIKE '%$search%' OR mname LIKE '%$search%' OR lname LIKE '%$search%' OR age LIKE '%$search%' OR sex LIKE '%$search%' OR hrequired LIKE '%$search%' OR startdate LIKE '%$search%' OR end_date LIKE '%$search%' OR schoolname LIKE '%$search%' OR course LIKE '%$search%';";
+                $searchquery = mysqli_query($conn, $find);
+                $exist = mysqli_num_rows($searchquery);
+
+                if($exist > 0){
+                    while($row = mysqli_fetch_assoc($searchquery)){
+                        $fname  = $row['fname'];
+                        $mname  = $row['mname'];
+                        $lname  = $row['lname'];
+                        $course = $row['course'];
+                        $sex = $row['sex'];
+                        $age = $row['age'];
+                        $schoolname = $row['schoolname'];
+                        $hours = $row['hrequired'];
+                        $start = $row['startdate'];
+                        $end = $row['end_date'];
+
+                        echo "<tr class='highlight'>";
+                        echo "<td>" .$lname. "," .$fname. " " .$mname. "</td>";
+                        echo "<td>" .$schoolname. "</td>";
+                        echo "<td>" .$course. "</td>";
+                        echo "<td>" .$start. "</td>";
+                        echo "<td>" .$end. "</td>";
+                        echo "<td>" .$hours. " hours</td>";
+                        echo "<td></td>"; // Adjust this for remaining hours
+                        echo "<td></td>"; // Adjust this for status
+                        echo "</tr>";
+                    }
+                }
+                else {
+                    echo "<tr><td colspan='8' style='text-align:center'> No Data Found ..... </td></tr>";
+                }
+            }
+            else {
+                $sql = "SELECT * FROM studentinfo INNER JOIN school ON studentinfo.schoolid = school.id INNER JOIN coursetbl ON coursetbl.courseid = studentinfo.courseid;";
+                $query = mysqli_query($conn, $sql);
+
+                while($row = mysqli_fetch_assoc($query)){
+                    $fname  = $row['fname'];
+                    $mname  = $row['mname'];
+                    $lname  = $row['lname'];
+                    $course = $row['course'];
+                    $sex = $row['sex'];
+                    $age = $row['age'];
+                    $school = $row['schoolname'];
+                    $start = $row['startdate'];
+                    $end = $row['end_date'];
+                    $hours = $row['hrequired'];
+
+                    echo "<tr class='highlight'>";
+                    echo "<td>" .$lname. "," .$fname. " " .$mname. "</td>";
+                    echo "<td>" .$school. "</td>";
+                    echo "<td>" .$course."</td>";
+                    echo "<td>" .$start. "</td>";
+                    echo "<td>" .$end. "</td>";
+                    echo "<td>" .$hours. " hours</td>";
+                    echo "<td></td>"; // Adjust this for remaining hours
+                    echo "<td></td>"; // Adjust this for status
+                    echo "</tr>";
+                }
+            }
+        ?>
+    </tbody>
+</table>
+
+<!--
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -195,84 +302,85 @@ window.onclick = function(event) {
                 </thead>
                
                     <?php
-                        if(isset($_POST['btn'])){
-                            $search = $_POST['search'];
+//                         if(isset($_POST['btn'])){
+//                             $search = $_POST['search'];
 
-                            // // $find = "SELECT * FROM studentinfo WHERE id LIKE '%$search%' OR fname LIKE '%$search%' OR mname LIKE '%$search%' OR lname LIKE '%$search%' OR age LIKE '%$search%' OR sex LIKE '%$search%' OR course LIKE '%$search%' OR school LIKE '%$search%';";
-                            $find = "SELECT * FROM studentinfo INNER JOIN school ON studentinfo.schoolid = school.id INNER JOIN coursetbl ON coursetbl.courseid = studentinfo.courseid WHERE fname LIKE '%$search%' OR mname LIKE '%$search%' OR lname LIKE '%$search%' OR age LIKE '%$search%' OR sex LIKE '%$search%' OR hrequired LIKE '%$search%' OR startdate LIKE '%$search%' OR end_date LIKE '%$search%' OR schoolname LIKE '%$search%' OR course LIKE '%$search%' OR status LIKE '%$search%' ORDER BY studid DESC;";
-                            $searchquery = mysqli_query($conn, $find);
-                            $exist = mysqli_num_rows($searchquery);
+//                             // // $find = "SELECT * FROM studentinfo WHERE id LIKE '%$search%' OR fname LIKE '%$search%' OR mname LIKE '%$search%' OR lname LIKE '%$search%' OR age LIKE '%$search%' OR sex LIKE '%$search%' OR course LIKE '%$search%' OR school LIKE '%$search%';";
+//                             $find = "SELECT * FROM studentinfo INNER JOIN school ON studentinfo.schoolid = school.id INNER JOIN coursetbl ON coursetbl.courseid = studentinfo.courseid WHERE fname LIKE '%$search%' OR mname LIKE '%$search%' OR lname LIKE '%$search%' OR age LIKE '%$search%' OR sex LIKE '%$search%' OR hrequired LIKE '%$search%' OR startdate LIKE '%$search%' OR end_date LIKE '%$search%' OR schoolname LIKE '%$search%' OR course LIKE '%$search%' OR status LIKE '%$search%' ORDER BY studid DESC;";
+//                             $searchquery = mysqli_query($conn, $find);
+//                             $exist = mysqli_num_rows($searchquery);
 
-                            if($exist > 0){
-                                while($row = mysqli_fetch_assoc($searchquery)){
-                                    $id = $row['studid'];
-                                    $fname  = $row['fname'];
-                                    $mname  = $row['mname'];
-                                    $lname  = $row['lname'];
-                                    $course = $row['course'];
-                                    $sex = $row['sex'];
-                                    $age = $row['age'];
-                                    $schoolname = $row['schoolname'];
-                                    $hours = $row['hrequired'];
-                                    $start = $row['startdate'];
-                                    $end = $row['end_date'];
-                                    $status = $row['status'];
+//                             if($exist > 0){
+//                                 while($row = mysqli_fetch_assoc($searchquery)){
+//                                     $id = $row['studid'];
+//                                     $fname  = $row['fname'];
+//                                     $mname  = $row['mname'];
+//                                     $lname  = $row['lname'];
+//                                     $course = $row['course'];
+//                                     $sex = $row['sex'];
+//                                     $age = $row['age'];
+//                                     $schoolname = $row['schoolname'];
+//                                     $hours = $row['hrequired'];
+//                                     $start = $row['startdate'];
+//                                     $end = $row['end_date'];
+//                                     $status = $row['status'];
                                     
-                                    echo "<tr class='highlight'>";
-                                    echo "<td>" .$id. "</td>";
-                                    echo "<td>" .$lname. "," .$fname. " " .$mname. "</td>";
-                                    echo "<td>" .$schoolname. "</td>";
-                                    echo "<td>" .$course. "</td>";
-                                    echo "<td>" .$sex. "</td>";
-                                    echo "<td>" .$age. "</td>";
-                                    echo "<td>" .$start."</td>";
-                                    echo "<td>" .$end. "</td>";
-                                    echo "<td>" .$hours. "</td>";
-                                    echo "<td></td>";
-                                    echo "<td>" .$status."</td>";
-                                    echo "</tr>";
-                                }
-                            }
-                            else {
-                                echo "<td colspan='9' style='text-align:center'> No Data Found ..... </td>";
-                            }
-                        }
-                        else {
-                            $sql = "SELECT * FROM studentinfo INNER JOIN school ON studentinfo.schoolid = school.id INNER JOIN coursetbl ON coursetbl.courseid = studentinfo.courseid ORDER BY studid DESC;";
-                            $query = mysqli_query($conn, $sql);
+//                                     echo "<tr class='highlight'>";
+//                                     echo "<td>" .$id. "</td>";
+//                                     echo "<td>" .$lname. "," .$fname. " " .$mname. "</td>";
+//                                     echo "<td>" .$schoolname. "</td>";
+//                                     echo "<td>" .$course. "</td>";
+//                                     echo "<td>" .$sex. "</td>";
+//                                     echo "<td>" .$age. "</td>";
+//                                     echo "<td>" .$start."</td>";
+//                                     echo "<td>" .$end. "</td>";
+//                                     echo "<td>" .$hours. "</td>";
+//                                     echo "<td></td>";
+//                                     echo "<td>" .$status."</td>";
+//                                     echo "</tr>";
+//                                 }
+//                             }
+//                             else {
+//                                 echo "<td colspan='9' style='text-align:center'> No Data Found ..... </td>";
+//                             }
+//                         }
+//                         else {
+//                             $sql = "SELECT * FROM studentinfo INNER JOIN school ON studentinfo.schoolid = school.id INNER JOIN coursetbl ON coursetbl.courseid = studentinfo.courseid ORDER BY studid DESC;";
+//                             $query = mysqli_query($conn, $sql);
 
-                            while($row = mysqli_fetch_assoc($query)){
-                                $id = $row['studid'];
-                                $fname  = $row['fname'];
-                                $mname  = $row['mname'];
-                                $lname  = $row['lname'];
-                                $course = $row['course'];
-                                $sex = $row['sex'];
-                                $age = $row['age'];
-                                $school = $row['schoolname'];
-                                $start = $row['startdate'];
-                                $end = $row['end_date'];
-                                $hours = $row['hrequired'];
-                                $status = $row['status'];
+//                             while($row = mysqli_fetch_assoc($query)){
+//                                 $id = $row['studid'];
+//                                 $fname  = $row['fname'];
+//                                 $mname  = $row['mname'];
+//                                 $lname  = $row['lname'];
+//                                 $course = $row['course'];
+//                                 $sex = $row['sex'];
+//                                 $age = $row['age'];
+//                                 $school = $row['schoolname'];
+//                                 $start = $row['startdate'];
+//                                 $end = $row['end_date'];
+//                                 $hours = $row['hrequired'];
+//                                 $status = $row['status'];
 
-                                echo "<tr class='highlight'>";
-                                echo "<td>" .$id. "</td>";
-                                echo "<td>" .$lname. "," .$fname. " " .$mname. "</td>";
-                                echo "<td>" .$school. "</td>";
-                                echo "<td>" .$course."</td>";
-                                echo "<td>" .$sex. "</td>";
-                                echo "<td>" .$age. "</td>";
-                                echo "<td>" .$start. "</td>";
-                                echo "<td>" .$end. "</td>";
-                                echo "<td>" .$hours. " hours</td>";
-                                echo "<td></td>";
-                                echo "<td>" .$status. "</td>";
-                                echo "</tr>";
-                            }
-                        }
+//                                 echo "<tr class='highlight'>";
+//                                 echo "<td>" .$id. "</td>";
+//                                 echo "<td>" .$lname. "," .$fname. " " .$mname. "</td>";
+//                                 echo "<td>" .$school. "</td>";
+//                                 echo "<td>" .$course."</td>";
+//                                 echo "<td>" .$sex. "</td>";
+//                                 echo "<td>" .$age. "</td>";
+//                                 echo "<td>" .$start. "</td>";
+//                                 echo "<td>" .$end. "</td>";
+//                                 echo "<td>" .$hours. " hours</td>";
+//                                 echo "<td></td>";
+//                                 echo "<td>" .$status. "</td>";
+//                                 echo "</tr>";
+//                             }
+//                         }
                     ?>
                 </tbody>
             </table>
+ -->
         </main>
     </div>
 

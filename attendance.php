@@ -1,3 +1,10 @@
+<?php
+
+ require 'server.php';
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
@@ -39,7 +46,13 @@
                     <h2>Students</h2>
                     <div class="card-content">
                         <i class="fas fa-users"></i>
-                        <p>105</p>
+                        <?php 
+                        $sql = "SELECT * FROM studentinfo; ";
+                        $query = mysqli_query($conn, $sql);
+                        $rows = mysqli_num_rows($query);
+
+                        ?>
+                        <p><?php echo $rows; ?></p>
                     </div>
                 </div>
                 <div class="card red">

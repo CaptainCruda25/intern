@@ -17,7 +17,7 @@
                 </div>
                 <li><a href="dashboard.php"><i class="fas fa-home"></i> <span>Home</span></a></li>
                 <li><a href="students.php"><i class="fas fa-users"></i> <span>Interns</span></a></li>
-                <li><a href="attendance.php"><i class="fas fa-chart-line"></i> <span>Attendance</span></a></li>
+                <li><a href="attendance.php"><i class="fas fa-chart-line"></i> <span>Analytics</span></a></li>
             </ul>
             <div class="logout-container">
                 <button class="Btn">
@@ -30,69 +30,7 @@
                 </button>
             </div>
         </nav>
-        <main class="main-content">
-            <header>
-                <h1>Intern Analytics</h1>
-            </header>
-            <div class="analytics-cards">
-                <div class="card green">
-                    <h2>Students</h2>
-                    <div class="card-content">
-                        <i class="fas fa-users"></i>
-                        <p>105</p>
-                    </div>
-                </div>
-                <div class="card red">
-                    <h2>Complete</h2>
-                    <div class="card-content">
-                        <div class="progress-circle">
-                            <div class="progress">76%</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card blue">
-                    <h2>Ongoing</h2>
-                    <div class="card-content">
-                        <div class="progress-circle">
-                            <div class="progress">24%</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="chart-container">
-                <canvas id="myChart"></canvas>
-            </div>
-        </main>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        var ctx = document.getElementById('myChart').getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
-                datasets: [{
-                    label: 'Dataset 1',
-                    data: [250, 150, 300, 500, 400, 600, 350, 550, 200, 450],
-                    borderColor: 'blue',
-                    fill: false
-                }, {
-                    label: 'Dataset 2',
-                    data: [150, 200, 250, 400, 300, 500, 450, 400, 350, 600],
-                    borderColor: 'green',
-                    fill: false
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-    </script>
+      
+          
 </body>
 </html>

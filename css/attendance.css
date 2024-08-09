@@ -165,3 +165,76 @@ body {
     background-color: rgba(0, 0, 0, 0);
 }
 
+.main-content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto; /* Enable scrolling within the main content area */
+    overflow-x: hidden; /* Hide horizontal overflow */
+}
+
+.main-content header {
+    margin-bottom: 20px;
+}
+
+.analytics-cards {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.card {
+    flex: 1;
+    margin: 0 10px;
+    padding: 20px;
+    border-radius: 40px;
+    color: white;
+    text-align: center;
+}
+
+.card.green {
+    background: rgb(38,118,67);
+    background: linear-gradient(90deg, rgba(38,118,67,1) 0%, rgba(71,220,125,1) 85%);
+}
+
+.card.red {
+    background: rgb(177,41,37);
+    background: linear-gradient(90deg, rgba(177,41,37,1) 0%, rgba(223,84,80,1) 85%);
+}
+
+.card.blue {
+    background: rgb(51,84,109);
+    background: linear-gradient(90deg, rgba(51,84,109,1) 0%, rgba(99,164,211,1) 85%);
+}
+
+.card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card-content i {
+    font-size: 50px;
+    margin-bottom: 10px;
+}
+
+.progress-circle {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.progress {
+    font-size: 24px;
+    color: black;
+}
+
+.chart-container {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+}

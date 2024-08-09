@@ -24,26 +24,27 @@ session_start();
 </head>
 <body>
     <div class="container">
-    <nav class="sidebar">
-    <ul>
-        <div class="logo">
-            <img src="img/logo-icon.png" alt="EACMed Logo">
-        </div>
-        <li><a href="dashboard.php"><i class="fas fa-home"></i> <span>Home</span></a></li>
-        <li><a href="students.php"><i class="fas fa-users"></i> <span>Interns</span></a></li>
-        <li><a href="attendance.php"><i class="fas fa-chart-line"></i> <span>Attendance</span></a></li>
-    </ul>
-    <div class="logout-container">
-        <button class="Btn">
-            <div class="sign">
-                <svg viewBox="0 0 512 512">
-                    <path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"></path>
-                </svg>
+        <nav class="sidebar">
+            <ul>
+                <li class="logo-container">
+                    <img src="img/logo-icon.png" class="logo" alt="EACMed Logo">
+                </li>
+                <li><a href="dashboard.php"><i class="fas fa-home"></i> <span>Home</span></a></li>
+                <li><a href="students.php"><i class="fas fa-users"></i> <span>Interns</span></a></li>
+                <li><a href="attendance.php"><i class="fas fa-chart-line"></i> <span>Attendance</span></a></li>
+            </ul>
+            <div class="logout-container">
+                <button class="Btn" onclick="logout()" >
+                    <div class="sign">
+                        <svg viewBox="0 0 512 512">
+                            <path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"></path>
+                        </svg>
+                    </div>
+                    <div class="text">Logout</div>
+                </button>
             </div>
-            <div class="text">Logout</div>
-        </button>
-    </div>
-</nav>
+        </nav>
+
 
 
         <div class="main-content">
@@ -77,18 +78,32 @@ session_start();
             <div>
                 <select id="sex" name="sex" required>
                     <option value="" disabled selected>Sex</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
+                    <option value="M">Male</option>
+                    <option value="F">Female</option>
                 </select>
             </div>
             <div>
                 <input type="number" id="age" name="age" placeholder="Age" required>
             </div>
             <div>
+                <?php
+                    $fetching = "SELECT * FROM coursetbl";
+                    $fetchquery = mysqli_query($conn, $fetching);
+                    
+                ?>
                 <select id="course" name="course" required>
                     <option value="" disabled selected>Course</option>
-                    <option value="IT">IT</option>
-                    <option value="Computer Science">Computer Science</option>
+                    <?php
+                        while($row = mysqli_fetch_assoc($fetchquery)){
+                            $courseid = $row['courseid'];
+                            $course = $row['course'];
+                    ?>
+                            <option value="<?php $courseid ?>"><?php echo $course;?></option>        
+                    <?php
+                        }
+
+
+                    ?>
                     <!-- Add more options as needed -->
                 </select>
             </div>
@@ -101,7 +116,26 @@ session_start();
                 <input type="date" id="endDate" name="endDate" required>
             </div>
             <div>
-                <input type="text" id="school" name="school" placeholder="School" required>
+                <?php
+                    $fetch = "SELECT * FROM school ORDER BY schoolname;";
+                    $query = mysqli_query($conn, $fetch);
+
+                    
+
+                ?>
+                <select id="course" name="course" required>
+                    <option value="" disabled selected>School Name</option>
+                    <?php
+                    while($row = mysqli_fetch_assoc($query)){
+                        $Sid = $row['id'];
+                        $school = $row['schoolname'];
+                    ?>    
+                        <option value="<?php $Sid; ?>"><?php echo $school;?></option>
+                    <?php
+                    }
+                    ?>
+                    <!-- Add more options as needed -->
+                </select>
             </div>
             <!-- New file input for picture -->
             <div class="file-upload-container">
@@ -156,10 +190,13 @@ session_start();
 
             <div class="search-bar-container">
                 <div class="search-bar">
+                    <form method="POST">
                     <i class="fa fa-search"></i>
-                    <input type="text" placeholder="Search...">
+                    <input type="text" name="search" placeholder="Search...">
+                    
                 </div>
-                <button class="filter-button">Filter Results</button>
+                <button type="submit" name="btn" class="filter-button">Filter Results</button>
+                </form>
             </div>
 
             <div class="table-container">
@@ -246,11 +283,120 @@ session_start();
     </tbody>
 </table>
 
+<!--
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>School
+                            /University</th>
+                        <th>Course</th>
+                        <th>Sex</th>
+                        <th>Age</th>
+                        <th>Started Date</th>
+                        <th>End Date</th>
+                        <th>Hours Required</th>
+                        <th>Overall Remaining Hours</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+               
+                    <?php
+//                         if(isset($_POST['btn'])){
+//                             $search = $_POST['search'];
+
+//                             // // $find = "SELECT * FROM studentinfo WHERE id LIKE '%$search%' OR fname LIKE '%$search%' OR mname LIKE '%$search%' OR lname LIKE '%$search%' OR age LIKE '%$search%' OR sex LIKE '%$search%' OR course LIKE '%$search%' OR school LIKE '%$search%';";
+//                             $find = "SELECT * FROM studentinfo INNER JOIN school ON studentinfo.schoolid = school.id INNER JOIN coursetbl ON coursetbl.courseid = studentinfo.courseid WHERE fname LIKE '%$search%' OR mname LIKE '%$search%' OR lname LIKE '%$search%' OR age LIKE '%$search%' OR sex LIKE '%$search%' OR hrequired LIKE '%$search%' OR startdate LIKE '%$search%' OR end_date LIKE '%$search%' OR schoolname LIKE '%$search%' OR course LIKE '%$search%' OR status LIKE '%$search%' ORDER BY studid DESC;";
+//                             $searchquery = mysqli_query($conn, $find);
+//                             $exist = mysqli_num_rows($searchquery);
+
+//                             if($exist > 0){
+//                                 while($row = mysqli_fetch_assoc($searchquery)){
+//                                     $id = $row['studid'];
+//                                     $fname  = $row['fname'];
+//                                     $mname  = $row['mname'];
+//                                     $lname  = $row['lname'];
+//                                     $course = $row['course'];
+//                                     $sex = $row['sex'];
+//                                     $age = $row['age'];
+//                                     $schoolname = $row['schoolname'];
+//                                     $hours = $row['hrequired'];
+//                                     $start = $row['startdate'];
+//                                     $end = $row['end_date'];
+//                                     $status = $row['status'];
+                                    
+//                                     echo "<tr class='highlight'>";
+//                                     echo "<td>" .$id. "</td>";
+//                                     echo "<td>" .$lname. "," .$fname. " " .$mname. "</td>";
+//                                     echo "<td>" .$schoolname. "</td>";
+//                                     echo "<td>" .$course. "</td>";
+//                                     echo "<td>" .$sex. "</td>";
+//                                     echo "<td>" .$age. "</td>";
+//                                     echo "<td>" .$start."</td>";
+//                                     echo "<td>" .$end. "</td>";
+//                                     echo "<td>" .$hours. "</td>";
+//                                     echo "<td></td>";
+//                                     echo "<td>" .$status."</td>";
+//                                     echo "</tr>";
+//                                 }
+//                             }
+//                             else {
+//                                 echo "<td colspan='9' style='text-align:center'> No Data Found ..... </td>";
+//                             }
+//                         }
+//                         else {
+//                             $sql = "SELECT * FROM studentinfo INNER JOIN school ON studentinfo.schoolid = school.id INNER JOIN coursetbl ON coursetbl.courseid = studentinfo.courseid ORDER BY studid DESC;";
+//                             $query = mysqli_query($conn, $sql);
+
+//                             while($row = mysqli_fetch_assoc($query)){
+//                                 $id = $row['studid'];
+//                                 $fname  = $row['fname'];
+//                                 $mname  = $row['mname'];
+//                                 $lname  = $row['lname'];
+//                                 $course = $row['course'];
+//                                 $sex = $row['sex'];
+//                                 $age = $row['age'];
+//                                 $school = $row['schoolname'];
+//                                 $start = $row['startdate'];
+//                                 $end = $row['end_date'];
+//                                 $hours = $row['hrequired'];
+//                                 $status = $row['status'];
+
+//                                 echo "<tr class='highlight'>";
+//                                 echo "<td>" .$id. "</td>";
+//                                 echo "<td>" .$lname. "," .$fname. " " .$mname. "</td>";
+//                                 echo "<td>" .$school. "</td>";
+//                                 echo "<td>" .$course."</td>";
+//                                 echo "<td>" .$sex. "</td>";
+//                                 echo "<td>" .$age. "</td>";
+//                                 echo "<td>" .$start. "</td>";
+//                                 echo "<td>" .$end. "</td>";
+//                                 echo "<td>" .$hours. " hours</td>";
+//                                 echo "<td></td>";
+//                                 echo "<td>" .$status. "</td>";
+//                                 echo "</tr>";
+//                             }
+//                         }
+                    ?>
+                </tbody>
+            </table>
+ -->
         </main>
     </div>
 
+<!-- Log out -->
+<script>
+    function logout(){
+        let ask = confirm("Are you want to Log-Out?");
 
-
+        if(ask == true){
+            window.location.assign('logout.php');
+        }
+        else{
+            window.location.assign('students.php');
+        }
+    }
+</script>
     
 </body>
 </html>

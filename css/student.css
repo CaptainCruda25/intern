@@ -1,8 +1,9 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: "Tahoma", "Trebuchet MS";
     margin: 0;
     padding: 0;
     background-color: #a1a1a1; 
+/*     background-color: #b9b9b9; */
     height: 100vh;
     display: flex;
     overflow: hidden; 
@@ -36,16 +37,13 @@ body {
 }
 
 .logo {
+    max-width: 80%;
+    max-height: 70px;
+
     text-align: center;
     background-color: white;
     padding: 10px;
     border-radius: 1% 40% 45% 50%;
-}
-
-.logo img {
-    max-width: 80%;
-    max-height: 70px;
-    transition: max-height 0.3s ease;
 }
 
 .sidebar ul {
@@ -76,9 +74,9 @@ body {
     transition: background-color 0.3s ease;
 }
 
-
 .sidebar a:hover {
     background-color: #dbdbdb;
+    color: black;
     border-radius: 10px;
 }
 
@@ -95,8 +93,9 @@ body {
     display: inline;
 }
 
-.sidebar:hover .logo img {
+.sidebar:hover .logo {
     max-height: 100%;
+    content: url("img/EAC Complete.png");
 }
 
 .logout-container {

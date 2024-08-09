@@ -41,10 +41,9 @@ session_start();
                 <form action="attendance.php" method="POST">
                     <div class="search-bar">
                         <i class="fas fa-search"></i>
-                        <input type="text" name="search" placeholder="Search...">
+                        <input type="text" placeholder="Search...">
                     </div>
-                    <button type="submit" name="btn">Filter Results</button>
-                </form>
+                    <button>Filter Results</button>
             </div>
             <table>
                 <thead>
@@ -61,7 +60,7 @@ session_start();
                         if(isset($_POST['btn'])){
                             $search = $_POST['search'];
 
-                            $find = "SELECT * FROM studentinfo INNER JOIN school ON studentinfo.schoolid = school.id INNER JOIN coursetbl ON coursetbl.courseid = studentinfo.courseid WHERE fname LIKE '%$search%' OR mname LIKE '%$search%' OR lname LIKE '%$search%' OR sex LIKE '%$search%' LIKE '%$search%' OR schoolname LIKE '%$search%' OR course LIKE '%$search%';";
+                            $find = "SELECT * FROM studentinfo INNER JOIN school ON studentinfo.schoolid = school.id INNER JOIN coursetbl ON coursetbl.courseid = studentinfo.courseid WHERE fname LIKE '%$search%' OR mname LIKE '%$search%' OR lname LIKE '%$search%' OR sex LIKE '%$search%' LIKE '%$search%' OR schoolname LIKE '%$search%' OR course LIKE '%$search%' ORDER BY studid ASC ;";
                             $searchquery = mysqli_query($conn, $find);
                             $exist = mysqli_num_rows($searchquery);
 
@@ -90,7 +89,7 @@ session_start();
                             }
                         }
                         else {
-                            $sql = "SELECT * FROM studentinfo INNER JOIN school ON studentinfo.schoolid = school.id INNER JOIN coursetbl ON coursetbl.courseid = studentinfo.courseid;";
+                            $sql = "SELECT * FROM studentinfo INNER JOIN school ON studentinfo.schoolid = school.id INNER JOIN coursetbl ON coursetbl.courseid = studentinfo.courseid ORDER BY studid DESC;";
                             $query = mysqli_query($conn, $sql);
 
                             while($row = mysqli_fetch_assoc($query)){
@@ -102,16 +101,17 @@ session_start();
                                 $sex = $row['sex'];
                                 $age = $row['age'];
                                 $school = $row['schoolname'];
+
                                 echo "<tr class='highlight'>";
                                 echo "<td>" .$lname. "," .$fname. " " .$mname. "</td>";
                                 echo "<td>" .$school. "</td>";
                                 echo "<td>" .$course."</td>";
                                 echo "<td>" .$sex. "</td>";
-                                echo "<td><a href=view.php?rowid='".$id."'><button>IN</button></a></td>";
+                                echo "<td><a href=view.php?rowid='".$id."'><button>UPDATE</button></a></td>";
                                 // echo "<td>" .$start. "</td>";
                                 // echo "<td>" .$end. "</td>";
                                 // echo "<td>" .$hours. " hours</td>";
-                                echo "<td></td>";
+                                echo "<td><a href=delete.php?rowid='".$id."'><button onclick='del(".$row['studid'].")'>DELETE</button></a></td>";;
                                 echo "</tr>";
                             }
                         }
@@ -120,5 +120,19 @@ session_start();
             </table>
         </main>
     </div>
+    <script>
+        function del(studid){
+            let ask = confirm("Are you want to delete this student?");
+        
+            if(ask == true){
+                window.location.assign('delete.php?rowid=' + studid);
+            }
+            else{
+                window.location.assign('students.php');
+                
+            }
+        }
+        
+    </script>
 </body>
 </html>

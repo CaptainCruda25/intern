@@ -34,7 +34,7 @@ session_start();
                 <li><a href="attendance.php"><i class="fas fa-chart-line"></i> <span>Attendance</span></a></li>
             </ul>
             <div class="logout-container">
-                <button class="Btn">
+                <button class="Btn" onclick="logout()" >
                     <div class="sign">
                         <svg viewBox="0 0 512 512">
                             <path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"></path>
@@ -167,10 +167,13 @@ window.onclick = function(event) {
 
             <div class="search-bar-container">
                 <div class="search-bar">
+                    <form method="POST">
                     <i class="fa fa-search"></i>
-                    <input type="text" placeholder="Search...">
+                    <input type="text" name="search" placeholder="Search...">
+                    
                 </div>
-                <button class="filter-button">Filter Results</button>
+                <button type="submit" name="btn" class="filter-button">Filter Results</button>
+                </form>
             </div>
 
             <table>
@@ -196,7 +199,7 @@ window.onclick = function(event) {
                             $search = $_POST['search'];
 
                             // // $find = "SELECT * FROM studentinfo WHERE id LIKE '%$search%' OR fname LIKE '%$search%' OR mname LIKE '%$search%' OR lname LIKE '%$search%' OR age LIKE '%$search%' OR sex LIKE '%$search%' OR course LIKE '%$search%' OR school LIKE '%$search%';";
-                            $find = "SELECT * FROM studentinfo INNER JOIN school ON studentinfo.schoolid = school.id INNER JOIN coursetbl ON coursetbl.courseid = studentinfo.courseid WHERE fname LIKE '%$search%' OR mname LIKE '%$search%' OR lname LIKE '%$search%' OR age LIKE '%$search%' OR sex LIKE '%$search%' OR hrequired LIKE '%$search%' OR startdate LIKE '%$search%' OR end_date LIKE '%$search%' OR schoolname LIKE '%$search%' OR course LIKE '%$search%';";
+                            $find = "SELECT * FROM studentinfo INNER JOIN school ON studentinfo.schoolid = school.id INNER JOIN coursetbl ON coursetbl.courseid = studentinfo.courseid WHERE fname LIKE '%$search%' OR mname LIKE '%$search%' OR lname LIKE '%$search%' OR age LIKE '%$search%' OR sex LIKE '%$search%' OR hrequired LIKE '%$search%' OR startdate LIKE '%$search%' OR end_date LIKE '%$search%' OR schoolname LIKE '%$search%' OR course LIKE '%$search%' OR status LIKE '%$search%' ORDER BY studid DESC;";
                             $searchquery = mysqli_query($conn, $find);
                             $exist = mysqli_num_rows($searchquery);
 
@@ -213,7 +216,7 @@ window.onclick = function(event) {
                                     $hours = $row['hrequired'];
                                     $start = $row['startdate'];
                                     $end = $row['end_date'];
-
+                                    $status = $row['status'];
                                     
                                     echo "<tr class='highlight'>";
                                     echo "<td>" .$id. "</td>";
@@ -226,7 +229,7 @@ window.onclick = function(event) {
                                     echo "<td>" .$end. "</td>";
                                     echo "<td>" .$hours. "</td>";
                                     echo "<td></td>";
-                                    echo "<td></td>";
+                                    echo "<td>" .$status."</td>";
                                     echo "</tr>";
                                 }
                             }
@@ -235,7 +238,7 @@ window.onclick = function(event) {
                             }
                         }
                         else {
-                            $sql = "SELECT * FROM studentinfo INNER JOIN school ON studentinfo.schoolid = school.id INNER JOIN coursetbl ON coursetbl.courseid = studentinfo.courseid;";
+                            $sql = "SELECT * FROM studentinfo INNER JOIN school ON studentinfo.schoolid = school.id INNER JOIN coursetbl ON coursetbl.courseid = studentinfo.courseid ORDER BY studid DESC;";
                             $query = mysqli_query($conn, $sql);
 
                             while($row = mysqli_fetch_assoc($query)){
@@ -250,6 +253,7 @@ window.onclick = function(event) {
                                 $start = $row['startdate'];
                                 $end = $row['end_date'];
                                 $hours = $row['hrequired'];
+                                $status = $row['status'];
 
                                 echo "<tr class='highlight'>";
                                 echo "<td>" .$id. "</td>";
@@ -262,7 +266,7 @@ window.onclick = function(event) {
                                 echo "<td>" .$end. "</td>";
                                 echo "<td>" .$hours. " hours</td>";
                                 echo "<td></td>";
-                                echo "<td></td>";
+                                echo "<td>" .$status. "</td>";
                                 echo "</tr>";
                             }
                         }
@@ -272,8 +276,19 @@ window.onclick = function(event) {
         </main>
     </div>
 
+<!-- Log out -->
+<script>
+    function logout(){
+        let ask = confirm("Are you want to Log-Out?");
 
-
+        if(ask == true){
+            window.location.assign('logout.php');
+        }
+        else{
+            window.location.assign('students.php');
+        }
+    }
+</script>
     
 </body>
 </html>

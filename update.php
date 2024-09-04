@@ -63,7 +63,7 @@ $user = $row['fname'];
 
 					if(!empty($_GET['rowid'])){
 						$dbid = $_GET['rowid'];
-						$_SESSION['listID'] = $dbid;					
+						$_SESSION['listID'] = $dbid;
 						$sql = "SELECT * FROM list_tbl WHERE listID = '$dbid';";
 						$query = mysqli_query($conn, $sql);
 						$choice = "No";

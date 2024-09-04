@@ -87,7 +87,7 @@ $user = $row['fname'];
 						echo "<td>".$row['public']."</td>";
 						echo "<td><a target=_blank href='update.php?rowid=".$row['listID']."'><input type=button id=edit value=Edit></a></td>";
 						echo "<td><a href='#'><input type='button' id='delete' value='Delete' onclick='del(".$row['listID'].")'></a></td>";
-						echo  "</tr>";			
+						echo  "</tr>";
 					}
 
 

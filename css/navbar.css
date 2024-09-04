@@ -1,26 +1,3 @@
-.container {
-  display: flex;
-  width: 100%;
-  overflow: hidden;
-}
-
-.sidebar {
-  height: 100vh;
-  width: 70px;
-  background-color: #487D47;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  box-sizing: border-box;
-  transition: width 0.3s ease;
-  position: relative;
-  border-radius: 0 15px 15px 0;
-}
-
-.sidebar:hover {
-  width: 200px;
-}
-
 .logo {
   text-align: center;
   background-color: white;
@@ -34,6 +11,26 @@
   transition: max-height 0.3s ease;
 }
 
+/* Sidebar container */
+.sidebar {
+  height: 100vh;
+  width: 70px; /* Default width */
+  background-color: #487d47; /* Sidebar background color */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  transition: width 0.3s ease; /* Smooth transition for width */
+  position: relative;
+  border-radius: 0 15px 15px 0; /* Rounded corners */
+}
+
+/* Expand width on hover */
+.sidebar:hover {
+  width: 200px; /* Expanded width on hover */
+}
+
+/* Sidebar list */
 .sidebar ul {
   list-style-type: none;
   padding: 0;
@@ -42,16 +39,19 @@
   text-align: center;
 }
 
+/* Sidebar list items */
 .sidebar ul li {
   width: 100%;
+  transition: background-color 0.3s, color 0.3s; /* Smooth transitions */
 }
 
+/* Sidebar links */
 .sidebar a {
   margin-top: 60px;
   padding: 10px 20px;
   text-decoration: none;
   font-size: 20px;
-  color: white;
+  color: white; /* Text color */
   display: flex;
   align-items: center;
   width: 100%;
@@ -59,30 +59,41 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease; /* Smooth background color transition */
+  border-radius: 10px; /* Rounded corners */
 }
 
-
+/* Hover effect on links */
 .sidebar a:hover {
-  background-color: #dbdbdb;
-  border-radius: 10px;
+  background-color: #dbdbdb; /* Background color on hover */
+  color: black; /* Text color on hover */
 }
 
+/* Active state for list items */
+.sidebar li.active a {
+  background-color: white; /* Background color when active */
+  color: black; /* Text color when active */
+}
+
+/* Icon styling */
 .sidebar a i {
   min-width: 30px;
   text-align: center;
 }
 
+/* Span styling (hidden by default) */
 .sidebar a span {
-  display: none;
+  display: none; /* Hidden text */
 }
 
+/* Show span on hover */
 .sidebar:hover a span {
-  display: inline;
+  display: inline; /* Show text when hovered */
 }
 
+/* Logo styling */
 .sidebar:hover .logo img {
-  max-height: 100%;
+  max-height: 100%; /* Adjust logo size on hover */
 }
 
 .logout-container {
@@ -103,7 +114,7 @@
   cursor: pointer;
   position: relative;
   overflow: hidden;
-  transition-duration: .3s;
+  transition-duration: 0.3s;
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
   background-color: rgba(38, 118, 67, 1);
   margin: 0 15px; /* Adjust margin to control spacing */
@@ -111,7 +122,7 @@
 
 .Btn .sign {
   width: 100%;
-  transition-duration: .3s;
+  transition-duration: 0.3s;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -133,7 +144,7 @@
   color: white;
   font-size: 1.2em;
   font-weight: 600;
-  transition-duration: .3s;
+  transition-duration: 0.3s;
 }
 
 .sidebar:hover .Btn,
@@ -153,36 +164,4 @@
 .Btn:hover .sign {
   width: 30%;
   background-color: rgba(0, 0, 0, 0);
-}
-/* Settings container styling */
-.settings-container {
-  display: none; /* Initially hidden */
-  position: fixed; /* Fixed positioning to stay on top of other elements */
-  top: 500px; /* Adjust as needed for spacing from the top */
-  left: 0; /* Position it to the right of the sidebar */
-  margin-left: 20px; /* Space between the sidebar and the container */
-  box-shadow: 0px 8px 16px 0px rgba(82, 47, 47, 0.2);
-  background-color: #fff; /* Background color of the container */
-  border-radius: 5px; /* Rounded corners */
-  z-index: 1000; /* Ensure it's above other content */
-  padding: 10px; /* Add some padding inside */
-}
-
-.settings-options {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
-
-.settings-options li {
-  padding: 10px;
-}
-
-.settings-options li a {
-  text-decoration: none;
-  color: black;
-}
-
-.settings-options li a:hover {
-  background-color: #f1f1f1; /* Hover effect */
 }

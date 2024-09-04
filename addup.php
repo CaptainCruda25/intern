@@ -10,6 +10,7 @@
 </head>
 
 <body>
+
     <div class="container">
         <?php include 'component/navbar.php'; ?>
 

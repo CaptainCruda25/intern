@@ -2,31 +2,57 @@
 
 require 'server.php';
 session_start();
-error_reporting(0);
+//error_reporting(0);
 
 
-if (!empty($_GET['rowid'])) {
-    $rowid = $_GET['rowid'];
-    $fetch = "SELECT * FROM studentinfo INNER JOIN school ON studentinfo.schoolid = school.id INNER JOIN coursetbl ON coursetbl.courseid = studentinfo.courseid WHERE studid LIKE $rowid;";
-    $query = mysqli_query($conn, $fetch);
+// if (!empty($_GET['rowid'])) {
+//     $rowid = $_GET['rowid'];
+//     $fetch = "SELECT * FROM studentinfo INNER JOIN school ON studentinfo.schoolid = school.id INNER JOIN coursetbl ON coursetbl.courseid = studentinfo.courseid WHERE studid LIKE $rowid;";
+//     $query = mysqli_query($conn, $fetch);
 
-    while ($row = mysqli_fetch_assoc($query)) {
-        $studid = $row['studid'];
-        $fname = $row['fname'];
-        $mname = $row['mname'];
-        $lname = $row['lname'];
-        $age = $row['age'];
-        $course = $row['course'];
-        $school = $row['schoolname'];
-        $sex = $row['sex'];
-        $hreq = $row['hrequired'];
-        $school = $row['schoolname'];
-        $start = $row['startdate'];
-        $end = $row['end_date'];
-        $status = $row['status'];
-        $profile = $row['image'];
-        $convertedstart = date("M d, Y", $start);
-        $convertedend = date('M d, Y', $end);
+//     while ($row = mysqli_fetch_assoc($query)) {
+//         $studid = $row['studid'];
+//         $fname = $row['fname'];
+//         $mname = $row['mname'];
+//         $lname = $row['lname'];
+//         $age = $row['age'];
+//         $course = $row['course'];
+//         $school = $row['schoolname'];
+//         $sex = $row['sex'];
+//         $hreq = $row['hrequired'];
+//         $school = $row['schoolname'];
+//         $start = $row['startdate'];
+//         $end = $row['end_date'];
+//         $status = $row['status'];
+//         $profile = $row['image'];
+//         $convertedstart = date("M d, Y", $start);
+//         $convertedend = date('M d, Y', $end);
+//     }
+// }
+
+
+if (!empty($_GET['timerecord'])) {
+    $timeid = $_GET['timerecord'];
+    $trfetch = "SELECT * FROM time_record WHERE timeid LIKE $timeid;";
+    $trquery = mysqli_query($conn, $trfetch);
+
+    while ($row = mysqli_fetch_assoc($trquery)) {
+        $trid = $row['timeid'];
+        $trdate = $row['date'];
+        $trday = $row['day'];
+        $tr_in = $row['time_in'];
+        $tr_out = $row['time_out'];
+        $tr_render = $row['hours_render'];
+        $trHours = $row['remHours'];
+        $trOT = $row['allowOT'];
+        // $hreq = $row['hrequired'];
+        // $school = $row['schoolname'];
+        // $start = $row['startdate'];
+        // $end = $row['end_date'];
+        // $status = $row['status'];
+        // $profile = $row['image'];
+        // $convertedstart = date("M d, Y", $start);
+        // $convertedend = date('M d, Y', $end);
     }
 }
 
@@ -206,108 +232,12 @@ if (!empty($_GET['rowid'])) {
                 }
             }
 
-            // if ($once > 0) {
-            //     echo "<script>alert('Error! Time In Exist!');</script>";
-
-            // } 
-            // else {
-            //     if ($choice == "No") {
-            //         if ($saturday == 6) {
-            //             echo "<script>window.alert('Overtime is not allowed!')</script>";
-            //         } else {
-            //             $allow = "INSERT INTO time_record(date, day, time_in, studid, allowOT) VALUES('$date', '$day', $timein, $studid, '$choice');";
-            //             $query = mysqli_query($conn, $allow);
-            //             echo "<script>alert('Time In Successfully!')</script>";
-            //         }
-            //     } elseif ($choice == 'Yes') {
-            //         if ($saturday == 6) {
-            //             $allow = "INSERT INTO time_record(date, day, time_in, studid, allowOT) VALUES('$date', '$day', $timein, $studid, '$choice');";
-            //             $query = mysqli_query($conn, $allow);
-            //             echo "<script>alert('Time In Successfully!')</script>";
-            //         } elseif ($sunday == 0) {
-            //             echo "<script>window.alert('Overtime is not allowed!')</script>";
-            //         }
-            //     } else {
-            //         echo "<script>window.alert('Overtime is not allowed!')</script>";
-            //     }
-            // }
+            
         }
 
 
 
-        // if (isset($_POST['timeout'])) {
-        //     $timeout = time(); // Get the current Unix timestamp for time-out
-        //     $presentdate = date("m-d-y");
-        //     $studid = $_GET['rowid']; // Ensure you have the correct student ID
-
-        //     // Debugging output
-        //     // echo "<pre>";
-        //     // echo "Student ID: $studid\n";
-        //     // echo "Present Date: $presentdate\n";
-        //     // echo "</pre>";
-
-        //     // Check if time_in exists for the current date and student
-        //     $searchOut = "SELECT * FROM time_record WHERE time_in IS NOT NULL AND time_out IS NULL AND date = '$presentdate' AND studid = $studid;";
-        //     $searchOutquery = mysqli_query($conn, $searchOut);
-        //     $Outexists = mysqli_num_rows($searchOutquery);
-
-        //     // Debugging output
-        //     // echo "<pre>";
-        //     // echo "Rows Found: $Outexists\n";
-        //     // echo "</pre>";
-
-        //         if ($Outexists > 0) {
-        //             echo "<script>window.alert('No Time-In Record Found for Today!')</script>";
-        //         } 
-        //         else {
-        //         // Update time_out for the current day and student
-        //         $updateOut = "UPDATE time_record SET time_out = $timeout WHERE date = '$presentdate' AND studid = $studid;";
-        //         $updateOutquery = mysqli_query($conn, $updateOut);
-
-        //         // Fetch the time record to calculate hours_render
-        //         $fetchRecord = "SELECT time_in, time_out, hours_render FROM time_record WHERE date = '$presentdate' AND studid = $studid;";
-        //         $fetchQuery = mysqli_query($conn, $fetchRecord);
-        //         $record = mysqli_fetch_assoc($fetchQuery);
-
-        //         $timeIn = $record['time_in'];
-        //         $timeOut = $record['time_out'];
-        //         $hoursRender = 0;
-
-        //             if ($timeIn && $timeOut) {
-        //                 $hoursRender = $timeOut - $timeIn ; // Difference in seconds
-        //                 // Convert seconds to hours and minutes
-        //                 $hours = intdiv($hoursRender, 3600);
-        //                 $minutes = intdiv(($hoursRender % 3600), 60);
-        //                 $convertedRendered = "{$hours}h {$minutes}m";
-
-        //                 // Update hours_render in the database
-        //                 $updateRender = "UPDATE time_record SET hours_render = $hoursRender WHERE date = '$presentdate' AND studid = $studid;";
-        //                 mysqli_query($conn, $updateRender);
-
-        //                 // Fetch required hours from studentinfo table
-        //                 $fetchStudentInfo = "SELECT hoursrem FROM studentinfo WHERE studid = $studid;";
-        //                 $studentInfoQuery = mysqli_query($conn, $fetchStudentInfo);
-        //                 $studentInfo = mysqli_fetch_assoc($studentInfoQuery);
-        //                 $hoursrequired = $studentInfo['hoursrem'];
-
-        //                 // Calculate remaining hours
-
-        //                 $remHours = $hoursrequired - $hoursRender;
-
-        //                 // Update remaining hours in the database
-        //                 $updateRemainingHours = "UPDATE time_record SET remHours = $remHours WHERE date = '$presentdate' AND studid = $studid;";
-        //                 mysqli_query($conn, $updateRemainingHours);
-        //                 $updateRemainingHours2 = "UPDATE studentinfo SET hoursrem = $remHours WHERE studid = $studid;";
-        //                 mysqli_query($conn, $updateRemainingHours2);
-        //                 // Update remaining hours in the database
-        //                 echo "<script>window.alert('Time Out Successfully!')</script>";
-        //             }
-
-
-
-        //         }
-        // }
-
+       
 
         if (isset($_POST['timeout'])) {
             $timeout = time(); // Get the current Unix timestamp for time-out
@@ -378,105 +308,6 @@ if (!empty($_GET['rowid'])) {
         }
 
 
-        // date_default_timezone_set('Asia/Manila');
-
-        // $presentdate = date("Y-m-d"); // Changed to 'Y-m-d' format for MySQL
-        // $presentday = date('l');
-
-        // if (isset($_POST['timein'])) {
-        //     $studid = intval($_GET['rowid']);
-        //     $date = $_POST['date'];
-        //     $day = $_POST['day'];
-        //     $timein = time(); // Get the current Unix timestamp
-        //     $choice = "No";
-
-        //     // Check if Time In already exists for the current date and student
-        //     $sql = "SELECT * FROM time_record WHERE date = '$presentdate' AND studid = $studid;";
-        //     $check = mysqli_query($conn, $sql);
-        //     $once = mysqli_num_rows($check);
-
-        //     // Check if overtime is allowed
-        //     if (isset($_POST['choice']) && in_array('Yes', $_POST['choice'])) {
-        //         $choice = "Yes";
-        //     }
-
-        //     $weekday = date('w'); // Get the current day of the week (0 = Sunday, 6 = Saturday)
-
-        //     if ($once > 0) {
-        //         echo "<script>alert('Error! Time In Exist!');</script>";
-        //     } else {
-        //         if ($choice == "No" && $weekday == 6) {
-        //             echo "<script>window.alert('Overtime is not allowed on Saturdays!')</script>";
-        //         } elseif ($choice == 'Yes' && $weekday == 6) {
-        //             $allow = "INSERT INTO time_record(date, day, time_in, studid, allowOT) VALUES('$date', '$day', $timein, $studid, '$choice');";
-        //             $query = mysqli_query($conn, $allow);
-        //             echo "<script>alert('Time In Successfully!')</script>";
-        //         } elseif ($weekday == 0) { // Sunday
-        //             echo "<script>window.alert('Overtime is not allowed on Sundays!')</script>";
-        //         } else {
-        //             $allow = "INSERT INTO time_record(date, day, time_in, studid, allowOT) VALUES('$date', '$day', $timein, $studid, '$choice');";
-        //             $query = mysqli_query($conn, $allow);
-        //             echo "<script>alert('Time In Successfully!')</script>";
-        //         }
-        //     }
-        // }
-
-        // if (isset($_POST['timeout'])) {
-        //     $timeout = time(); // Get the current Unix timestamp for time-out
-        //     $studid = intval($_GET['rowid']); // Ensure you have the correct student ID
-
-        //     $time = date('h:i A');
-        //     // Check if time_in exists for the current date and student without a time_out
-        //     $searchOut = "SELECT * FROM time_record WHERE time_in IS NOT NULL AND time_out IS NULL AND date = '$presentdate' AND studid = $studid;";
-        //     $searchOutquery = mysqli_query($conn, $searchOut);
-        //     $Outexists = mysqli_num_rows($searchOutquery);
-
-        //     if ($Outexists == 0) {
-        //         echo "<script>window.alert('No Time-In Record Found for Today!')</script>";
-        //     } else {
-        //         // Update time_out for the current day and student
-        //         $updateOut = "UPDATE time_record SET time_out = $timeout WHERE date = '$presentdate' AND studid = $studid;";
-        //         $updateOutquery = mysqli_query($conn, $updateOut);
-
-        //         // Fetch the time record to calculate hours_render
-        //         $fetchRecord = "SELECT time_in, time_out FROM time_record WHERE date = '$presentdate' AND studid = $studid;";
-        //         $fetchQuery = mysqli_query($conn, $fetchRecord);
-        //         $record = mysqli_fetch_assoc($fetchQuery);
-
-        //         $timeIn = $record['time_in'];
-        //         $timeOut = $record['time_out'];
-        //         $hoursRender = 0;
-
-        //         if ($timeIn && $timeOut) {
-        //             $hoursRenderInSeconds = $timeOut - $timeIn; // Difference in seconds
-        //             $hours = intdiv($hoursRenderInSeconds, 3600);
-        //             $minutes = intdiv(($hoursRenderInSeconds % 3600), 60);
-        //             $convertedRendered = "{$hours}h {$minutes}m";
-
-        //             // Update hours_render in the database
-        //             $updateRender = "UPDATE time_record SET hours_render = $hoursRenderInSeconds WHERE date = '$presentdate' AND studid = $studid;";
-        //             mysqli_query($conn, $updateRender);
-
-        //             // Fetch required hours from studentinfo table
-        //             $fetchStudentInfo = "SELECT hoursrem FROM studentinfo WHERE studid = $studid;";
-        //             $studentInfoQuery = mysqli_query($conn, $fetchStudentInfo);
-        //             $studentInfo = mysqli_fetch_assoc($studentInfoQuery);
-        //             $hoursrequired = $studentInfo['hoursrem'];
-
-        //             // Calculate remaining hours in terms of seconds and then convert to hours
-        //             $remHoursInSeconds = $hoursrequired * 3600 - $hoursRenderInSeconds;
-        //             $remHours = $remHoursInSeconds / 3600;
-
-        //             // Update remaining hours in the database
-        //             $updateRemainingHours = "UPDATE time_record SET remHours = $remHours WHERE date = '$presentdate' AND studid = $studid;";
-        //             mysqli_query($conn, $updateRemainingHours);
-        //             $updateRemainingHours2 = "UPDATE studentinfo SET hoursrem = $remHours WHERE studid = $studid;";
-        //             mysqli_query($conn, $updateRemainingHours2);
-
-        //             echo "<script>window.alert('Time Out Successfully!')</script>";
-        //         }
-        //     }
-        // }
 
 
         ?>
@@ -509,24 +340,7 @@ if (!empty($_GET['rowid'])) {
 
         <?php
 
-        // $presentdate = date("m-d-y");
-        // $presentday = date('l');
-        // date_default_timezone_set('Asia/Manila');
-        // $edit = "SELECT * FROM time_record WHERE date = '$presentdate' AND day = '$presentday' AND studid = $rowid;";
-        // $editquery = mysqli_query($conn, $edit);
-
-        // while($updateIN = mysqli_fetch_assoc($editquery)){
-        //     $In = $updateIN['time_in'];
-        //     $Out = $updateIN['time_out'];
-        //     $TIMEin = date('h:i A', $In);
-        //     $TIMEout = date('h:i A', $Out);
-        //     $editday = $updateIN['day'];
-        //     $editdate = $updateIN['date'];
-        //     $hour = date('g', $In); // 1-12
-        //     $minute = date('i', $In); // 00-59
-        //     $ampm = date('A', $In); // AM/PM
-
-        // }
+        
 
         if (isset($_POST['updatetimein'])) {
             $updatedate = $_POST['editdate'];
@@ -547,69 +361,7 @@ if (!empty($_GET['rowid'])) {
 
 
 
-        // // Existing variables for present date and day
-        //     $presentdate = date("m-d-y"); // Change to 'Y-m-d' format for MySQL
-        //     $presentday = date('l');
-        //     date_default_timezone_set('Asia/Manila');
-
-        //     // Query to select the existing time record
-        //     $edit = "SELECT * FROM time_record WHERE date = '$presentdate' AND studid = $rowid;";
-        //     $editquery = mysqli_query($conn, $edit);
-
-        //     while ($updateIN = mysqli_fetch_assoc($editquery)) {
-        //         date_default_timezone_set('Asia/Manila');
-        //         $In = $updateIN['time_in'];
-        //         $Out = $updateIN['time_out'];
-        //         $TIMEin = date('h:i', $In);
-        //         $TIMEout = date('h:i', $Out);
-
-        //         $editday = $updateIN['day'];
-        //         $editdate = $updateIN['date'];
-        //         $format = DateTime::createFromFormat('m-d-y', $editdate)->format('Y-m-d');
-
-        //     }
-
-        //     // Check if the form has been submitted
-        //     if (isset($_POST['updatetimein'])) {
-        //         $updatedate = $_POST['editdate'];
-        //         $updateday = $_POST['day'];
-        //         $updatetimeIn = $_POST['edittimein'];
-
-        //         // $updateddateformat = DateTime::createFromFormat('Y-m-d', $updatedate)->format('m-d-y');
-        //         // Check if all fields are filled
-        //         if (empty($updatedate) || empty($updateday) || empty($updatetimeIn)) {
-        //             echo "<script>alert('Fill All The Fields');</script>";
-        //         } 
-        //         else {
-        //             // Combine the updated date with the time input
-
-        //             // Convert the datetime string to Unix timestamp
-        //             $timestamp = date('g:i A',$updatetimeIn);
-
-        //             // Check if the conversion was successful
-        //             if ($timestamp === false) {
-        //                 echo "<script>alert('Invalid date/time format');</script>";
-        //             } else {
-        //                 // Escape user inputs for SQL query to prevent SQL injection
-
-
-        //                 $rowid = intval($rowid); // Ensure $rowid is an integer
-
-        //                 // Construct the SQL query
-        //                 $updatequery = "UPDATE time_record 
-        //                                 SET date = '$updateddateformat', day = '$updateday', time_in = $timestamp
-        //                                 WHERE date = '$presentdate' AND day = '$presentday' AND studid = $rowid;";
-
-        //                 // Execute the query
-        //                 if (mysqli_query($conn, $updatequery)) {
-        //                     echo "<script>alert('Update Successfully!');</script>";
-        //                 } else {
-        //                     echo "<script>alert('Error updating record: " . mysqli_error($conn) . "');</script>";
-        //                 }
-        //             }
-        //         }
-        //     }
-
+        
         ?>
         <div id="EdittimeInModal" class="modal">
             <div class="modal-content">
@@ -690,35 +442,28 @@ if (!empty($_GET['rowid'])) {
                         <tbody>
                             <?php
 
-                            $rowid = $_GET['rowid'];
-                            $fetch = "SELECT * FROM studentinfo INNER JOIN school ON studentinfo.schoolid = school.id INNER JOIN coursetbl ON coursetbl.courseid = studentinfo.courseid
-                                INNER JOIN time_record ON time_record.studid = studentinfo.studid WHERE studentinfo.studid = $rowid ORDER BY timeid DESC;";
-                            $query = mysqli_query($conn, $fetch);
+                            $timeid = $_GET['timerecord'];
+                            $trfetch = "SELECT * FROM time_record WHERE timeid = $trid;";
+                            $trquery = mysqli_query($conn, $trfetch);
                             ?>
 
+
+
+
                             <?php
-                            while ($row = mysqli_fetch_assoc($query)) {
-                                $trecord = $row['timeid'];
-                                $studid = $row['studid'];
-                                $fname = $row['fname'];
-                                $mname = $row['mname'];
-                                $lname = $row['lname'];
-                                $age = $row['age'];
-                                $course = $row['course'];
-                                $school = $row['schoolname'];
-                                $sex = $row['sex'];
-                                $hreq = $row['hoursrem'];
-                                $school = $row['schoolname'];
-                                $start = $row['startdate'];
-                                $end = $row['end_date'];
-                                $status = $row['status'];
-                                $date = $row['date'];
-                                $day = $row['day'];
+                            while ($row = mysqli_fetch_assoc($trquery)) {
+                                $trid = $row['timeid'];
+                                $trdate = $row['date'];
+                                $trday = $row['day'];
+                                $tr_in = $row['time_in'];
+                                $tr_out = $row['time_out'];
+                                $tr_render = $row['hours_render'];
+                                $trHours = $row['remHours'];
+                                $trOT = $row['allowOT'];
                                 $timein = $row['time_in'];
                                 $time_out = $row['time_out'];
                                 $ot = $row['allowOT'];
                                 $renderTime = $row['hours_render'];
-                                $Rhours = $row['hoursrem'];
                                 date_default_timezone_set('Asia/Manila');
                                 $convertedIN = date("g:i A", $timein);
                                 $convertedOUT = date("g:i A", $time_out);
@@ -750,7 +495,7 @@ if (!empty($_GET['rowid'])) {
                                 }
 
                                 // Remaining Time Computation
-                                $totalRequiredSeconds = $Rhours * 3600; // Total required seconds
+                                $totalRequiredSeconds = $trHours * 3600; // Total required seconds
                                 $remainingSeconds = $totalRequiredSeconds - $renderTime;
 
                                 // Debugging output
@@ -772,24 +517,11 @@ if (!empty($_GET['rowid'])) {
                                 }
                                 
                             ?>
-                            <?php
-
-                                $timerecord = "SELECT timeid FROM time_record;";
-                                $trquery = mysqli_query($conn, $timerecord);
-                                while($trid = mysqli_fetch_assoc($trquery)){
-                                    $timeid = $trid['timeid'];
-                                }
-
-
-                            ?>
                                 <tr>
-                                    <td><a href="editrecord.php?timerecord=<?php echo $timeid;?>"><?php echo $date; ?></a></td>
-                                    <td><?php echo $day; ?></td>
+                                    <td><?php echo $trdate; ?></td>
+                                    <td><?php echo $trday; ?></td>
                                     <td><?php echo $convertedIN; ?></td>
-                                    <td><?php echo $time_out != 0 ? $convertedOUT : "-"; ?></td>
-                                    <td><?php echo $time_out != 0 ? $convertedrendered : "-" ?></td>
-                                    <td><?php echo $time_out != 0 ? $remHours : "-"; ?></td>
-                                    <td><?php echo $ot; ?></td>
+                                    
                                     <td><button id="Edit"><i class="fas fa-edit"></i></button></td>
                                 </tr>
                             <?php
@@ -808,14 +540,14 @@ if (!empty($_GET['rowid'])) {
                 <div>
                     <?php
 
-                    $total = "SELECT SUM(hours_render) as total FROM time_record where studid= $rowid;";
+                    $total = "SELECT SUM(hours_render) as total FROM time_record;";
                     $totalquery = mysqli_query($conn, $total);
                     $totalResult = mysqli_fetch_assoc($totalquery);
 
                     $totalhours = $totalResult['total'];
 
 
-                    $requiredHours = "SELECT hrequired FROM studentinfo WHERE studid = $rowid;";
+                    $requiredHours = "SELECT hrequired FROM studentinfo;";
                     $requiredquery = mysqli_query($conn, $requiredHours);
                     $fetchhours = mysqli_fetch_assoc($requiredquery);
 
@@ -837,16 +569,16 @@ if (!empty($_GET['rowid'])) {
 
 
                     if ($hoursREM == $hoursREMS) {
-                        $updateRemHours = "UPDATE studentinfo SET status = 'Completed' WHERE studid = $rowid;";
+                        $updateRemHours = "UPDATE studentinfo SET status = 'Completed';";
                         $updateRemHoursquery = mysqli_query($conn, $updateRemHours);
                     }
 
 
 
 
-                    $updateRemHours = "UPDATE studentinfo SET hoursrem = $subtract WHERE studid = $rowid;";
+                    $updateRemHours = "UPDATE studentinfo SET hoursrem = $subtract;";
                     $updateRemHoursquery = mysqli_query($conn, $updateRemHours);
-                    $updateRemHours2 = "UPDATE time_record SET remHours = $subtract WHERE date = '$presentdate' AND studid = $rowid;";
+                    $updateRemHours2 = "UPDATE time_record SET remHours = $subtract WHERE date = '$presentdate';";
                     $updateRemHoursquery2 = mysqli_query($conn, $updateRemHours2);
 
 

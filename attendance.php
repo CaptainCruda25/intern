@@ -41,8 +41,8 @@
                     <div class="card-content">
                         <div class="progress-circle">
                         <?php
-                            $sql = "SELECT * FROM studentinfo; ";
-                            $query = mysqli_query($conn, $sql);
+                            // $sql = "SELECT * FROM studentinfo; ";
+                            // $query = mysqli_query($conn, $sql);
                             $rows = mysqli_num_rows($query);
                             $complete = "SELECT * FROM studentinfo WHERE status = 'Completed' AND view LIKE 'Yes'; ";
                             $query3 = mysqli_query($conn, $complete);
@@ -58,8 +58,8 @@
                     <div class="card-content">
                         <div class="progress-circle">
                         <?php
-                            $sql = "SELECT * FROM studentinfo; ";
-                            $query = mysqli_query($conn, $sql);
+                            // $sql = "SELECT * FROM studentinfo; ";
+                            // $query = mysqli_query($conn, $sql);
                             $rows = mysqli_num_rows($query);
                             $ongoing = "SELECT * FROM studentinfo WHERE status = 'On-Going' AND view LIKE 'Yes';";
                             $query2 = mysqli_query($conn, $ongoing);
@@ -78,12 +78,20 @@
     </div>
     <?php
 
-        $line1 = "SELECT * FROM studentinfo WHERE status = 'On-Going';";
-        $query = mysqli_query($conn, $line1);
+        $line1 = "SELECT status, COUNT(*) as count FROM studentinfo WHERE status IN ('On-Going', 'Completed') GROUP BY status;";
+        $query1= mysqli_query($conn, $line1);
 
-        while($row = mysqli_fetch_assoc($query)){
-            $arr = array();
-            $status = $row['status'];
+        $ongoingdata = 0;
+        $completedData = 0;
+
+        while($row = mysqli_fetch_assoc($query1)){
+            if($row['status'] == 'On-Going'){
+                $ongoingdata = $row['count'];
+            }
+            elseif($row['status'] == 'Completed'){
+                $completedData = $row['count'];
+            }
+            
 
         }
 
@@ -91,22 +99,19 @@
     ?>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        const status = <?php echo json_encode($status); ?>;
+        const OnGoing = <?php echo json_encode($ongoingdata); ?>;
+        const  Completed = <?php echo json_encode($completedData); ?>
         var ctx = document.getElementById('myChart').getContext('2d');
         var myChart = new Chart(ctx, {
-            type: 'line',
+            type: 'bar',
             data: {
-                labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
+                labels: [OnGoing, Completed],
                 datasets: [{
-                    label: 'On-Going',
-                    data: [250, 150, 300, 500, 400, 600, 350, 550, 200, 450],
-                    borderColor: 'blue',
-                    fill: false
-                }, {
-                    label: 'Completed',
-                    data: [150, 200, 250, 400, 300, 500, 450, 400, 350, 600], //array
-                    borderColor: 'red   ',
-                    fill: false
+                    label: 'Status',
+                    data: [OnGoing, CompletedData],
+                    backgroundColor: ['blue', 'red'],
+                    borderColor: ['blue', 'red'],
+                    borderWidth: 1
                 }]
             },
             options: {

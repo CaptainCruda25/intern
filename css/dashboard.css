@@ -1,37 +1,24 @@
-* {
+body {
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-
-}
-div {
-    background: #267643;
-    width: 200px;
+    background-color: #c1c1c1;
     height: 100vh;
-    border-radius: 15px;
-}
-.logo-div {
     display: flex;
-    justify-items: center;
-    margin: 0 auto;
+    overflow: hidden; 
 }
-.logo {
-    width: 100px;
-    height: 100px;
-    border-radius: 50px;
+.container {
+    display: flex;
+    width: 100%;
+    overflow: hidden;
 }
-ul {
-    list-style: none;
-}
-li {
-    background: #FFCD00;
-    margin-bottom: 10px;
-}
-.icon {
-    width: 40px;
-    height: 40px;
-}
-.insert-btn{
-    text-align: center;
+
+.main-content {
+    flex: 1;
+    margin: 20px;
+    padding: 50px;
+    border-radius: 30px;
+    background-color: white;
+    overflow-y: auto;
 }
 

@@ -32,15 +32,3 @@ function updateQuote() {
 // Initialize the first quote and start the rotation
 updateQuote();
 setInterval(updateQuote, 5000); // Change quote every 20 seconds
-
-//LOGOUT
-function logout(){
-    let ask = confirm('Are you want to Log-out?');
-
-    if(ask){
-        window.location.assign('logout.php');
-    }
-    else {
-        window.location.assign('students.php');
-    }
-}

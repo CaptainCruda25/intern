@@ -1,68 +1,109 @@
 <?php
-
 require 'server.php';
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Check for upload errors
-    if ($_FILES['fileUpload']['error'] !== UPLOAD_ERR_OK) {
-        die("Upload failed with error code " . $_FILES['fileUpload']['error']);
+
+
+if (isset($_POST['add'])) {
+    $Fname = $_POST['firstName'];
+    $Mname = $_POST['middleName'];
+    $Lname = $_POST['lastName'];
+    $sex = $_POST['sex'];
+    $bday = $_POST['bday'];
+    $internage = $_POST['age'];
+    $courses = $_POST['course'];
+    $school = $_POST['school'];
+    $reqhours = $_POST['hours'];
+    $Sdate = $_POST['startDate'];
+    // $Edate = $_POST['endDate'];
+    $intern_image = $_FILES['image']['name'];
+    $intern_temp_name = $_FILES['image']['tmp_name'];
+    $img_folder = 'uploads/'.$intern_image;
+    date_default_timezone_set('Asia/Manila');
+
+    function getAge($bday)
+    {
+        $date = new DateTime();
+        $date2 = new DateTime($bday);
+        $result = $date->diff($date2);
+        return $result->y;
     }
-// <<<<<<< HEAD
-//     else {
-        
-//         $student = "INSERT INTO studentinfo(fname, mname, lname, age, sex, courseid, schoolid, hrequired, startdate, end_date) VALUES('$Fname','$Mname','$Lname', 
-//         '$age', '$sex','$courses', '$school', '$reqhours', '$Sdate', '$Edate');";
-//         $query = mysqli_query($conn, $student);
+    $age = getAge($bday);
 
-//         echo "<script>window.alert('Register Successfully!');</script>";
-//         echo "<script>window.location.assign('dashboard.php')</script>";
-//     } 
-    
-//         // if($query){
-//         //     move_uploaded_file($intern_temp_name, $img_folder);
-// =======
-
-    $tmpFilePath = $_FILES['fileUpload']['tmp_name'];
-    $imageFileType = strtolower(pathinfo($_FILES['fileUpload']['name'], PATHINFO_EXTENSION));
-
-
-    // Check if temporary file exists
-    if (file_exists($tmpFilePath)) {
-        // Validate if the file is an image
-        $check = getimagesize($tmpFilePath);
-        if ($check !== false) {
-            // Read file content into a variable
-            $imageData = file_get_contents($tmpFilePath);
-            $imageData = mysqli_real_escape_string($conn, $imageData);
-
-            // Gather other form data
-            $firstName = mysqli_real_escape_string($conn, $_POST['firstName']);
-            $middleName = mysqli_real_escape_string($conn, $_POST['middleName']);
-            $lastName = mysqli_real_escape_string($conn, $_POST['lastName']);
-            $sex = mysqli_real_escape_string($conn, $_POST['sex']);
-            $age = mysqli_real_escape_string($conn, $_POST['age']);
-            $hours = mysqli_real_escape_string($conn, $_POST['hours']);
-            $courseName = mysqli_real_escape_string($conn, $_POST['course']);
-            $startDate = mysqli_real_escape_string($conn, $_POST['startDate']);
-            $endDate = mysqli_real_escape_string($conn, $_POST['endDate']);
-            $schoolName = mysqli_real_escape_string($conn, $_POST['school']);
-
-            // Insert data into the database
-            $query = "INSERT INTO studentinfo (fname, mname, lname, sex, age, hrequired, courseid, startdate, end_date, schoolid, image, status) 
-                      VALUES ('$firstName', '$middleName', '$lastName', '$sex', '$age', '$hours', '$courseName', '$startDate', '$endDate', '$schoolName', '$imageData', 'On-Going')";
-
-            if (mysqli_query($conn, $query)) {
-                echo "<script>window.location.assign('students.php')</script>";
-            } else {
-                echo "Error: " . mysqli_error($conn);
-            }
-        } else {
-            echo "File is not an image.";
-        }
+    if (empty($Fname) || empty($Mname) || empty($Lname) || empty($sex) || empty($bday) || empty($courses) || empty($school) || empty($reqhours) || empty($Sdate)) {
+        echo "<script>window.alert('Fill All The Fields! Please Try Again!');</script>";
+        echo "<script>window.location.assign('students.php');</script>";
     } else {
-        die("Temporary file does not exist.");
+
+        // $timestamp = strtotime($Sdate);
+        // $unix_reqhours = $reqhours * 3600;
+        // $End = $timestamp + $unix_reqhours ;
+
+        $timestamp = strtotime($Sdate); // Convert start date to Unix timestamp
+        $unix_reqhours = $reqhours * 3600; // Convert required hours to seconds
+
+        // Calculate the number of workdays required (8 hours per workday)
+        $workdays_required = ceil($reqhours / 8);
+
+        // Calculate the number of full weeks and remaining days
+        $full_weeks = floor($workdays_required / 5);
+        $remaining_days = $workdays_required % 5;
+
+        // Calculate the end date
+        $end_date = strtotime("+$full_weeks weeks", $timestamp);
+        $end_date = strtotime("+$remaining_days weekdays", $end_date);
+        
+        if(file_exists($intern_temp_name)){
+            echo "<script>window.alert('Image Exists! Please Try Again!');</script>";
+            echo "<script>window.location.assign('students.php');</script>";
+        }
+        else{
+            $student = "INSERT INTO studentinfo(fname, mname, lname, bday, age, sex, courseid, schoolid, hrequired, hoursrem, startdate, end_date, image) VALUES('$Fname','$Mname','$Lname',
+            '$bday', '$age', '$sex','$courses', '$school', $unix_reqhours, $reqhours * 3600, $timestamp, $end_date, '$intern_image');";
+            $query = mysqli_query($conn, $student);
+
+            if($query && move_uploaded_file($intern_temp_name, $img_folder)){
+                echo "<script>window.alert('Register Successfully!');</script>";
+                echo "<script>window.location.assign('students.php')</script>";
+            }
+            else{
+                echo "<script>window.alert('Register Failed!');</script>";
+                echo "<script>window.location.assign('students.php')</script>";
+            }
+        }
+        
+        
     }
 
-    mysqli_close($conn);
+    // if($query){
+    //     move_uploaded_file($intern_temp_name, $img_folder);
+
+    // }
+    // else {
+    //     echo "<script>window.alert('Error Occured!')</script>";
+    // }
+
+    // if($query){
+
+    //     $res = [
+    //         'status' => 200,
+    //         'message' => 'Register Successfully'
+    //     ];
+    //     echo json_encode($res);
+    //     return true;
+
+    // }
+    // else {
+
+    //     $res = [
+    //         'status' => 500,
+    //         'message' => 'Intern Not Created'
+    //     ];
+    //     echo json_encode($res);
+    //     return false;
+
+    // }
+
+
+
+
 }
-?>

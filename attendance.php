@@ -28,7 +28,7 @@
                     <div class="card-content">
                         <i class="fas fa-users"></i>
                         <?php 
-                        $sql = "SELECT * FROM studentinfo; ";
+                        $sql = "SELECT * FROM studentinfo WHERE view = 'Yes'; ";
                         $query = mysqli_query($conn, $sql);
                         $rows = mysqli_num_rows($query);
 
@@ -40,7 +40,16 @@
                     <h2>Complete</h2>
                     <div class="card-content">
                         <div class="progress-circle">
-                            <div class="progress">76%</div>
+                        <?php
+                            $sql = "SELECT * FROM studentinfo; ";
+                            $query = mysqli_query($conn, $sql);
+                            $rows = mysqli_num_rows($query);
+                            $complete = "SELECT * FROM studentinfo WHERE status = 'Completed' AND view LIKE 'Yes'; ";
+                            $query3 = mysqli_query($conn, $complete);
+                            $Completed = mysqli_num_rows($query3);
+                            $percent = $Completed / $rows * 100;
+                        ?>
+                        <div class="progress"><?php echo round($percent) . "%"; ?></div>
                         </div>
                     </div>
                 </div>
@@ -48,7 +57,16 @@
                     <h2>Ongoing</h2>
                     <div class="card-content">
                         <div class="progress-circle">
-                            <div class="progress">24%</div>
+                        <?php
+                            $sql = "SELECT * FROM studentinfo; ";
+                            $query = mysqli_query($conn, $sql);
+                            $rows = mysqli_num_rows($query);
+                            $ongoing = "SELECT * FROM studentinfo WHERE status = 'On-Going' AND view LIKE 'Yes';";
+                            $query2 = mysqli_query($conn, $ongoing);
+                            $onGoing = mysqli_num_rows($query2);
+                            $percent = $onGoing / $rows * 100;
+                        ?>
+                        <div class="progress"><?php echo round($percent) . "%"; ?></div>
                         </div>
                     </div>
                 </div>

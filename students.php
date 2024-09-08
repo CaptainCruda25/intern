@@ -1,8 +1,9 @@
 <?php
 
 require 'server.php';
+
 session_start();
-// error_reporting(0);
+error_reporting(0);
 
 
 
@@ -22,8 +23,84 @@ session_start();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="icon" type="png" href="img/logo-icon.png">
 </head>
+
+<!-- PHP for add intern -->
+
+<?php
+
+// if(isset($_POST['add'])){
+//     $Fname = $_POST['firstName'];
+//     $Mname = $_POST['middleName'];
+//     $Lname = $_POST['lastName'];
+//     $seex = $_POST['sex'];
+//     $age = $_POST['age'];
+//     $courses = $_POST['coursename'];
+//     $schoolname = $_POST["schools"];
+//     $reqhours = $_POST['hours'];
+//     $Sdate = $_POST['startDate'];
+//     $Edate = $_POST['endDate'];
+//     $intern_image = $_FILES['fileUpload']['name'];
+//     $intern_temp_name = $_FILES['fileUpload']['tmp_name'];
+//     $img_folder = '../img/' . $intern_image;
+
+
+//     if(empty($Fname) || empty($Mname) || empty($Lname) || empty($seex) || empty($age) || empty($courses) || empty($schoolname) || empty($reqhours) || empty($Sdate) || empty($Edate)){
+//         echo "<script>window.alert('Fill All The Fields! Please Try Again!');</script>";
+//     }
+//     else {
+        
+//         $student = "INSERT INTO studentinfo(fname, mname, lname, age, sex, courseid, schoolid, hrequired, startdate, end_date) VALUES('$Fname','$Mname','$Lname', '$age', '$seex','$courses', '$schoolname', '$reqhours', '$Sdate', '$Edate');";
+//         $query = mysqli_query($conn, $student); 
+
+//         echo "<script>window.alert('Register Successfully!');</script>";
+//         echo "<script>window.location,assign('dashboard.php')</script>";
+//     } 
+    
+//         // if($query){
+//         //     move_uploaded_file($intern_temp_name, $img_folder);
+
+//         // }
+//         // else {
+//         //     echo "<script>window.alert('Error Occured!')</script>";
+//         // }
+
+//         // if($query){
+            
+//         //     $res = [
+//         //         'status' => 200,
+//         //         'message' => 'Register Successfully'
+//         //     ];
+//         //     echo json_encode($res);
+//         //     return true;
+
+//         // }
+//         // else {
+            
+//         //     $res = [
+//         //         'status' => 500,
+//         //         'message' => 'Intern Not Created'
+//         //     ];
+//         //     echo json_encode($res);
+//         //     return false;
+
+//         // }
+    
+        
+    
+
+// }
+
+
+
+
+
+
+?>
+
 <body>
+
         <?php include 'component/navbar.php';?> 
+
         <div class="main-content">
             <header>
                 <h1>Intern Records</h1>
@@ -39,103 +116,97 @@ session_start();
             </header>
                 <!-- Modal -->
                 <div id="addInternModal" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <h2>Add Intern</h2>
-        <form id="addInternForm" method="POST" action="addstudent.php" enctype="multipart/form-data"> <!-- Add enctype attribute for file uploads -->
-            <div>
-                <input type="text" id="firstName" name="firstName" placeholder="First Name" >
-            </div>
-            <div>
-                <input type="text" id="middleName" name="middleName" placeholder="Middle Name">
-            </div>
-            <div>
-                <input type="text" id="lastName" name="lastName" placeholder="Last Name" >
-            </div>
-            <div>
-                <!-- <select id="" name="Sex">
-                    <option value="" disabled selected>Sex</option>
-                    <option value="M"> Male </option>
-                    <option value="F"> Female </option>
-                </select> -->
-                <select name="sex">
-                    <option value="" disabled selected>Sex</option>
-                    <option value="M"> Male </option>
-                    <option value="F"> Female </option>
-                </select>
-            </div>
-            <div>
-                <input type="text" name="age" placeholder="Age" >
-            </div>
-            <div>
-                <input type="text" id="hours" name="hours" placeholder="Hours Required" >
-            </div>
-            <div>   
-                <select id="course" name="course">
-                    <option value="" disabled selected>Course</option>
-                    <?php
-                        $fetching = "SELECT * FROM coursetbl";
-                        $fetchquery = mysqli_query($conn, $fetching);
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Add Intern</h2>
+            <form id="addInternForm" method="POST" action="addstudent.php" enctype="multipart/form-data"> <!-- Add enctype attribute for file uploads -->
+                <div>
+                    <input type="text" id="firstName" name="firstName" placeholder="First Name" >
+                </div>
+                <div>
+                    <input type="text" id="middleName" name="middleName" placeholder="Middle Name">
+                </div>
+                <div>
+                    <input type="text" id="lastName" name="lastName" placeholder="Last Name" >
+                </div>
+                <div>
+                    <!-- <select id="" name="Sex">
+                        <option value="" disabled selected>Sex</option>
+                        <option value="M"> Male </option>
+                        <option value="F"> Female </option>
+                    </select> -->
+                    <select name="sex">
+                        <option value="" disabled selected>Sex</option>
+                        <option value="M"> Male </option>
+                        <option value="F"> Female </option>
+                    </select>
+                </div>
+                <div>
+                    <select id="" name="school">
+                        <option disabled selected>School Name</option>
+                        <?php
+                            $school = "SELECT * FROM school ORDER BY schoolname";
+                            $query = mysqli_query($conn, $school);
 
-                        while($row = mysqli_fetch_assoc($fetchquery)){
-                            $courseid = $row['courseid'];
-                            $course = $row['course'];
-                    ?>
-                            <option value="<?php echo $courseid; ?>"><?php echo $course;?></option>        
-                    <?php
-                        }
-                    ?>
-                    <!-- Add more options as needed -->
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="startDate">Start Date</label>
-                <input type="date" id="startDate" name="startDate" >
-            </div>
-            <div class="form-group">
-                <label for="endDate">End Date</label>
-                <input type="date" id="endDate" name="endDate" >
-            </div>
-            <div>
-                <select id="" name="school">
-                    <option disabled selected>School Name</option>
-                    <?php
-                        $school = "SELECT * FROM school ORDER BY schoolname";
-                        $query = mysqli_query($conn, $school);
+                            while($row = mysqli_fetch_assoc($query)){
+                                $Sid = $row['id'];
+                                $school = $row['schoolname'];
+                        ?>    
+                                <option value="<?php echo $Sid; ?>"><?php echo $school;?></option>
+                        <?php
+                            }
+                        ?>
+                        <!-- Add more options as needed -->
+                    </select>
+                </div>
+                <div>   
+                    <select id="course" name="course">
+                        <option value="" disabled selected>Course</option>
+                        <?php
+                            $fetching = "SELECT * FROM coursetbl";
+                            $fetchquery = mysqli_query($conn, $fetching);
 
-                        while($row = mysqli_fetch_assoc($query)){
-                            $Sid = $row['id'];
-                            $school = $row['schoolname'];
-                            $start = $row['startdate'];
-                            $end = $row['end_date'];
-                            $hours = $row['hrequired'];
-                            $status = $row['status'];
+                            while($row = mysqli_fetch_assoc($fetchquery)){
+                                $courseid = $row['courseid'];
+                                $course = $row['course'];
+                        ?>
+                                <option value="<?php echo $courseid; ?>"><?php echo $course;?></option>
+                        <?php
+                            }
 
-                            echo "<tr class='highlight'>";
-                            echo "<td>" . $id . "</td>";
-                            echo "<td>" . $lname . ", " . $fname . " " . $mname . "</td>";
-                            echo "<td>" . $school . "</td>";
-                            echo "<td>" . $course . "</td>";
-                            echo "<td>" . $start . "</td>";
-                            echo "<td>" . $end . "</td>";
-                            echo "<td>" . $hours . " hours</td>";
-                            echo "<td>" . $hours . " hours</td>"; // Adjust this for remaining hours
-                            echo "<td>" . $status . "</td>"; // Adjust this for status
-                            echo "</tr>";
-                        }
-                    ?>
-                    <!-- Add more options as needed -->
-                </select>
-            </div>
-            <!-- New file input for picture -->
-            <div class="file-upload-container">
-            <label for="fileUpload" class="file-upload-label">Profile Picture</label>
-    <label for="fileUpload" class="custom-file-upload">
-        <span>Choose File</span>
-    </label>
-    <input type="file" id="fileUpload" name="fileUpload" accept="image/*" style="display: none;" />
-    
-</div>
+
+                        ?>
+                        <!-- Add more options as needed -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="startDate">Birthday</label>
+                    <input type="date" id="startDate" name="bday" >
+                </div>
+                <div class="form-group">
+                    <label for="startDate">Student Age</label>
+                    <input type="text" name="age" placeholder="Age" >
+                </div>
+                <div class="form-group">
+                    <label for="startDate">Start Date</label>
+                    <input type="date" id="startDate" name="startDate" >
+                </div>
+                <div class="form-group">
+                    <label for="endDate">End Date</label>
+                    <input type="date" id="endDate" name="endDate" >
+                </div>
+                <div>
+                    <input type="text" id="hours" name="hours" placeholder="Hours Required" >
+                </div>
+                <!-- New file input for picture -->
+                <div class="file-upload-container">
+                <label for="fileUpload" class="file-upload-label">Profile Picture</label>
+        <label for="fileUpload" class="custom-file-upload">
+            <span>Choose File</span>
+        </label>
+        <input type="file" id="fileUpload" name="image" accept="image/*" style="display: none;" />
+        
+    </div>
             <div style="flex: 1 1 100%;">
                 <button type="submit" name="add">Add Intern</button>
             </div>
@@ -166,42 +237,44 @@ session_start();
 
             <?php
 
-                $id = "SELECT * FROM studentinfo";
-                $query = mysqli_query($conn, $id);
+                // $id = "SELECT * FROM studentinfo";
+                // $query = mysqli_query($conn, $id);
 
-                while($get = mysqli_fetch_assoc($query)){
-                    $studid = $get['studid'];
-                }
+                // while($get = mysqli_fetch_assoc($query)){
+                //     $studid = $get['studid'];
+                // }
 
             ?>
 
             // Add double-click event listener to table rows
-            document.addEventListener('DOMContentLoaded', function() {
-                var tableRows = document.querySelectorAll('table tbody tr');
+            // document.addEventListener('DOMContentLoaded', function() {
+            //     var tableRows = document.querySelectorAll('table tbody tr');
 
-                tableRows.forEach(function(row) {
-                    row.addEventListener('dblclick', function() {
-                        // Get intern details from the row (e.g., intern ID)
-                        var internId = this.getAttribute('data-intern-id');
-                        // Redirect to the intern's detail page
-                        window.location.href = 'internInfo.php?rowid=<?php echo $studid; ?>';
-                    });
-                });
-            });
+            //     tableRows.forEach(function(row) {
+            //         row.addEventListener('dblclick', function() {
+            //             // Get intern details from the row (e.g., intern ID)
+            //             var internId = this.getAttribute('data-intern-id');
+            //             // Redirect to the intern's detail page
+            //             window.location.href = 'internInfo.php?rowid=<?php echo $studid; ?>';
+            //         });
+            //     });
+            // });
 </script>
 
             <div class="search-bar-container">
                 <div class="search-bar">
                     <i class="fa fa-search"></i>
-                    <input type="text" placeholder="Search...">
+                    <form action="" method="POST">
+                    <input type="text" name="search" placeholder="Search...">
                 </div>
-                <button class="filter-button">Filter Results</button>
+                    <button class="filter-button" type="submit" name="btn">Filter Results</button>
+                    </form>
             </div>
 
             <div class="table-container">
             <table id="myTable">
     <thead>
-        <tr>
+        <tr><th>Image</th>
         <th onclick="sortTable(0)">Name</th>
         <th onclick="sortTable(1)">School / University</th>
         <th onclick="sortTable(2)">Course</th>
@@ -218,9 +291,12 @@ session_start();
             if(isset($_POST['btn'])){
                 $search = $_POST['search'];
 
-                $find = "SELECT * FROM studentinfo INNER JOIN school ON studentinfo.id = school.id INNER JOIN coursetbl ON coursetbl.courseid = studentinfo.courseid WHERE fname LIKE '%$search%' OR mname LIKE '%$search%' OR lname LIKE '%$search%' OR age LIKE '%$search%' OR sex LIKE '%$search%' OR hrequired LIKE '%$search%' OR startdate LIKE '%$search%' OR end_date LIKE '%$search%' OR schoolname LIKE '%$search%' OR course LIKE '%$search%';";
+                $find = "SELECT * FROM studentinfo INNER JOIN school ON studentinfo.schoolid = school.id INNER JOIN coursetbl ON coursetbl.courseid = studentinfo.courseid WHERE (fname LIKE '%$search%' OR 
+                mname LIKE '%$search%' OR lname LIKE '%$search%' OR age LIKE '%$search%' OR sex LIKE '%$search%' OR hrequired LIKE '%$search%' OR hoursrem LIKE '%$search%'
+                OR startdate LIKE '%$search%' OR end_date LIKE '%$search%' OR schoolname LIKE '%$search%' OR course LIKE '%$search%') AND view LIKE 'Yes' ORDER BY studentinfo.studid DESC;";
                 $searchquery = mysqli_query($conn, $find);
                 $exist = mysqli_num_rows($searchquery);
+                
 
                 if($exist > 0){
                     while($row = mysqli_fetch_all($searchquery)){
@@ -232,17 +308,31 @@ session_start();
                         $age = $row['age'];
                         $schoolname = $row['schoolname'];
                         $hours = $row['hrequired'];
+                        $hoursrem = $row['hoursrem'];
                         $start = $row['startdate'];
                         $end = $row['end_date'];
+                        $profile = $row['image'];
+                        $convertedstart = date("Y-m-d", $start);
+                        $convertedend = date('Y-m-d', $end);
+
+
+
+
+                        $hours = intdiv($hoursrem, 3600);
+                        $minutes = intdiv(($hoursrem % 3600), 60);
+                        $seconds = $hoursrem % 60;
+                        
+                        $hREM = $hours . " Hour/s " . $minutes. "minute/s";
+
 
                         echo "<tr class='highlight'>";
                         echo "<td>" .$lname. "," .$fname. " " .$mname. "</td>";
                         echo "<td>" .$schoolname. "</td>";
                         echo "<td>" .$course. "</td>";
-                        echo "<td>" .$start. "</td>";
-                        echo "<td>" .$end. "</td>";
-                        echo "<td>" .$hours. " hours</td>";
-                        echo "<td></td>"; // Adjust this for remaining hours
+                        echo "<td>" .$convertedstart. "</td>";
+                        echo "<td>" .$convertedend. "</td>";
+                        echo "<td>" .$hours / 3600 . " hours</td>";
+                        echo "<td>".$hREM ."</td>"; // Adjust this for remaining hours
                         echo "<td></td>"; // Adjust this for status
                         echo "</tr>";
                     }
@@ -252,8 +342,10 @@ session_start();
                 }
             }
             else {
-                $sql = "SELECT * FROM studentinfo INNER JOIN school ON studentinfo.schoolid = school.id INNER JOIN coursetbl ON coursetbl.courseid = studentinfo.courseid ORDER BY studid DESC;";
+                $sql = "SELECT * FROM studentinfo INNER JOIN school ON studentinfo.schoolid = school.id INNER JOIN coursetbl ON coursetbl.courseid = studentinfo.courseid 
+                WHERE view = 'Yes' ORDER BY studentinfo.studid DESC;";
                 $query = mysqli_query($conn, $sql);
+                
 
                 while($row = mysqli_fetch_assoc($query)){
                     $id = $row['studid'];
@@ -266,17 +358,32 @@ session_start();
                     $school = $row['schoolname'];
                     $start = $row['startdate'];
                     $end = $row['end_date'];
-                    $hours = $row['hrequired'];
+                    $hreq = $row['hrequired'];
+                    $hoursrem = $row['hoursrem'];
                     $status = $row['status'];
+                    $profile = $row['image'];
+                    $convertedstart = date("Y-m-d", $start);
+                    $convertedend = date('Y-m-d', $end);
+
+
+
+
+                    $hours = intdiv($hoursrem, 3600);
+                    $minutes = intdiv(($hoursrem % 3600), 60);
+                    $seconds = $hoursrem % 60;
+                    
+                    $hREM = $hours . " Hour/s " . $minutes. "minute/s";
+
 
                     echo "<tr class='highlight'>";
-                    echo "<td>" .$lname. "," .$fname. " " .$mname. "</td>";
+                    echo "<td><a href=internInfo.php?rowid='".$id."'><img id='profile' src='uploads/".$profile."'></a></td>";
+                    echo "<td><a href=internInfo.php?rowid='".$id."'>" .$lname. "," .$fname. " " .$mname. "</a></td>";
                     echo "<td>" .$school. "</td>";
                     echo "<td>" .$course."</td>";
-                    echo "<td>" .$start. "</td>";
-                    echo "<td>" .$end. "</td>";
-                    echo "<td>" .$hours. " hours</td>";
-                    echo "<td></td>"; // Adjust this for remaining hours
+                    echo "<td>" .$convertedstart. "</td>";
+                    echo "<td>" .$convertedend. "</td>";
+                    echo "<td>" .$hreq / 3600 . " hours</td>";
+                    echo "<td>" .$hREM. "</td>"; // Adjust this for remaining hours
                     echo "<td>" .$status."</td>"; // Adjust this for status
                     echo "</tr>";
                 }

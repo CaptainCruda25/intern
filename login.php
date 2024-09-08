@@ -1,25 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-US">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/login2.css">
-    <title>Login</title>
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="icon" type="image/png" href="img/logo-icon.png">
+    <title>LOGIN | GML</title>
+    <script type="text/javascript" src="js/function.js"></script>
 </head>
+
 <body>
-<?php
+    <?php
     require 'server.php'; // Requiring the file that connects to the server
     session_start();
     error_reporting(0);
 
-    // Uncomment these if you want to restrict access to logged-in users
     /*
-    if (isset($_SESSION['username'])) {
+    if ($_SESSION['username']) {
         header('location: home.php');
         exit();
     }
 
-    if (isset($_SESSION['accrole'])) {
+    if ($_SESSION['accrole']) {
         header('location: admin.php');
         exit();
     }
@@ -67,30 +70,35 @@
             }
         }
     }
-?>
+    ?>
 
-<div class="container">
-    <div class="background-left"></div>
-    <div class="quote-overlay">
-        <div class="quote-container">
-            <p id="quote">Loading...</p>
+    <header></header>
+    <main>
+    <section id="loginctn">
+        <div id="bgctn">
+            <img src="img/logo.jpg" alt="User Icon">
+            <h4>Login</h4>
+            <form action="index.php" method="POST">
+                <div id="form-box">
+                    <div id="userctn">
+                        <input type="text" id="user" name="userName" placeholder="Username">
+                    </div>
+                    <div id="passctn">
+                        <input type="password" id="pass" name="passWord" placeholder="Password">
+                    </div>
+                    <div id="rememberme">
+                        <input type="checkbox" id="remember" name="remember">
+                        <label for="remember">Remember Me</label>
+                    </div>
+                </div>
+                <div id="login">
+                    <input id="loginbtn" type="submit" name="login" value="Login" onclick="signin()">
+                </div>
+            </form>
+            <p id="forgot"><a href="forgot.php" target="_blank">Forgot Password?</a></p>
         </div>
-    </div>
-    <div class="login-form">
-        <img src="img/logo-icon.png" alt="Logo" class="logo">
-        <h2>Login</h2>
-        <!-- Update form to submit to PHP script -->
-        <form action="login.php" method="POST">
-            <label for="username">Username</label>
-            <input type="text" id="username" name="userName" required>
-            
-            <label for="password">Password</label>
-            <input type="password" id="password" name="passWord" required>
-            
-            <button type="submit" name="login">Login</button>
-        </form>
-    </div>
-</div>
-<script src="js/scripts.js"></script>
+    </section>
+    </main>
 </body>
+
 </html>

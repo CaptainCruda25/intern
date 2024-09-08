@@ -1,336 +1,547 @@
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #a1a1a1;
-    height: 100vh;
-    display: flex;
-    overflow: hidden; 
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #a1a1a1;
+  height: 100vh;
+  display: flex;
+  overflow: hidden;
 }
 
 .container {
-    display: flex;
-    width: 100%;
-    overflow: hidden;
+  display: flex;
+  width: 100%;
+  overflow: hidden;
 }
 
 .sidebar {
-    height: 100vh;
-    width: 70px;
-    background-color: #487D47;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    box-sizing: border-box;
-    transition: width 0.3s ease;
-    position: relative;
-    border-radius: 0 15px 15px 0;
+  height: 100vh;
+  width: 70px;
+  background-color: #487d47;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  transition: width 0.3s ease;
+  position: relative;
+  border-radius: 0 15px 15px 0;
 }
 
 .sidebar:hover {
-    width: 200px;
+  width: 200px;
 }
 
 .logo {
-    text-align: center;
-    background-color: white;
-    padding: 10px;
-    border-radius: 1% 40% 45% 50%;
+  text-align: center;
+  background-color: white;
+  padding: 10px;
+  border-radius: 1% 40% 45% 50%;
 }
 
 .logo img {
-    max-width: 80%;
-    max-height: 70px;
-    transition: max-height 0.3s ease;
+  max-width: 80%;
+  max-height: 70px;
+  transition: max-height 0.3s ease;
 }
 
 .sidebar ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    width: 100%;
-    text-align: center;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  text-align: center;
 }
 
 .sidebar ul li {
-    width: 100%;
+  width: 100%;
 }
 
 .sidebar a {
-    margin-top: 60px;
-    padding: 10px 20px;
-    text-decoration: none;
-    font-size: 20px;
-    color: white;
-    display: flex;
-    align-items: center;
-    width: 100%;
-    box-sizing: border-box;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    transition: background-color 0.3s ease;
+  margin-top: 60px;
+  padding: 10px 20px;
+  text-decoration: none;
+  font-size: 20px;
+  color: white;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: background-color 0.3s ease;
 }
 
 .sidebar a:hover {
-    background-color: #dbdbdb;
-    border-radius: 10px;
+  background-color: #dbdbdb;
+  border-radius: 10px;
 }
 
 .sidebar a i {
-    min-width: 30px;
-    text-align: center;
+  min-width: 30px;
+  text-align: center;
 }
 
 .sidebar a span {
-    display: none;
+  display: none;
 }
 
 .sidebar:hover a span {
-    display: inline;
+  display: inline;
 }
 
 .sidebar:hover .logo img {
-    max-height: 100%;
+  max-height: 100%;
 }
 
 .logout-container {
-    margin-top: auto; 
-    margin-bottom: 20px; 
-    display: flex;
-    justify-content: center;
+  margin-top: auto;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
 }
 
 .Btn {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    width: 45px;
-    height: 45px;
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-    transition-duration: .3s;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
-    background-color: rgba(38, 118, 67, 1);
-    margin: 0 15px; 
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 45px;
+  height: 45px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition-duration: 0.3s;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
+  background-color: rgba(38, 118, 67, 1);
+  margin: 0 15px;
 }
 
 .Btn .sign {
-    width: 100%;
-    transition-duration: .3s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  width: 100%;
+  transition-duration: 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .Btn .sign svg {
-    width: 17px;
+  width: 17px;
 }
 
 .Btn .sign svg path {
-    fill: white;
+  fill: white;
 }
 
 .Btn .text {
-    position: absolute;
-    right: 0%;
-    width: 0%;
-    opacity: 0;
-    color: white;
-    font-size: 1.2em;
-    font-weight: 600;
-    transition-duration: .3s;
+  position: absolute;
+  right: 0%;
+  width: 0%;
+  opacity: 0;
+  color: white;
+  font-size: 1.2em;
+  font-weight: 600;
+  transition-duration: 0.3s;
 }
 
 .sidebar:hover .Btn,
 .Btn:hover {
-    width: 125px;
-    border-radius: 40px;
+  width: 125px;
+  border-radius: 40px;
 }
 
 .sidebar:hover .Btn .sign,
 .Btn:hover .sign {
-    width: 30%;
-    transition-duration: .3s;
-    padding-left: 20px;
+  width: 30%;
+  transition-duration: 0.3s;
+  padding-left: 20px;
 }
 
 .sidebar:hover .Btn .text,
 .Btn:hover .text {
-    opacity: 1;
-    width: 70%;
-    transition-duration: .3s;
-    padding-right: 10px;
+  opacity: 1;
+  width: 70%;
+  transition-duration: 0.3s;
+  padding-right: 10px;
 }
 
 .Btn:active {
-    transform: translate(2px, 2px);
+  transform: translate(2px, 2px);
 }
 
 .main-content {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 20px;
-    width: calc(100% - 70px);
-    box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 20px;
+  width: calc(100% - 70px);
+  box-sizing: border-box;
 }
 
 .intern-info {
-    width: 40%;
-    background-color: white;
-    border-radius: 15px;
-    padding: 20px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    margin-right: 20px;
-    overflow: hidden;
+  width: 40%;
+  background-color: white;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-right: 20px;
+  overflow: hidden;
 }
 
 .intern-info .profile {
-    background-color: #f0f0f0; /* Light grey background for the header */
-    padding: 20px;
-    text-align: center;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
+  background-color: #f0f0f0; /* Light grey background for the header */
+  padding: 20px;
+  text-align: center;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
 }
 
 .intern-info .profile img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    margin-bottom: 10px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-bottom: 10px;
 }
 
-.intern-info .profile h2, .intern-info .profile p {
-    margin: 5px 0;
+.intern-info .profile h2,
+.intern-info .profile p {
+  margin: 5px 0;
 }
 
 .details {
-    padding: 5px;
-    border-radius: 10px;
-    margin: 20px 0;
-    margin-top: 10px;
-    margin-bottom: 0;
+  padding: 5px;
+  border-radius: 10px;
+  margin: 20px 0;
+  margin-top: 10px;
+  margin-bottom: 0;
 }
 
 .detail {
-    background-color: #7EBA7D; /* Lime green background */
-    padding: 10px;
-    margin-left: 10px;
-    margin-right: 10px;
-    margin-bottom: 7px;
-    border-radius: 13px;
-    border: 1px solid #c3e6cb; /* Light green border */
-    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.2); /* Inner shadow */
-    color: white; /* White text color */
+  background-color: #7eba7d; /* Lime green background */
+  padding: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 7px;
+  border-radius: 13px;
+  border: 1px solid #c3e6cb; /* Light green border */
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.2); /* Inner shadow */
+  color: white; /* White text color */
 }
 
 .intern-info .logo {
-    text-align: center;
-    padding: 10px;
+  text-align: center;
+  padding: 10px;
 }
 
 .intern-info .logo img {
-    width: 100px;
-    height: auto;
+  width: 100px;
+  height: auto;
 }
 
 .attendance-record {
-    width: 60%;
-    background-color: white;
-    border-radius: 15px;
-    padding: 20px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    position: relative; 
-    overflow: hidden; 
+  width: 60%;
+  background-color: white;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
 }
 
 .table-container {
-    max-height: 300px; 
-    overflow-y: auto; 
-    margin-bottom: 60px; 
+  max-height: 300px;
+  overflow-y: auto;
+  margin-bottom: 60px;
 }
 
 .attendance-record table {
-    width: 100%;
-    border-collapse: separate; 
-    border-spacing: 0; 
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
 }
 
-.attendance-record th, .attendance-record td {
-    text-align: left;
-    padding: 12px 16px; 
-    border-bottom: 2px solid #ddd;
-    text-align: center;
+.attendance-record th,
+.attendance-record td {
+  text-align: left;
+  padding: 12px 16px;
+  border-bottom: 2px solid #ddd;
+  text-align: center;
 }
 th:first-child {
-    border-top-left-radius: 10px;
+  border-top-left-radius: 10px;
 }
 th:last-child {
-    border-top-right-radius: 10px;
+  border-top-right-radius: 10px;
 }
 .attendance-record th {
-    color: white;
-    font-size: 16px; 
-    background: url(https://jackrugile.com/images/misc/noise-diagonal.png), linear-gradient(#e31b30, #f53e48);
+  color: white;
+  font-size: 16px;
+  background: url(https://jackrugile.com/images/misc/noise-diagonal.png), linear-gradient(#e31b30, #f53e48);
 }
 
 .attendance-record td {
-    font-size: 14px; 
+  font-size: 14px;
 }
 
 .button-detail {
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 13px;
-    justify-content: center;
-    display: flex;
-    margin-bottom: 0;
-    padding-bottom: 0;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 13px;
+  justify-content: center;
+  display: flex;
+  margin-bottom: 0;
+  padding-bottom: 0;
 }
 
 .attendance-buttons {
-    display: flex;
-    justify-content: center; 
-    position: absolute; 
-    bottom: 20px; 
-    left: 0; 
-    right: 0; 
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  right: 0;
 }
 
 .btn-time {
-    background-color: #487D47;
-    color: white;
-    border: none;
-    padding: 15px 40px; 
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin: 0 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+  background-color: #487d47;
+  color: white;
+  border: none;
+  padding: 15px 40px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin: 0 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .btn-time2 {
-    background-color: #DF5450;
-    color: white;
-    border: none;
-    padding: 15px 40px; /* Increase padding */
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin: 0 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow */
+  background-color: #df5450;
+  color: white;
+  border: none;
+  padding: 15px 40px; /* Increase padding */
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin: 0 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow */
 }
 
 .btn-time:hover {
-    background-color: #3a633a;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Darker shadow on hover */
+  background-color: #3a633a;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Darker shadow on hover */
 }
 
 .btn-time2:hover {
-    background-color: #c43e3a;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Darker shadow on hover */
+  background-color: #c43e3a;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Darker shadow on hover */
+}
+
+/* Modal styling */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  overflow: hidden; /* Disable scrolling */
+  text-align: center;
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 1% auto; /* 5% from the top and centered */
+  padding: 40px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+  max-width: 800px;
+  border-radius: 30px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  
+}
+
+/* The Close Button */
+.close,
+.close1{
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus,
+.close1:hover,
+.close1:focus {
+  color: black;
+  text-decoration: none;
+}
+
+/* Form styling */
+#addInternForm {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+/* Form input and select box styling */
+#addInternForm input[type="text"],
+#addInternForm input[type="number"],
+#addInternForm input[type="date"],
+#addInternForm select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+/* Divide form into two columns */
+#addInternForm > div {
+  flex: 1 1 calc(50% - 20px); /* 50% width - gap */
+}
+
+/* Title for form fields */
+#addInternForm label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+/* Placeholder color */
+#addInternForm input::placeholder {
+  color: #888;
+}
+
+/* Dropdown styling */
+#addInternForm select {
+  appearance: none; /* Removes default styling */
+}
+/* Dropdown styling */
+#addInternForm select {
+  appearance: none; /* Removes default styling */
+}
+
+/* Button styling */
+#addInternForm button[type="submit"] {
+  width: 100%;
+  background-color: #4caf50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+#addInternForm button[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+/* Responsive form layout */
+@media screen and (max-width: 600px) {
+  #addInternForm > div {
+    flex: 1 1 100%; /* Stack input fields on small screens */
+  }
+}
+/* Style for custom file upload label */
+/* Container for file upload and label */
+.file-upload-container {
+  display: flex;
+  align-items: center; /* Align items vertically */
+  gap: 15px; /* Space between the file upload button and the label */
+}
+
+/* Style for custom file upload label */
+.custom-file-upload {
+  display: inline-block;
+  padding: 7px 97px; /* Added more horizontal padding */
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+  text-align: center;
+  background-color: #f9f9f9; /* Light background color */
+  color: #444; /* Text color */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.custom-file-upload:hover {
+  background-color: #fff; /* White background on hover */
+  color: #444; /* Black text color on hover */
+  border-color: #444; /* Black border color on hover */
+}
+
+/* Style for the profile picture label */
+.file-upload-label {
+  font-size: 14px;
+  color: #444;
+  margin: 0; /* Remove default margin */
+}
+
+/* Adjust text color for custom file upload */
+.custom-file-upload span {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+
+
+
+#timeInModal input[type="text"],
+#timeInModal input[type="date"],
+#timeInModal input[type="time"],
+#timeInModal select {
+ width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+
+
+
+/* Dropdown styling */
+#timeInModal select {
+  appearance: none; /* Removes default styling */
+}
+/* Dropdown styling */
+#timeInModal select {
+  appearance: none; /* Removes default styling */
+}
+
+/* Button styling */
+#timeInModal button[type="submit"] {
+  width: 100%;
+  background-color: #4caf50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+#timeInModal button[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+/* Responsive form layout */
+@media screen and (max-width: 600px) {
+  #timeInModal > div {
+    flex: 1 1 100%; /* Stack input fields on small screens */
+  }
 }

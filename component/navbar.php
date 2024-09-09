@@ -70,26 +70,84 @@ include 'server.php';
             </li>
         </ul>
         <!-- Modals -->
+         <!-- Add Course Function -->
+         <?php
+
+            if(isset($_POST['addcourse'])){
+                $addcourse = $_POST['course'];
+
+                $coursesearch = "SELECT * FROM coursetbl;";
+                $querysearch = mysqli_query($conn, $coursesearch);
+
+                while($row = mysqli_fetch_assoc($querysearch)){
+                    $coursename = $row['course'];
+                }
+
+                if(empty($addcourse)){
+                    echo "<script>window.alert('Please fill in the course name.');</script>";
+                }
+                elseif($coursename > 0){
+                    echo "<script>window.alert('Course Exist!');</script>";
+                }
+                else{
+                    $course = "INSERT INTO coursetbl(course) VALUES ('$addcourse');";
+                    $coursequery = mysqli_query($conn, $course);
+                    echo "<script>window.alert('Course Successfully Added!');</script>";
+                }
+
+            }
+
+         ?>
+
         <div id="course-modal" class="modal">
             <div class="modal-content">
                 <span class="close" onclick="closeModal('course-modal')">&times;</span>
                 <h2 class="modal-title">Add Course</h2>
+                <p></p>
                 <form method="POST">
                     <input type="hidden" name="type" value="course">
-                    <input type="text" name="name" placeholder="Enter course name" required>
-                    <button type="submit" class="add-button">Add Course</button>
+                    <input type="text" name="course" placeholder="Enter course name" required>
+                    <button type="submit" name="addcourse" class="add-button">Add Course</button>
                 </form>
             </div>
         </div>
 
+        <!-- Add School Functionality -->
+        <?php
+
+            if(isset($_POST['addschool'])){
+                $addschool = $_POST['schoolname'];
+
+                $schoolsearch = "SELECT * FROM school;";
+                $queryschool = mysqli_query($conn, $schoolsearch);
+
+                while($row = mysqli_fetch_assoc($queryschool)){
+                    $school = $row['course'];
+                }
+                
+                if(empty($addschool)){
+                    echo "<script>window.alert('Please fill in the course name.');</script>";
+                }
+                elseif($school > 0){
+                    echo "<script>window.alert('School Successfully Added!');</script>";
+                }
+                else{
+                    $schoolname = "INSERT INTO school(schoolname) VALUES('$addschool');";
+                    $schoolquery = mysqli_query($conn, $schoolname);
+                    echo "<script>window.alert('School Successfully Added!');</script>";
+                }
+            }
+            
+
+        ?>
         <div id="school-modal" class="modal">
             <div class="modal-content">
                 <span class="close" onclick="closeModal('school-modal')">&times;</span>
                 <h2 class="modal-title">Add School</h2>
                 <form method="POST">
                     <input type="hidden" name="type" value="school">
-                    <input type="text" name="name" placeholder="Enter school name" required>
-                    <button type="submit" class="add-button">Add School</button>
+                    <input type="text" name="schoolname" placeholder="Enter school name" required>
+                    <button type="submit" name="addschool" class="add-button">Add School</button>
                 </form>
             </div>
         </div>

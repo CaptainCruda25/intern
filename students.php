@@ -326,6 +326,8 @@ error_reporting(0);
 
 
                         echo "<tr class='highlight'>";
+                        echo "<td><a href=internInfo.php?rowid='".$id."'><img id='profile' src='uploads/".$profile."' alt='Profile Image'></a></td>";
+                        echo "<td><a href=internInfo.php?rowid='".$id."'>" .$lname. "," .$fname. " " .$mname. "</a></td>";
                         echo "<td>" .$lname. "," .$fname. " " .$mname. "</td>";
                         echo "<td>" .$schoolname. "</td>";
                         echo "<td>" .$course. "</td>";
@@ -376,7 +378,7 @@ error_reporting(0);
 
 
                     echo "<tr class='highlight'>";
-                    echo "<td><a href=internInfo.php?rowid='".$id."'><img id='profile' src='uploads/".$profile."'></a></td>";
+                    echo "<td><a href=internInfo.php?rowid='".$id."'><img id='profile' src='uploads/".$profile."' alt='Profile Image'></a></td>";
                     echo "<td><a href=internInfo.php?rowid='".$id."'>" .$lname. "," .$fname. " " .$mname. "</a></td>";
                     echo "<td>" .$school. "</td>";
                     echo "<td>" .$course."</td>";

@@ -1,6 +1,8 @@
 <?php
 require 'server.php';
-
+if($_SESSION['accrole'] && $_SESSION['username']){
+    header('location: index.php');
+}
 
 
 if (isset($_POST['add'])) {
@@ -52,8 +54,18 @@ if (isset($_POST['add'])) {
         $end_date = strtotime("+$full_weeks weeks", $timestamp);
         $end_date = strtotime("+$remaining_days weekdays", $end_date);
         
-        if(file_exists($intern_temp_name)){
+        // Validating File Extension
+
+        $file_extension = array('jpeg', 'jpg', 'png', 'gif');
+        $allowed_extension = pathinfo($intern_image, PATHINFO_EXTENSION);
+
+
+        if(!file_exists($intern_temp_name)){
             echo "<script>window.alert('Image Exists! Please Try Again!');</script>";
+            echo "<script>window.location.assign('students.php');</script>";
+        }
+        elseif(!in_array(strtolower($allowed_extension), $file_extension)){
+            echo "<script>window.alert('Error! File Not Supported!');</script>";
             echo "<script>window.location.assign('students.php');</script>";
         }
         else{

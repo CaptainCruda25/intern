@@ -79,6 +79,7 @@
     <div class="login-form">
         <img src="img/logo-icon.png" alt="Logo" class="logo">
         <h2>Login</h2>
+        <p><?php ?></p>
         <!-- Update form to submit to PHP script -->
         <form action="index.php" method="POST">
             <label for="username">Username</label>

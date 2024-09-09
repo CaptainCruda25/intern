@@ -1,14 +1,20 @@
 .logo {
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: white;
   padding: 10px;
-  border-radius: 1% 40% 45% 50%;
+  border-radius: 1px 15px 15px 19px;
 }
 
 .logo img {
   max-width: 80%;
-  max-height: 70px;
-  transition: max-height 0.3s ease;
+  max-height: 90px;
+  height: 40px;
+}
+
+#logo-hover{
+  display: none;
 }
 
 /* Sidebar container */
@@ -47,8 +53,8 @@
 
 /* Sidebar links */
 .sidebar a {
-  margin-top: 60px;
-  padding: 10px 20px;
+  margin-top: 30px;
+  padding: 5px 20px;
   text-decoration: none;
   font-size: 20px;
   color: white; /* Text color */
@@ -60,7 +66,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   transition: background-color 0.3s ease; /* Smooth background color transition */
-  border-radius: 10px; /* Rounded corners */
+  border-radius: 10px; /*Rounded corners */
 }
 
 /* Hover effect on links */
@@ -86,15 +92,210 @@
   display: none; /* Hidden text */
 }
 
+.sidebar .settings-text{
+  display: none;
+}
+
+.sidebar.sidebar:hover .settings-text{
+  display: inline;
+}
+
 /* Show span on hover */
-.sidebar:hover a span {
+.sidebar:hover a span  {
   display: inline; /* Show text when hovered */
 }
 
-/* Logo styling */
-.sidebar:hover .logo img {
-  max-height: 100%; /* Adjust logo size on hover */
+.sidebar:hover #logo-hover{
+  display: flex;
 }
+
+.sidebar:hover #logo-not-hover{
+  display: none;
+}
+
+.sidebar:hover .logo{
+  padding-left: 1px;
+}
+
+.sidebar .settings-link {
+  display: flex;
+  align-items: center;
+  margin-top: 30px;
+  padding: 5px 20px;
+  font-size: 20px;
+  color: white; /* Text color */
+  width: 200px;
+  box-sizing: border-box;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border-radius: 10px; /* Rounded corners */
+}
+
+.sidebar .settings{
+  position:relative;
+  right: -5px;
+}
+
+
+/* Hover effect on the non-clickable Settings tab */
+.sidebar ul li .settings-link:hover {
+  background-color: #dbdbdb; /* Background color on hover */
+  color: black; /* Text color on hover */
+}
+
+/* Dropdown menu container */
+.sidebar ul li .dropdown {
+  display: none; /* Hide dropdown by default */
+  background-color: #487d47; /* Same background as sidebar */
+  position: absolute; /* Position relative to the parent <li> */
+  left: 0; /* Align with the left edge of the sidebar */
+  width: 100%; /* Ensure the dropdown width matches the sidebar */
+  z-index: 1; /* Ensure dropdown is above other elements */
+}
+
+/* Show dropdown on hover */
+.sidebar ul li:hover .dropdown {
+  display: block; /* Show dropdown when hovering over settings */
+}
+
+/* Dropdown list items */
+.sidebar ul li .dropdown li {
+  background-color: #487d47;
+  transition: background-color 0.3s, color 0.3s; /* Smooth transitions */
+}
+
+/* Dropdown links */
+.sidebar ul li .dropdown li a {
+  color: white; /* Text color for dropdown items */
+  font-size: 18px;
+  text-decoration: none;
+  display: block;
+  border-bottom: 1px solid #a1a1a1;
+  border-radius: 0;
+  width: 100%;
+  margin: 0;
+}
+
+/* Hover effect for dropdown items */
+.sidebar ul li .dropdown li a:hover {
+  background-color: #dbdbdb; /* Background color on hover */
+  color: black; /* Text color on hover */
+}
+
+/* Modal styles */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* Centered horizontally */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Adjust as needed */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Optional shadow */
+  border-radius: 8px; /* Rounded corners */
+  text-align: center; /* Center text and button */
+}
+
+.modal-title {
+  margin: 0;
+  text-align: center;
+  font-size: 24px; /* Adjust size as needed */
+  color: #333; /* Adjust color as needed */
+}
+
+/* Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Input field styling */
+.modal-content input[type="text"] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border-radius: 10px;
+}
+
+/* Button styling */
+.add-button {
+  background-color: #4CAF50; /* Green background */
+  border: none; /* Remove borders */
+  color: white; /* White text */
+  padding: 15px 20px; /* Some padding */
+  text-align: center; /* Centered text */
+  text-decoration: none; /* Remove underline */
+  display: inline-block; /* Get the button on the same line */
+  font-size: 16px; /* Set a font size */
+  margin: 10px 0; /* Margins for spacing */
+  cursor: pointer; /* Pointer cursor on hover */
+  border-radius: 5px; /* Rounded corners */
+}
+
+/* Button hover effect */
+.add-button:hover {
+  background-color: #45a049; /* Darker green on hover */
+}
+
+.notification-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.notification {
+  display: none;
+  padding: 15px;
+  border-radius: 5px;
+  color: white;
+  font-size: 16px;
+  margin-bottom: 10px;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.notification.success {
+  background-color: green;
+  border-left: 5px solid darkgreen;
+}
+
+.notification.error {
+  background-color: red;
+  border-left: 5px solid darkred;
+}
+
+.notification.show {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+
+
 
 .logout-container {
   margin-top: auto; /* Pushes logout button to the bottom of the sidebar */

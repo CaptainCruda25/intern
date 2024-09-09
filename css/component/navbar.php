@@ -1,6 +1,11 @@
 <?php
 include 'server.php';
 
+if($_SESSION['username'] && $_SESSION['accrole']){
+    header('location: index.php');
+}
+
+
 // Check which form was submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $type = $_POST['type'];

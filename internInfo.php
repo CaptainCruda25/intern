@@ -5,6 +5,7 @@ session_start();
 error_reporting(0);
 
 
+
 if (!empty($_GET['rowid'])) {
     $rowid = $_GET['rowid'];
     $fetch = "SELECT * FROM studentinfo INNER JOIN school ON studentinfo.schoolid = school.id INNER JOIN coursetbl ON coursetbl.courseid = studentinfo.courseid WHERE studid LIKE $rowid;";
@@ -29,6 +30,13 @@ if (!empty($_GET['rowid'])) {
         $convertedend = date('M d, Y', $end);
     }
 }
+
+if(!$_SESSION['accrole'] && !$_SESSION['username']){
+    header('location: index.php');
+}
+
+
+
 
 
 
@@ -774,24 +782,29 @@ if (!empty($_GET['rowid'])) {
                             ?>
                             <?php
 
-                                $timerecord = "SELECT timeid FROM time_record;";
+                                $timerecord = "SELECT timeid FROM time_record WHERE studid = $rowid;";
                                 $trquery = mysqli_query($conn, $timerecord);
                                 while($trid = mysqli_fetch_assoc($trquery)){
                                     $timeid = $trid['timeid'];
+
+                            ?>
+                                    <tr>
+                                        <td><a href="editrecord.php?timerecord=<?php echo $timeid;?>"><?php echo $date; ?></a></td>
+                                        <td><?php echo $day; ?></td>
+                                        <td><?php echo $convertedIN; ?></td>
+                                        <td><?php echo $time_out != 0 ? $convertedOUT : "-"; ?></td>
+                                        <td><?php echo $time_out != 0 ? $convertedrendered : "-" ?></td>
+                                        <td><?php echo $time_out != 0 ? $remHours : "-"; ?></td>
+                                        <td><?php echo $ot; ?></td>
+                                        <td><button id="Edit"><i class="fas fa-edit"></i></button></td>
+                                    </tr>
+                            <?php
+                                    
                                 }
 
 
                             ?>
-                                <tr>
-                                    <td><a href="editrecord.php?timerecord=<?php echo $timeid;?>"><?php echo $date; ?></a></td>
-                                    <td><?php echo $day; ?></td>
-                                    <td><?php echo $convertedIN; ?></td>
-                                    <td><?php echo $time_out != 0 ? $convertedOUT : "-"; ?></td>
-                                    <td><?php echo $time_out != 0 ? $convertedrendered : "-" ?></td>
-                                    <td><?php echo $time_out != 0 ? $remHours : "-"; ?></td>
-                                    <td><?php echo $ot; ?></td>
-                                    <td><button id="Edit"><i class="fas fa-edit"></i></button></td>
-                                </tr>
+                                        
                             <?php
 
                             }

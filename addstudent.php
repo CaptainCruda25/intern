@@ -1,6 +1,8 @@
 <?php
 require 'server.php';
-
+if($_SESSION['accrole'] && $_SESSION['username']){
+    header('location: index.php');
+}
 
 
 if (isset($_POST['add'])) {

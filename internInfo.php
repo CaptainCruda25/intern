@@ -31,7 +31,7 @@ if (!empty($_GET['rowid'])) {
     }
 }
 
-if(!$_SESSION['accrole'] && !$_SESSION['username']){
+if (!$_SESSION['accrole'] && !$_SESSION['username']) {
     header('location: index.php');
 }
 
@@ -74,8 +74,7 @@ if(!$_SESSION['accrole'] && !$_SESSION['username']){
 
                     if (empty($status) || empty($age)) {
                         echo "<script>window.alert('Fill All The Fields!')</script>";
-                    }
-                    else {
+                    } else {
                         $update = "UPDATE studentinfo SET status = '$status', image = '$img_name' WHERE studid like $rowid;";
                         $query = mysqli_query($conn, $update);
 
@@ -213,109 +212,7 @@ if(!$_SESSION['accrole'] && !$_SESSION['username']){
                     echo "<script>alert('Time In Successfully!')</script>";
                 }
             }
-
-            // if ($once > 0) {
-            //     echo "<script>alert('Error! Time In Exist!');</script>";
-
-            // } 
-            // else {
-            //     if ($choice == "No") {
-            //         if ($saturday == 6) {
-            //             echo "<script>window.alert('Overtime is not allowed!')</script>";
-            //         } else {
-            //             $allow = "INSERT INTO time_record(date, day, time_in, studid, allowOT) VALUES('$date', '$day', $timein, $studid, '$choice');";
-            //             $query = mysqli_query($conn, $allow);
-            //             echo "<script>alert('Time In Successfully!')</script>";
-            //         }
-            //     } elseif ($choice == 'Yes') {
-            //         if ($saturday == 6) {
-            //             $allow = "INSERT INTO time_record(date, day, time_in, studid, allowOT) VALUES('$date', '$day', $timein, $studid, '$choice');";
-            //             $query = mysqli_query($conn, $allow);
-            //             echo "<script>alert('Time In Successfully!')</script>";
-            //         } elseif ($sunday == 0) {
-            //             echo "<script>window.alert('Overtime is not allowed!')</script>";
-            //         }
-            //     } else {
-            //         echo "<script>window.alert('Overtime is not allowed!')</script>";
-            //     }
-            // }
         }
-
-
-
-        // if (isset($_POST['timeout'])) {
-        //     $timeout = time(); // Get the current Unix timestamp for time-out
-        //     $presentdate = date("m-d-y");
-        //     $studid = $_GET['rowid']; // Ensure you have the correct student ID
-
-        //     // Debugging output
-        //     // echo "<pre>";
-        //     // echo "Student ID: $studid\n";
-        //     // echo "Present Date: $presentdate\n";
-        //     // echo "</pre>";
-
-        //     // Check if time_in exists for the current date and student
-        //     $searchOut = "SELECT * FROM time_record WHERE time_in IS NOT NULL AND time_out IS NULL AND date = '$presentdate' AND studid = $studid;";
-        //     $searchOutquery = mysqli_query($conn, $searchOut);
-        //     $Outexists = mysqli_num_rows($searchOutquery);
-
-        //     // Debugging output
-        //     // echo "<pre>";
-        //     // echo "Rows Found: $Outexists\n";
-        //     // echo "</pre>";
-
-        //         if ($Outexists > 0) {
-        //             echo "<script>window.alert('No Time-In Record Found for Today!')</script>";
-        //         } 
-        //         else {
-        //         // Update time_out for the current day and student
-        //         $updateOut = "UPDATE time_record SET time_out = $timeout WHERE date = '$presentdate' AND studid = $studid;";
-        //         $updateOutquery = mysqli_query($conn, $updateOut);
-
-        //         // Fetch the time record to calculate hours_render
-        //         $fetchRecord = "SELECT time_in, time_out, hours_render FROM time_record WHERE date = '$presentdate' AND studid = $studid;";
-        //         $fetchQuery = mysqli_query($conn, $fetchRecord);
-        //         $record = mysqli_fetch_assoc($fetchQuery);
-
-        //         $timeIn = $record['time_in'];
-        //         $timeOut = $record['time_out'];
-        //         $hoursRender = 0;
-
-        //             if ($timeIn && $timeOut) {
-        //                 $hoursRender = $timeOut - $timeIn ; // Difference in seconds
-        //                 // Convert seconds to hours and minutes
-        //                 $hours = intdiv($hoursRender, 3600);
-        //                 $minutes = intdiv(($hoursRender % 3600), 60);
-        //                 $convertedRendered = "{$hours}h {$minutes}m";
-
-        //                 // Update hours_render in the database
-        //                 $updateRender = "UPDATE time_record SET hours_render = $hoursRender WHERE date = '$presentdate' AND studid = $studid;";
-        //                 mysqli_query($conn, $updateRender);
-
-        //                 // Fetch required hours from studentinfo table
-        //                 $fetchStudentInfo = "SELECT hoursrem FROM studentinfo WHERE studid = $studid;";
-        //                 $studentInfoQuery = mysqli_query($conn, $fetchStudentInfo);
-        //                 $studentInfo = mysqli_fetch_assoc($studentInfoQuery);
-        //                 $hoursrequired = $studentInfo['hoursrem'];
-
-        //                 // Calculate remaining hours
-
-        //                 $remHours = $hoursrequired - $hoursRender;
-
-        //                 // Update remaining hours in the database
-        //                 $updateRemainingHours = "UPDATE time_record SET remHours = $remHours WHERE date = '$presentdate' AND studid = $studid;";
-        //                 mysqli_query($conn, $updateRemainingHours);
-        //                 $updateRemainingHours2 = "UPDATE studentinfo SET hoursrem = $remHours WHERE studid = $studid;";
-        //                 mysqli_query($conn, $updateRemainingHours2);
-        //                 // Update remaining hours in the database
-        //                 echo "<script>window.alert('Time Out Successfully!')</script>";
-        //             }
-
-
-
-        //         }
-        // }
-
 
         if (isset($_POST['timeout'])) {
             $timeout = time(); // Get the current Unix timestamp for time-out
@@ -330,16 +227,14 @@ if(!$_SESSION['accrole'] && !$_SESSION['username']){
             $T_Out = "SELECT time_out FROM time_record WHERE time_out = 0 AND date = '$presentdate' AND studid = $studid;";
             $T_Outquery = mysqli_query($conn, $T_Out);
             $timeOutrows = mysqli_num_rows($T_Outquery);
-            
+
 
 
             if ($Outexists < 1) {
                 echo "<script>window.alert('No Time-In Record Found for Today!')</script>";
-            } 
-            elseif($timeOutrows == 0){
+            } elseif ($timeOutrows == 0) {
                 echo "<script>window.alert('Time Out Exist!')</script>";
-            }
-            else {
+            } else {
                 // Update time_out for the current day and student
                 $updateOut = "UPDATE time_record SET time_out = $timeout WHERE date = '$presentdate' AND studid = $studid;";
                 mysqli_query($conn, $updateOut);
@@ -353,7 +248,7 @@ if(!$_SESSION['accrole'] && !$_SESSION['username']){
                 $timeOut = $record['time_out'];
 
                 if ($timeIn && $timeOut) {
-                    $hoursRender = ($timeOut - $timeIn) - 3600; // Difference in seconds
+                    $hoursRender = (($timeOut - $timeIn) - 3600 <= 0) ? $timeOut - $timeIn : ($timeOut - $timeIn) - 3600; // Difference in seconds
                     $hours = intdiv($hoursRender, 3600);
                     $minutes = intdiv(($hoursRender % 3600), 60);
                     $convertedRendered = "{$hours}h {$minutes}m";
@@ -367,8 +262,6 @@ if(!$_SESSION['accrole'] && !$_SESSION['username']){
                     $studentInfoQuery = mysqli_query($conn, $fetchStudentInfo);
                     $studentInfo = mysqli_fetch_assoc($studentInfoQuery);
                     $hoursrequired = $studentInfo['hoursrem'];
-
-
 
                     // Calculate and update remaining hours in studentinfo table
                     $remHours = $hoursrequired - $hoursRender;
@@ -384,108 +277,6 @@ if(!$_SESSION['accrole'] && !$_SESSION['username']){
                 }
             }
         }
-
-
-        // date_default_timezone_set('Asia/Manila');
-
-        // $presentdate = date("Y-m-d"); // Changed to 'Y-m-d' format for MySQL
-        // $presentday = date('l');
-
-        // if (isset($_POST['timein'])) {
-        //     $studid = intval($_GET['rowid']);
-        //     $date = $_POST['date'];
-        //     $day = $_POST['day'];
-        //     $timein = time(); // Get the current Unix timestamp
-        //     $choice = "No";
-
-        //     // Check if Time In already exists for the current date and student
-        //     $sql = "SELECT * FROM time_record WHERE date = '$presentdate' AND studid = $studid;";
-        //     $check = mysqli_query($conn, $sql);
-        //     $once = mysqli_num_rows($check);
-
-        //     // Check if overtime is allowed
-        //     if (isset($_POST['choice']) && in_array('Yes', $_POST['choice'])) {
-        //         $choice = "Yes";
-        //     }
-
-        //     $weekday = date('w'); // Get the current day of the week (0 = Sunday, 6 = Saturday)
-
-        //     if ($once > 0) {
-        //         echo "<script>alert('Error! Time In Exist!');</script>";
-        //     } else {
-        //         if ($choice == "No" && $weekday == 6) {
-        //             echo "<script>window.alert('Overtime is not allowed on Saturdays!')</script>";
-        //         } elseif ($choice == 'Yes' && $weekday == 6) {
-        //             $allow = "INSERT INTO time_record(date, day, time_in, studid, allowOT) VALUES('$date', '$day', $timein, $studid, '$choice');";
-        //             $query = mysqli_query($conn, $allow);
-        //             echo "<script>alert('Time In Successfully!')</script>";
-        //         } elseif ($weekday == 0) { // Sunday
-        //             echo "<script>window.alert('Overtime is not allowed on Sundays!')</script>";
-        //         } else {
-        //             $allow = "INSERT INTO time_record(date, day, time_in, studid, allowOT) VALUES('$date', '$day', $timein, $studid, '$choice');";
-        //             $query = mysqli_query($conn, $allow);
-        //             echo "<script>alert('Time In Successfully!')</script>";
-        //         }
-        //     }
-        // }
-
-        // if (isset($_POST['timeout'])) {
-        //     $timeout = time(); // Get the current Unix timestamp for time-out
-        //     $studid = intval($_GET['rowid']); // Ensure you have the correct student ID
-
-        //     $time = date('h:i A');
-        //     // Check if time_in exists for the current date and student without a time_out
-        //     $searchOut = "SELECT * FROM time_record WHERE time_in IS NOT NULL AND time_out IS NULL AND date = '$presentdate' AND studid = $studid;";
-        //     $searchOutquery = mysqli_query($conn, $searchOut);
-        //     $Outexists = mysqli_num_rows($searchOutquery);
-
-        //     if ($Outexists == 0) {
-        //         echo "<script>window.alert('No Time-In Record Found for Today!')</script>";
-        //     } else {
-        //         // Update time_out for the current day and student
-        //         $updateOut = "UPDATE time_record SET time_out = $timeout WHERE date = '$presentdate' AND studid = $studid;";
-        //         $updateOutquery = mysqli_query($conn, $updateOut);
-
-        //         // Fetch the time record to calculate hours_render
-        //         $fetchRecord = "SELECT time_in, time_out FROM time_record WHERE date = '$presentdate' AND studid = $studid;";
-        //         $fetchQuery = mysqli_query($conn, $fetchRecord);
-        //         $record = mysqli_fetch_assoc($fetchQuery);
-
-        //         $timeIn = $record['time_in'];
-        //         $timeOut = $record['time_out'];
-        //         $hoursRender = 0;
-
-        //         if ($timeIn && $timeOut) {
-        //             $hoursRenderInSeconds = $timeOut - $timeIn; // Difference in seconds
-        //             $hours = intdiv($hoursRenderInSeconds, 3600);
-        //             $minutes = intdiv(($hoursRenderInSeconds % 3600), 60);
-        //             $convertedRendered = "{$hours}h {$minutes}m";
-
-        //             // Update hours_render in the database
-        //             $updateRender = "UPDATE time_record SET hours_render = $hoursRenderInSeconds WHERE date = '$presentdate' AND studid = $studid;";
-        //             mysqli_query($conn, $updateRender);
-
-        //             // Fetch required hours from studentinfo table
-        //             $fetchStudentInfo = "SELECT hoursrem FROM studentinfo WHERE studid = $studid;";
-        //             $studentInfoQuery = mysqli_query($conn, $fetchStudentInfo);
-        //             $studentInfo = mysqli_fetch_assoc($studentInfoQuery);
-        //             $hoursrequired = $studentInfo['hoursrem'];
-
-        //             // Calculate remaining hours in terms of seconds and then convert to hours
-        //             $remHoursInSeconds = $hoursrequired * 3600 - $hoursRenderInSeconds;
-        //             $remHours = $remHoursInSeconds / 3600;
-
-        //             // Update remaining hours in the database
-        //             $updateRemainingHours = "UPDATE time_record SET remHours = $remHours WHERE date = '$presentdate' AND studid = $studid;";
-        //             mysqli_query($conn, $updateRemainingHours);
-        //             $updateRemainingHours2 = "UPDATE studentinfo SET hoursrem = $remHours WHERE studid = $studid;";
-        //             mysqli_query($conn, $updateRemainingHours2);
-
-        //             echo "<script>window.alert('Time Out Successfully!')</script>";
-        //         }
-        //     }
-        // }
-
 
         ?>
 
@@ -516,25 +307,6 @@ if(!$_SESSION['accrole'] && !$_SESSION['username']){
         </div>
 
         <?php
-
-        // $presentdate = date("m-d-y");
-        // $presentday = date('l');
-        // date_default_timezone_set('Asia/Manila');
-        // $edit = "SELECT * FROM time_record WHERE date = '$presentdate' AND day = '$presentday' AND studid = $rowid;";
-        // $editquery = mysqli_query($conn, $edit);
-
-        // while($updateIN = mysqli_fetch_assoc($editquery)){
-        //     $In = $updateIN['time_in'];
-        //     $Out = $updateIN['time_out'];
-        //     $TIMEin = date('h:i A', $In);
-        //     $TIMEout = date('h:i A', $Out);
-        //     $editday = $updateIN['day'];
-        //     $editdate = $updateIN['date'];
-        //     $hour = date('g', $In); // 1-12
-        //     $minute = date('i', $In); // 00-59
-        //     $ampm = date('A', $In); // AM/PM
-
-        // }
 
         if (isset($_POST['updatetimein'])) {
             $updatedate = $_POST['editdate'];
@@ -716,95 +488,71 @@ if(!$_SESSION['accrole'] && !$_SESSION['username']){
                                 $school = $row['schoolname'];
                                 $sex = $row['sex'];
                                 $hreq = $row['hoursrem'];
-                                $school = $row['schoolname'];
                                 $start = $row['startdate'];
                                 $end = $row['end_date'];
                                 $status = $row['status'];
                                 $date = $row['date'];
                                 $day = $row['day'];
-                                $timein = $row['time_in'];
-                                $time_out = $row['time_out'];
+                                $timein = $row['time_in']; // Assume this is in Unix format
+                                $time_out = $row['time_out']; // Assume this is in Unix format
                                 $ot = $row['allowOT'];
-                                $renderTime = $row['hours_render'];
-                                $Rhours = $row['hoursrem'];
+                                $renderTime = $row['hours_render']; // Assume this is in Unix format
+                                $Rhours = $row['hoursrem']; // Assume this is in Unix format
+                                $remHour = $row['remHours'];
+
                                 date_default_timezone_set('Asia/Manila');
-                                $convertedIN = date("g:i A", $timein);
-                                $convertedOUT = date("g:i A", $time_out);
 
+                                // Convert timein and time_out to converted time without seconds
+                                $convertedIN = date("g:i A", $timein); // Format: 4:35 PM
+                                $convertedOUT = date("g:i A", $time_out); // Format: 5:02 PM
 
+                                // Calculate the time difference in seconds
+                                $timeDifference = $time_out - $timein; // Time worked in seconds
 
-
-                                if ($renderTime > 0) {
-                                    $hours = intdiv($renderTime, 3600);
-                                    $minutes = intdiv(($renderTime % 3600), 60);
-                                    $seconds = $renderTime % 60;
-
-                                    // Round up minutes if seconds are not zero
-                                    if ($seconds > 0) {
-                                        $minutes += 1;
-                                    }
-
-                                    // Adjust hours if minutes exceed 60 after rounding
-                                    if ($minutes >= 60) {
-                                        $hours += intdiv($minutes, 60);
-                                        $minutes = $minutes % 60;
-                                    }
-
-                                    // Build the rendered time string
-                                    $convertedrendered = ($hours > 0 ? "{$hours} hr/s " : "") .
-                                        ($minutes > 0 ? "{$minutes} min/s" : "0 min/s");
-                                } else {
-                                    $convertedrendered = "0 min/s";
-                                }
+                                // Rendered Time Calculation
+                                $renderedHours = intdiv($timeDifference, 3600);  // Calculate rendered hours
+                                $renderedMinutes = intdiv(($timeDifference % 3600), 60);  // Calculate rendered minutes
+                                $convertedrendered = 
+                                    ($renderedHours > 0 ? "{$renderedHours}h " : "") . 
+                                    ($renderedMinutes > 0 ? "{$renderedMinutes}m " : "0m ");  // Always include minutes
 
                                 // Remaining Time Computation
-                                $totalRequiredSeconds = $Rhours * 3600; // Total required seconds
-                                $remainingSeconds = $totalRequiredSeconds - $renderTime;
+                                $requiredHours = "SELECT hrequired FROM studentinfo WHERE studid = $rowid;";
+                                $requiredquery = mysqli_query($conn, $requiredHours);
+                                $fetchhours = mysqli_fetch_assoc($requiredquery);
 
-                                // Debugging output
-                                // echo "Total Required Seconds: $totalRequiredSeconds<br>";
-                                // echo "Rendered Time (seconds): $renderTime<br>";
-                                // echo "Remaining Seconds: $remainingSeconds<br>";
+                                $hoursREM = $fetchhours['hrequired']; // This is in seconds
+                                $subtract = $hoursREM - $timeDifference; // Subtract rendered time from required hours
 
-                                // Convert remaining seconds to hours and minutes
-                                if ($remainingSeconds > 0) {
-                                    $remainingHours = intdiv($remainingSeconds, 3600);
-                                    $remainingMinutes = intdiv(($remainingSeconds % 3600), 60);
-
-                                    // Build the remaining time string
-                                    $rHrs = intdiv($remainingHours, 3600);
-                                    $remHours = ($remainingHours > 0 ? "{$rHrs} hr/s " : "") .
-                                        ($remainingMinutes > 0 ? "{$remainingMinutes} min/s" : "0 min/s");
-                                } else {
-                                    $remHours = "0 min/s";
-                                }
-                                
-                            ?>
-                            <?php
-
-                                $timerecord = "SELECT timeid FROM time_record WHERE studid = $rowid;";
-                                $trquery = mysqli_query($conn, $timerecord);
-                                while($trid = mysqli_fetch_assoc($trquery)){
-                                    $timeid = $trid['timeid'];
-
-                            ?>
-                                    <tr>
-                                        <td><a href="editrecord.php?timerecord=<?php echo $timeid;?>"><?php echo $date; ?></a></td>
-                                        <td><?php echo $day; ?></td>
-                                        <td><?php echo $convertedIN; ?></td>
-                                        <td><?php echo $time_out != 0 ? $convertedOUT : "-"; ?></td>
-                                        <td><?php echo $time_out != 0 ? $convertedrendered : "-" ?></td>
-                                        <td><?php echo $time_out != 0 ? $remHours : "-"; ?></td>
-                                        <td><?php echo $ot; ?></td>
-                                        <td><button id="Edit"><i class="fas fa-edit"></i></button></td>
-                                    </tr>
-                            <?php
-                                    
+                                // Ensure that the remaining time is at least 1 minute
+                                if ($subtract < 60) {
+                                    $subtract = 60; // Set to 1 minute if less than 60 seconds
                                 }
 
+                                // Calculate remaining hours and minutes
+                                $remainingHours = intdiv($subtract, 3600);  // Remaining hours
+                                $remainingMinutes = intdiv(($subtract % 3600), 60);  // Remaining minutes
+
+                                // Build the remaining time string
+                                $remHours = 
+                                    ($remainingHours > 0 ? "{$remainingHours}h " : "") . 
+                                    ($remainingMinutes > 0 ? "{$remainingMinutes}m " : "0m ");
+
 
                             ?>
-                                        
+                                <tr>
+                                    <td><?php echo $date; ?></td>
+                                    <td><?php echo $day; ?></td>
+                                    <td><?php echo $convertedIN; ?></td>
+                                    <td><?php echo $time_out != 0 ? $convertedOUT : "-"; ?></td>
+                                    <td><?php echo $time_out != 0 ? $convertedrendered : "-" ?></td>
+                                    <td><?php echo $time_out != 0 ? $remHours : "-"; ?></td>
+                                    <td><?php echo $ot; ?></td>
+                                    <td><button id="Edit"><i class="fas fa-edit"></i></button></td>
+                                </tr>
+
+
+
                             <?php
 
                             }
@@ -821,6 +569,7 @@ if(!$_SESSION['accrole'] && !$_SESSION['username']){
                 <div>
                     <?php
 
+                    $presentdate = date("m-d-y");
                     $total = "SELECT SUM(hours_render) as total FROM time_record where studid= $rowid;";
                     $totalquery = mysqli_query($conn, $total);
                     $totalResult = mysqli_fetch_assoc($totalquery);
@@ -842,9 +591,8 @@ if(!$_SESSION['accrole'] && !$_SESSION['username']){
 
                     $hours = intdiv($subtract, 3600);
                     $minutes = intdiv(($subtract % 3600), 60);
-                    $seconds = $subtract % 60;
 
-                    $hREM = $hours . " Hour/s " . $minutes . "minute/s";
+                    $hREM = $hours . "h " . $minutes . "m";
 
                     $hoursREMS = 0;
 
@@ -862,12 +610,8 @@ if(!$_SESSION['accrole'] && !$_SESSION['username']){
                     $updateRemHours2 = "UPDATE time_record SET remHours = $subtract WHERE date = '$presentdate' AND studid = $rowid;";
                     $updateRemHoursquery2 = mysqli_query($conn, $updateRemHours2);
 
-
-
-
-
                     ?>
-                    <h1>Total Hours Remaining: <?php echo $hREM; ?></h1>
+                    <h1 style="text-align: center;">Total Hours Remaining: <?php echo $hREM; ?></h1>
                 </div>
                 <div class="attendance-buttons">
                     <button class="btn-time" id="btnModal">Time In</button>

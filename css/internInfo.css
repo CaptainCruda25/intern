@@ -177,18 +177,16 @@ body {
   padding: 20px;
   width: calc(100% - 70px);
   box-sizing: border-box;
-  
 }
 
 .intern-info {
-  width: 40%;
+  width: 34%;
   background-color: white;
   border-radius: 15px;
   padding: 20px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   margin-right: 20px;
   overflow: hidden;
-  
 }
 /* .intern-info:hover{
   border: #277540 3px solid;
@@ -270,7 +268,7 @@ body {
 .attendance-record th,
 .attendance-record td {
   text-align: left;
-  padding: 12px 16px;
+  padding: 12px 10px;
   border-bottom: 2px solid #ddd;
   text-align: center;
 }
@@ -283,7 +281,7 @@ th:last-child {
 .attendance-record th {
   color: white;
   font-size: 16px;
-  background: url(https://jackrugile.com/images/misc/noise-diagonal.png), linear-gradient(#e31b30, #f53e48);
+  background: url(https://jackrugile.com/images/misc/noise-diagonal.png), linear-gradient(#6361e4, #5270f5);
 }
 
 .attendance-record td {
@@ -367,12 +365,11 @@ th:last-child {
   max-width: 800px;
   border-radius: 30px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-  
 }
 
 /* The Close Button */
 .close,
-.close1{
+.close1 {
   color: #aaa;
   float: right;
   font-size: 28px;
@@ -500,14 +497,11 @@ th:last-child {
   vertical-align: middle;
 }
 
-
-
-
 #timeInModal input[type="text"],
 #timeInModal input[type="date"],
 #timeInModal input[type="time"],
 #timeInModal select {
- width: 100%;
+  width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
   border: 1px solid #ccc;
@@ -515,9 +509,6 @@ th:last-child {
   box-sizing: border-box;
   font-size: 16px;
 }
-
-
-
 
 /* Dropdown styling */
 #timeInModal select {
@@ -550,4 +541,18 @@ th:last-child {
   #timeInModal > div {
     flex: 1 1 100%; /* Stack input fields on small screens */
   }
+}
+
+/* Edit button style in "Date Day	Time in	Time Out	Rendered Time	Remaining Time	Allow OT"  */
+#Edit {
+  background-color: #f7f5f5;
+  padding: 5px 200px;
+  cursor: pointer;
+  border-radius: 15px;
+  border: none;
+}
+
+#Edit :hover {
+  color: crimson;
+  transition: 0.2s;
 }

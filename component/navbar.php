@@ -45,7 +45,7 @@ include 'server.php';
 </head>
 
 <body>
-    
+
     <nav class="sidebar">
         <ul>
             <div class="logo">
@@ -53,7 +53,7 @@ include 'server.php';
                 <img src="img/EACMed Complete.png" alt="" id="logo-hover">
             </div>
             <li data-page="dashboard"><a href="dashboard.php"><i class="fas fa-home"></i> <span>Home</span></a></li>
-            <li data-page="students"><a href="students.php"><i class="fas fa-users"></i> <span>Interns</span></a></li>
+            <li data-page="interns"><a href="interns.php"><i class="fas fa-users"></i> <span>Interns</span></a></li>
             <li data-page="attendance"><a href="attendance.php"><i class="fas fa-chart-line"></i><span>Analytics</span></a></li>
             <li data-page="report"><a href="reports.php"><i class="fas fa-file-alt"></i><span>Report</span></a></li>
             <li data-page="settings">
@@ -63,41 +63,38 @@ include 'server.php';
                     </div>
                 </span>
                 <ul class="dropdown">
-                <li><a href="#" onclick="openModal('course-modal', 'Course')">Course</a></li>
-                <li><a href="#" onclick="openModal('school-modal', 'School')">School</a></li>
-                <li><a href="#" onclick="openModal('student-modal', 'Student')">Student</a></li>
+                    <li><a href="#" onclick="openModal('course-modal', 'Course')">Course</a></li>
+                    <li><a href="#" onclick="openModal('school-modal', 'School')">School</a></li>
+                    <li><a href="#" onclick="openModal('student-modal', 'Student')">Student</a></li>
                 </ul>
             </li>
         </ul>
         <!-- Modals -->
-         <!-- Add Course Function -->
-         <?php
+        <!-- Add Course Function -->
+        <?php
 
-            if(isset($_POST['addcourse'])){
-                $addcourse = $_POST['course'];
+        if (isset($_POST['addcourse'])) {
+            $addcourse = $_POST['course'];
 
-                $coursesearch = "SELECT * FROM coursetbl;";
-                $querysearch = mysqli_query($conn, $coursesearch);
+            $coursesearch = "SELECT * FROM coursetbl;";
+            $querysearch = mysqli_query($conn, $coursesearch);
 
-                while($row = mysqli_fetch_assoc($querysearch)){
-                    $coursename = $row['course'];
-                }
-
-                if(empty($addcourse)){
-                    echo "<script>window.alert('Please fill in the course name.');</script>";
-                }
-                elseif($coursename > 0){
-                    echo "<script>window.alert('Course Exist!');</script>";
-                }
-                else{
-                    $course = "INSERT INTO coursetbl(course) VALUES ('$addcourse');";
-                    $coursequery = mysqli_query($conn, $course);
-                    echo "<script>window.alert('Course Successfully Added!');</script>";
-                }
-
+            while ($row = mysqli_fetch_assoc($querysearch)) {
+                $coursename = $row['course'];
             }
 
-         ?>
+            if (empty($addcourse)) {
+                echo "<script>window.alert('Please fill in the course name.');</script>";
+            } elseif ($coursename > 0) {
+                echo "<script>window.alert('Course Exist!');</script>";
+            } else {
+                $course = "INSERT INTO coursetbl(course) VALUES ('$addcourse');";
+                $coursequery = mysqli_query($conn, $course);
+                echo "<script>window.alert('Course Successfully Added!');</script>";
+            }
+        }
+
+        ?>
 
         <div id="course-modal" class="modal">
             <div class="modal-content">
@@ -115,29 +112,27 @@ include 'server.php';
         <!-- Add School Functionality -->
         <?php
 
-            if(isset($_POST['addschool'])){
-                $addschool = $_POST['schoolname'];
+        if (isset($_POST['addschool'])) {
+            $addschool = $_POST['schoolname'];
 
-                $schoolsearch = "SELECT * FROM school;";
-                $queryschool = mysqli_query($conn, $schoolsearch);
+            $schoolsearch = "SELECT * FROM school;";
+            $queryschool = mysqli_query($conn, $schoolsearch);
 
-                while($row = mysqli_fetch_assoc($queryschool)){
-                    $school = $row['course'];
-                }
-                
-                if(empty($addschool)){
-                    echo "<script>window.alert('Please fill in the course name.');</script>";
-                }
-                elseif($school > 0){
-                    echo "<script>window.alert('School Successfully Added!');</script>";
-                }
-                else{
-                    $schoolname = "INSERT INTO school(schoolname) VALUES('$addschool');";
-                    $schoolquery = mysqli_query($conn, $schoolname);
-                    echo "<script>window.alert('School Successfully Added!');</script>";
-                }
+            while ($row = mysqli_fetch_assoc($queryschool)) {
+                $school = $row['course'];
             }
-            
+
+            if (empty($addschool)) {
+                echo "<script>window.alert('Please fill in the course name.');</script>";
+            } elseif ($school > 0) {
+                echo "<script>window.alert('School Successfully Added!');</script>";
+            } else {
+                $schoolname = "INSERT INTO school(schoolname) VALUES('$addschool');";
+                $schoolquery = mysqli_query($conn, $schoolname);
+                echo "<script>window.alert('School Successfully Added!');</script>";
+            }
+        }
+
 
         ?>
         <div id="school-modal" class="modal">
@@ -209,7 +204,7 @@ include 'server.php';
                 console.error('Notification container not found!');
                 return;
             }
-            
+
             var notification = document.createElement('div');
             notification.className = 'notification ' + type;
             notification.innerHTML = '<p>' + message + '</p>';
@@ -227,7 +222,6 @@ include 'server.php';
                 }, 500); // Delay before removing the notification
             }, 10000); // 10 seconds visibility
         }
-        
     </script>
 
 </body>

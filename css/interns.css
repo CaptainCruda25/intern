@@ -306,6 +306,7 @@ header h1 {
 
 /* General table styling */
 table {
+  table-layout: fixed; /* Fixed layout to enforce column widths */
   text-align: left;
   box-shadow: inset 0 1px 0 #fff;
   font-size: 15px;
@@ -315,7 +316,7 @@ table {
 
 /* Styling for table headers */
 th {
-  background: url(https://jackrugile.com/images/misc/noise-diagonal.png), linear-gradient(#e46161, #f55252);
+  background: url(https://jackrugile.com/images/misc/noise-diagonal.png), linear-gradient(#6361e4, #5270f5);
   padding: 15px 25px;
   position: relative;
   text-shadow: 0 1px 0 #000;
@@ -350,13 +351,28 @@ td {
   border-left: 1px solid #e8e8e8;
   border-top: 1px solid #fff;
   border-bottom: 1px solid #e8e8e8;
-  padding: 15px 20px;
-  position: relative;
+  padding: 10px; /* Adjust for proper spacing */
   background-color: #ebebeb;
-  transition: all 300ms;
-  padding: 10px; /* Adjust as needed */
-  max-width: 60px; /* Restrict the maximum width of the cell */
-  text-align: center; /
+  text-align: center;
+  vertical-align: middle; /* Aligns text vertically in the middle */
+  max-width: 200px; /* Restricts the maximum width of the cell */
+  word-wrap: break-word; /* Allows long words to wrap */
+  overflow: hidden; /* Hides overflow content */
+  text-overflow: ellipsis; /* Adds ellipsis for overflowing text */
+}
+
+td a {
+  text-decoration: none;
+  color: black;
+  display: block; /* Ensures the link covers the whole cell area */
+  overflow: hidden;
+}
+
+td img {
+  width: 100px; /* Set the width of the image */
+  height: 100px; /* Set the height of the image */
+  object-fit: cover; /* Crop the image to fit the container while maintaining aspect ratio */
+  border-radius: 8px; /* Optional: Adds rounded corners to the image */
 }
 
 /* Border and shadow for the first cell in each row */
